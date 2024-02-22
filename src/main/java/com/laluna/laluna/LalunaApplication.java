@@ -1,0 +1,13 @@
+package com.laluna.laluna;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class LalunaApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(LalunaApplication.class, args);
+    }
+
+}
