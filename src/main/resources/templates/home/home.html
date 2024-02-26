@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultrap.net.nz/thymeleaf/layout"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/basic.html}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <th:block layout:fragment="head">
+        <title>Title</title>
+    </th:block>
 </head>
 <body>
-<div layout:fragment="content">
+<th:block layout:fragment="content">
+    <div>
+        content
+    </div>
+</th:block>
 
-    <h1>Home</h1>
-</div>
-<script layout:fragment="script" th:inline="javascript">
-
-</script>
+<th:block layout:fragment="script">
+    <script>
+        console.log('here is script')
+    </script>
+</th:block>
 </body>
 </html>
