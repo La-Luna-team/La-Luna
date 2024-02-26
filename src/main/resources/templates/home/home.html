@@ -10,16 +10,14 @@
 </head>
 <body>
 <th:block layout:fragment="content">
-        <img th:src="@{/images/pet_doctor.jpg}" alt="..." width="350px" height="500px" style="position: absolute; top: 70%; left: 35%; transform: translate(-50%, -50%);"/>
-    <section class="py-5 text-center container">
-        <div class="row py-lg-5">
-            <div class="col-lg-6 col-md-8">
-                <h1 class="fw-light">Album example</h1>
-                <p class="lead text-body-secondary">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
-                <p>
-                    <a href="#" class="btn btn-primary my-2">Main call to action</a>
-                    <a href="#" class="btn btn-secondary my-2">Secondary action</a>
-                </p>
+    <div class="wrap">
+        <img th:src="@{/images/pet_doctor.jpg}" alt="..." width="380px" height="550px" class="img-1"/>
+    <section class="pt-2 pb-5 text-center container1">
+        <div class="row pt-lg-1 pb-lg-5 ps-5">
+            <div class="col-lg-6 col-md-8 mt-1">
+                <h1 class="fw-light">STORY → RIGHT</h1>
+                <h1 class="fw-light">POSITION</h1>
+                <br><br><br><br>
             </div>
         </div>
     </section>
@@ -28,13 +26,10 @@
             <div class="col-lg-6 col-md-8 mx-auto">
                 <h1 class="fw-light">Album example</h1>
                 <p class="lead text-body-secondary">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
-                <p>
-                    <a href="#" class="btn btn-primary my-2">Main call to action</a>
-                    <a href="#" class="btn btn-secondary my-2">Secondary action</a>
-                </p>
             </div>
         </div>
     </section>
+    </div>
 </th:block>
 
 <th:block layout:fragment="script">
@@ -46,8 +41,21 @@
 </html>
 <style>
     .container2 {
-        background-color: #BCB2A8;
+        background-color: #beb4b4;
     }
-    .container {
+    .container1 {
+        background-color: #eeeeee;
+    }
+    .wrap {
+        position: relative;
+    }
+    .img-1 {
+        position: absolute;
+        left: 20%;
+        bottom: 0;
+    }
+    .fw-light {
+        font-size: 90px;
+        color: #0f4b43;
     }
 </style>
