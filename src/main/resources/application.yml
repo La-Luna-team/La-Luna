@@ -8,9 +8,9 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/ohgiraffers_db?serverTimezone=Asia/Seoul
-    username: ohgiraffers1
-    password: ohgiraffers
+    url: jdbc:mysql://localhost:3306/luna_db?serverTimezone=Asia/Seoul
+    username: root
+    password: 1234
   jpa:
     hibernate:
       ddl-auto: update
