@@ -6,10 +6,11 @@
 </head>
 <body>
 
-<div class="inline-block-center">
+<div class="card-group" style="display: flex; justify-content: center; align-items: center;">
+    <div class="card master-border-style" style="width: 18rem;">
+        <div class="card-body">
     <div class="column">
 <form class="box">
-
     <div class="field">
         <label class="label">아이디</label>
         <div class="control">
@@ -52,94 +53,124 @@
         </div>
     </div>
 
-    <div class="btn">
-        <button class="btn is-primary" type="button">수정</button>
-    </div>
-
 </form>
+        <div class="btn-container">
+            <button class="btn" type="button">수정</button>
+        </div>
+    </div>
+        </div>
     </div>
 
-    <div class="column">
-        <form class="box">
-            <div class="field">
-                <label class="label">이름</label>
-                <div class="control">
-                    <input class="input" type="name" placeholder="Name">
-                </div>
+
+    <div style="display: flex; align-items: center;">
+    <div class="card pet-border-style" style="margin-left: 20px; width: 18rem;">
+        <div class="card-body">
+            <div class="column">
+                <form class="box">
+                    <div class="field">
+                        <label class="label">이름</label>
+                        <div class="control">
+                            <input class="input" type="name" placeholder="Name">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">품종</label>
+                        <div class="control">
+                            <input class="input" type="kind" placeholder="Kind">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">나이</label>
+                        <div class="control">
+                            <input class="input" type="age" placeholder="Age">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">성별</label>
+                        <div class="control">
+                            <input class="input" type="sex" placeholder="Sex">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">현재 상태</label>
+                        <div class="control">
+                            <input class="input" type="post" placeholder="Post">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">건강 상태</label>
+                        <div class="control">
+                            <input class="input" type="condition" placeholder="Condition">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">예방 접종</label>
+                        <div class="control">
+                            <input class="input" type="vac" placeholder="Vac">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">사진</label>
+                        <div class="control">
+                            <input class="input" type="picture" placeholder="Picture">
+                        </div>
+                    </div>
+
+                </form>
             </div>
-
-            <div class="field">
-                <label class="label">품종</label>
-                <div class="control">
-                    <input class="input" type="kind" placeholder="Kind">
-                </div>
-            </div>
-
-            <div class="field">
-                <label class="label">나이</label>
-                <div class="control">
-                    <input class="input" type="age" placeholder="Age">
-                </div>
-            </div>
-
-            <div class="field">
-                <label class="label">성별</label>
-                <div class="control">
-                    <input class="input" type="sex" placeholder="Sex">
-                </div>
-            </div>
-
-            <div class="field">
-                <label class="label">현재 상태</label>
-                <div class="control">
-                    <input class="input" type="post" placeholder="Post">
-                </div>
-            </div>
-
-            <div class="field">
-                <label class="label">건강 상태</label>
-                <div class="control">
-                    <input class="input" type="condition" placeholder="Condition">
-                </div>
-            </div>
-
-            <div class="field">
-                <label class="label">예방 접종</label>
-                <div class="control">
-                    <input class="input" type="vac" placeholder="Vac">
-                </div>
-            </div>
-
-            <div class="field">
-                <label class="label">사진</label>
-                <div class="control">
-                    <input class="input" type="picture" placeholder="Picture">
-                </div>
-            </div>
-
-            <button class="button is-primary">수정</button>
-
-        </form>
+            <button class="button">수정</button>
+        </div>
     </div>
-
+        <button class="btn-icon" style="margin-left: 10px; border: none; background-color: transparent;">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 width="25"
+                 height="25"
+                 fill="currentColor"
+                 class="bi bi-plus-circle"
+                 viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+            </svg>
+        </button>
 </div>
-</body>
+</div>
 
+
+</body>
 </html>
 
 <style>
-    .inline-block-center {
-        text-align: center; /* inline요소만 적용됨 */
-    }
-    .inline-block-center div {
-        display: inline-block; /* block요소인 div를 inline으로 만들어준다. */
-        width: 200px;
-
-        text-align: left; /* 안의 내용 글자 정렬 */
-    }
-
-    .btn {
+    .card-group {
         text-align: center;
-        display:inline-block;
     }
+
+    .label {
+        text-align: left;
+    }
+
+    .input {
+        text-align: center;
+    }
+
+    .pet-border-style {
+        border: 2px solid #000000;
+        border-radius: 20px;
+        background-color: #C5BA9E;
+    }
+
+    .master-border-style {
+        border: 2px solid #000000;
+        border-radius: 20px;
+        background-color: #829787;
+    }
+
+
+
 </style>
