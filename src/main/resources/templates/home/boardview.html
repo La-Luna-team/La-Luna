@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/basic.html}">
+<head>
+    <meta charset="UTF-8">
+    <th:block layout:fragment="head">
+        <title>일상게시판</title>
+    </th:block>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div class="card" style="width: 60rem; margin: 0 auto;">
+        <div class="card-body">
+            <h1 class="card-title">일상 게시판</h1>
+            <h3 class="card-subtitle mb-2 text-body-secondary">귀여운 나의 강아지</h3>
+    </div>
+    <hr class="line1" />
+        <!-- 이미지 -->
+                <div class="Content">
+                        <div class="user-body">
+                            <div class="user-body">
+                                <p class="userid">작성자:<span class="profilename">sy99639</span></p>
+                                <p class="petid">펫 정보: 짱아 포메라니안 6살 수컷 입양 팔팔함 6차 예방접촉</p>
+
+                            </div>
+                            <div>
+                    <button type="button" class="btn btn-success">게시글 수정</button>
+                            <button type="button" class="btn btn-danger">게시글 삭제</button>
+                            </div>
+                </div>
+        </div>
+    <hr class="line2" />
+<div>
+    <div class="container">
+        <div class="row justify-content-between">
+            <div class="Content">
+                <img th:src="@{/images/강아지 사진.jpg}" alt="..."/>
+    <p class="card-text">스타크래프트 립버전 1.16.1다운 스타크래프트 립버전 1.16.1다운 있을 것 같았다. 그건 실로 벅찬 감격이었다.고마워요 본드. 덕분에 마음이 아주 편해졌어요.고마워할 필요는 없어.킴은 미소지으며 손을 내밀었다. 니콜라는 기쁜 얼굴로 악수를  리를 질렀다. 이건....정말 상황 파악이 느린 녀석이로군. 네가 지금 어디에 스타크래프트 립버전 1.16.1다운 알기나 하는 거야 어리광을 받아주는 것도 여기까지다. 어서 이름이나 말해 어디서 감히 스타크래프트 립버전 1.16.1다운 지르나 천한  입구가 녹슬어 엉겨붙은 문을 열어 부지내</p>
+    </div>
+        </div>
+    </div>
+</div>
+    </div>
+    <hr class="line2" />
+    <div>
+        <div class="replyContainer">
+        <span class="reply">작성자</span>
+        <span class="replyContent">댓글 내용</span>
+        <span class="Regdate">댓글 작성날짜</span>
+    </div>
+    </div>
+    <hr class="line2" />
+    <div>
+        <div class="userContainer">
+            <span class="username">sy99639</span>
+            <textarea class="userReply"></textarea>
+            <button type="button" class="btn btn-success">등록하기</button>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="script">
+    <script>
+        console.log('here is script')
+    </script>
+</th:block>
+</body>
+</html>
+<style>
+    .card-title{
+        text-align: center;
+    }
+    .card-subtitle{
+        text-align: center;
+    }
+    .user-body {
+        display: flex;
+        flex-direction: column;
+    }
+    .userid{
+        margin:0;
+    }
+    .petid{
+        margin:0;
+    }
+    .profilename{
+        margin-left: 5px;
+    }
+    .line1{
+        width: 100%;
+        margin-right: unset;
+    }
+    .line2 {
+        width: 100%;
+        margin: 0;
+    }
+    .btn-success{
+        margin: 5px;
+    }
+    .vertical-line {
+        border-left: 2px solid #b7bed5; /* 세로줄의 스타일을 지정합니다. */
+        height: 50px; /* 세로줄의 높이를 조정할 수 있습니다. */
+        margin: 0 10px; /* 세로줄의 좌우 간격을 조정할 수 있습니다. */
+    }
+    .replyContainer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .replyContent {
+        flex: 1;
+        text-align: center;
+        margin: 0 10px;
+    }
+
+    .reply {
+        margin-left: 200px;
+    }
+
+    .Regdate {
+        margin-right: 200px;
+    }
+    .userContainer{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .username{
+        margin-left: 200px;
+    }
+    .userReply{
+        flex: 1;
+        text-align: center;
+        margin: 0 10px;
+    }
+
+
+
+
+</style>
