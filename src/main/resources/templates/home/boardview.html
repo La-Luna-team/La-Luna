@@ -44,7 +44,6 @@
                     <label for="content">sy99639</label>
                     <input type="text" id="content" style="width: 800px" placeholder="댓글을 입력해주세요.">
                     <button id="modalOpenButton"class="btn btn-success">등록</button>
-                    <button type="submit" class="btn btn-danger">수정</button>
                 <div>
             </div>
         </div>
@@ -53,9 +52,9 @@
         </p>
                 <div id="modalContainer" class="hidden">
                     <div class="btn-container" id="modalContent">
-                        <p>댓글 등록 하시겠어요?</p>
+                        <button id="modalCloseButton" class="btn-close"></button>
+                        <p>등록 하시겠습니까?</p>
                         <button id="modalRegisterButton" class="btn-register">등록하기</button>
-                        <button id="modalCloseButton">닫기</button>
                     </div>
                 </div>
 </th:block>
@@ -72,13 +71,22 @@
         });
 
         modalRegisterButton.addEventListener('click', ()=>{
-            alert("댓글이 등록 되었습니다!")
             modal.classList.add('hidden');
+            registerComment()
         });
 
         modalCloseButton.addEventListener('click', () => {
             modal.classList.add('hidden');
         });
+        function registerComment(){
+            const commentContent = document.getElementById('content').value;
+
+            if(commentContent.trim() ===''){
+                alert('댓글 내용을 입력해주세요');
+                return;
+            }
+            alert(commentContent +'가 입력되었습니다!');
+        }
     </script>
 </th:block>
 </body>
@@ -119,14 +127,12 @@
         position: absolute;
         right: 130px;
     }
-    .btn-danger{
-
-    }
     .vertical-line {
         border-left: 2px solid #b7bed5; /* 세로줄의 스타일을 지정합니다. */
         height: 50px; /* 세로줄의 높이를 조정할 수 있습니다. */
         margin: 0 10px; /* 세로줄의 좌우 간격을 조정할 수 있습니다. */
     }
+    /*위로 가기 버튼*/
     .fixed_top{
         position: fixed;
         top: 49%;
@@ -144,68 +150,51 @@
         text-indent: -99999999px;
         overflow: hidden;
     }
+    /*댓글*/
     .reply_write_box{
         padding: 12px 12px 12px;
         background: #fafafa;
         border-top: 2px solid #5c64ad;
     }
+    /* 모달 */
     #modalOpenButton, #modalCloseButton {
         cursor: pointer;
     }
 
-    #modalContainer {
-        width: 100%;
-        height: 100%;
-        position: fixed;
-        top: 0;
-        left: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: rgba(0, 0, 0, 0.5);
-    }
-
-    #modalContent {
-        position: absolute;
-        background-color: #ffffff;
-        width: 300px;
-        height: 150px;
-        padding: 15px;
-    }
-
     #modalContainer.hidden {
         display: none;
     }
     #modalContainer {
-        width: 100%;
-        height: 100%;
         position: fixed;
         top: 0;
         left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 9999;
         display: flex;
         justify-content: center;
         align-items: center;
-        background: rgba(0, 0, 0, 0.5);
-    }
-
-    #modalContainer.hidden {
-        display: none;
     }
     #modalContent {
-        position: absolute;
-        background-color: #cc4444;
-        width: 300px;
-        height: 150px;
-        padding: 15px;
+        width: 230px;
+        height: 130px;
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        text-align: center;
     }
-    .btn-register{
-
+    .btn-register {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
     }
-    .btn-close{
-
-    }
-    .btn-container{
-        text-align: right;
+    .btn-close {
+        float: right;
     }
 
 
