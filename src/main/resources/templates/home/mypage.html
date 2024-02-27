@@ -157,7 +157,6 @@
                     <button id="register1" class="button" style="background-color: #523e02">등록하기</button>
                 </div>
             </div>
-
             <button id="addCardBtn" class="btn-icon" style="margin-left: 10px; border: none; background-color: transparent;">
                 <svg xmlns="http://www.w3.org/2000/svg"
                      width="25"
@@ -191,14 +190,16 @@
             var newCard = originalCard.cloneNode(true);
             newCard.setAttribute('id', 'pet' + cardCount);
 
-            document.getElementById('card_all').appendChild(newCard);
-            newCard.querySelector('register').addEventListener('click', function() {
+            var registerButton = newCard.querySelector('.button');
+            registerButton.setAttribute('id', 'register' + cardCount);
+            registerButton.addEventListener('click', function() {
                 document.getElementById('myModal').style.display = 'block';
             });
+
+            document.getElementById('card_all').appendChild(newCard);
         }
+
         document.getElementById('addCardBtn').addEventListener('click', addCard);
-
-
 
 
         document.getElementById('register').addEventListener('click', function() {
