@@ -8,25 +8,21 @@
         <title>일상게시판</title>
     </th:block>
 </head>
-<body>
+<body style="background: url('/images/img_3.png')">
 <th:block layout:fragment="content">
-    <div class="card" style="width: 60rem; margin: 0 auto;">
+    <div class="card" style="width: 65rem; margin: 0 auto;">
         <div class="card-body">
             <h1 class="card-title">일상 게시판</h1>
             <h3 class="card-subtitle mb-2 text-body-secondary">귀여운 나의 강아지</h3>
     </div>
     <hr class="line1" />
-        <!-- 이미지 -->
                 <div class="Content">
                         <div class="user-body">
                             <div class="user-body">
-                                <p class="userid">작성자:<span class="profilename">sy99639</span></p>
-                                <p class="petid">펫 정보: 짱아 포메라니안 6살 수컷 입양 팔팔함 6차 예방접촉</p>
-
-                            </div>
-                            <div>
-                    <button type="button" class="btn btn-success">게시글 수정</button>
-                            <button type="button" class="btn btn-danger">게시글 삭제</button>
+                                <p class="userid" style="padding-left: 20px">작성자:<span class="profilename">sy99639</span></p>
+                                <p class="petid" style="padding-left: 20px">펫 정보: 짱아 포메라니안 6살 수컷 입양 팔팔함 6차 예방접촉</p>
+                                <button type="submit" class="btn btn-outline-success">게시글 수정</button>
+                                <button type="submit" class="btn btn-outline-danger">게시글 삭제</button>
                             </div>
                 </div>
         </div>
@@ -41,28 +37,48 @@
         </div>
     </div>
 </div>
-    </div>
-    <hr class="line2" />
-    <div>
-        <div class="replyContainer">
-        <span class="reply">작성자</span>
-        <span class="replyContent">댓글 내용</span>
-        <span class="Regdate">댓글 작성날짜</span>
-    </div>
-    </div>
-    <hr class="line2" />
-    <div>
-        <div class="userContainer">
-            <span class="username">sy99639</span>
-            <textarea class="userReply"></textarea>
-            <button type="button" class="btn btn-success">등록하기</button>
+        <hr class="line2" />
+        <div class="reply_write_box">
+            <div class="l1">
+                <div class="user_reply">
+                    <label for="content">sy99639</label>
+                    <input type="text" id="content" style="width: 800px" placeholder="댓글을 입력해주세요.">
+                    <button id="modalOpenButton"class="btn btn-success">등록</button>
+                    <button type="submit" class="btn btn-danger">수정</button>
+                <div>
+            </div>
         </div>
-    </div>
+        <p class="fixed_top">
+            <a href="#">위로</a>
+        </p>
+                <div id="modalContainer" class="hidden">
+                    <div class="btn-container" id="modalContent">
+                        <p>댓글 등록 하시겠어요?</p>
+                        <button id="modalRegisterButton" class="btn-register">등록하기</button>
+                        <button id="modalCloseButton">닫기</button>
+                    </div>
+                </div>
 </th:block>
 
 <th:block layout:fragment="script">
     <script>
-        console.log('here is script')
+        const modalOpenButton = document.getElementById('modalOpenButton');
+        const modalCloseButton = document.getElementById('modalCloseButton');
+        const modalRegisterButton = document.getElementById('modalRegisterButton')
+        const modal = document.getElementById('modalContainer');
+
+        modalOpenButton.addEventListener('click', () => {
+            modal.classList.remove('hidden');
+        });
+
+        modalRegisterButton.addEventListener('click', ()=>{
+            alert("댓글이 등록 되었습니다!")
+            modal.classList.add('hidden');
+        });
+
+        modalCloseButton.addEventListener('click', () => {
+            modal.classList.add('hidden');
+        });
     </script>
 </th:block>
 </body>
@@ -95,46 +111,103 @@
         width: 100%;
         margin: 0;
     }
-    .btn-success{
-        margin: 5px;
+    .btn-outline-danger{
+        position: absolute;
+        right: 10px;
+    }
+    .btn-outline-success{
+        position: absolute;
+        right: 130px;
+    }
+    .btn-danger{
+
     }
     .vertical-line {
         border-left: 2px solid #b7bed5; /* 세로줄의 스타일을 지정합니다. */
         height: 50px; /* 세로줄의 높이를 조정할 수 있습니다. */
         margin: 0 10px; /* 세로줄의 좌우 간격을 조정할 수 있습니다. */
     }
-    .replyContainer {
+    .fixed_top{
+        position: fixed;
+        top: 49%;
+        right: 3%;
+        width: 33px;
+        height: 33px;
+        margin: 0;
+        z-index: 1;
+    }
+    .fixed_top a{
+        display: block;
+        width: 33px;
+        height: 33px;
+        background: url("/images/img_arr_top.png") no-repeat;
+        text-indent: -99999999px;
+        overflow: hidden;
+    }
+    .reply_write_box{
+        padding: 12px 12px 12px;
+        background: #fafafa;
+        border-top: 2px solid #5c64ad;
+    }
+    #modalOpenButton, #modalCloseButton {
+        cursor: pointer;
+    }
+
+    #modalContainer {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
+        background: rgba(0, 0, 0, 0.5);
     }
 
-    .replyContent {
-        flex: 1;
-        text-align: center;
-        margin: 0 10px;
+    #modalContent {
+        position: absolute;
+        background-color: #ffffff;
+        width: 300px;
+        height: 150px;
+        padding: 15px;
     }
 
-    .reply {
-        margin-left: 200px;
+    #modalContainer.hidden {
+        display: none;
     }
-
-    .Regdate {
-        margin-right: 200px;
-    }
-    .userContainer{
+    #modalContainer {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
+        background: rgba(0, 0, 0, 0.5);
     }
-    .username{
-        margin-left: 200px;
+
+    #modalContainer.hidden {
+        display: none;
     }
-    .userReply{
-        flex: 1;
-        text-align: center;
-        margin: 0 10px;
+    #modalContent {
+        position: absolute;
+        background-color: #cc4444;
+        width: 300px;
+        height: 150px;
+        padding: 15px;
     }
+    .btn-register{
+
+    }
+    .btn-close{
+
+    }
+    .btn-container{
+        text-align: right;
+    }
+
 
 
 
