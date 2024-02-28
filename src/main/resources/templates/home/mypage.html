@@ -10,6 +10,10 @@
 </head>
 <body>
 <th:block layout:fragment="content">
+    <div style="display: flex; justify-content: flex-end; margin-right: 100px; margin-top: 75px">
+        <button class="button">회원 탈퇴</button>
+    </div>
+
     <div id="card_all" class="card-group" style="height: 75vh; text-align: center; justify-content: center; align-items: center;">
         <div class="modal" tabindex="-1" role="dialog" id="myModal">
             <div class="modal-dialog" role="document">
@@ -171,6 +175,10 @@
         </div>
     </div>
 
+    <div style="display: flex; justify-content: flex-end; margin-right: 100px; margin-bottom: 75px">
+        <button class="button">홈 화면</button>
+    </div>
+
 </th:block>
 
 <th:block layout:fragment="script">
@@ -191,7 +199,7 @@
             newCard.setAttribute('id', 'pet' + cardCount);
 
             var registerButton = newCard.querySelector('.button');
-            registerButton.setAttribute('id', 'register' + cardCount);
+            registerButton.setAttribute('id', 'register1' + cardCount);
             registerButton.addEventListener('click', function() {
                 document.getElementById('myModal').style.display = 'block';
             });
