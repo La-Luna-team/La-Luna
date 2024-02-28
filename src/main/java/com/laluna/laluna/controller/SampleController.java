@@ -9,6 +9,10 @@ public class SampleController {
 
     @GetMapping("/test")
     public String showTest() {
-        return "home/home";
+        return "view/home";
+    }
+    @GetMapping("/test1")
+    public String showTest1() {
+        return "view/list";
     }
 }
