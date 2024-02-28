@@ -22,7 +22,7 @@
                                 <p class="userid" style="padding-left: 20px">작성자:<span class="profilename">sy99639</span></p>
                                 <p class="petid" style="padding-left: 20px">펫 정보: 짱아 포메라니안 6살 수컷 입양 팔팔함 6차 예방접촉</p>
                                 <button type="submit" class="btn btn-outline-success">게시글 수정</button>
-                                <button type="submit" class="btn btn-outline-danger">게시글 삭제</button>
+                                <button type="submit" class="btn btn-outline-danger" id="boardremove">게시글 삭제</button>
                             </div>
                 </div>
         </div>
@@ -78,6 +78,7 @@
         modalCloseButton.addEventListener('click', () => {
             modal.classList.add('hidden');
         });
+
         function registerComment(){
             const commentContent = document.getElementById('content').value;
 
@@ -86,6 +87,10 @@
                 return;
             }
             alert(commentContent +'가 입력되었습니다!');
+        }
+        function removeBoard(){
+            const remove = document.getElementById('boardremove').value;
+            alert('게시물이 삭제 되었습니다.')
         }
     </script>
 </th:block>
