@@ -21,4 +21,10 @@ public class CreateBoardResponse {
 
     private String category; //게시글 카테고리 (건강, 팁, 일상)
 
+    private LocalDateTime regDate;
+
+    private LocalDateTime modDate;
+
+
+
 }
