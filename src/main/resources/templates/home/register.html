@@ -14,6 +14,8 @@
 </head>
 <body style="background-color: darkgrey">
 <th:block layout:fragment="content">
+
+<!--    사람 카드-->
     <div style="height: 500px; width: 600px; margin: 20px auto; display: flex; align-items: center; justify-content: center;">
         <div class="card master-border-style" style="max-width: 480px; margin: 20px; background-color: #829787; border: 1px solid #000000; border-radius: 20px; width: 50rem;">
             <div class="card-header">
@@ -82,6 +84,8 @@
             </div>
         </div>
     </div>
+
+<!--    펫 카드-->
     <div style="height: 600px; width: 600px; margin: 20px auto; display: flex; align-items: center; justify-content: center;">
         <div style="display: flex; align-items: center;">
             <div id="pet" class="card pet-border-style" style="max-width: 800px; border: 1px solid #000000;border-radius: 20px;background-color: #C5BA9E;margin-left: 20px; width: 30rem;">
@@ -148,82 +152,69 @@
                             <div class="field">
                                 <label class="label">사진</label>
                                 <div class="control">
-                                    <input class="input" style="text-align: center;" type="picture" placeholder="Picture">
-                                    <button type="file" class="btn btn-light btn-sm">사진등록</button>
+                                    <input type="file" class="real-upload" accept="image/*" required multiple>
+                                    <div class="upload"></div>
                                 </div>
                             </div>
-
                         </form>
                     </div>
                 </div>
             </div>
-            <button id="addCardBtn" class="btn-icon" style="margin-left: 0px; border: none; background-color: transparent;">
-                <svg xmlns="http://www.w3.org/2000/svg"
-                     width="25"
-                     height="25"
-                     fill="currentColor"
-                     class="bi bi-plus-circle"
-                     viewBox="0 0 16 16">
-                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-                </svg>
-            </button>
         </div>
     </div>
+
+<!--    등록하기 버튼-->
+<div>
     <div style="display: flex; justify-content: center;  margin-bottom: 50px;" >
-        <button class="custom-btn btn-12" id="register"><span>등록완료!</span><span>등록하기</span></button>
+        <button class="custom-btn btn-12" id="openModalBtn"><span>등록완료!</span><span>등록하기</span></button>
     </div>
+        </div>
+
+<!--    위로가기버튼-->
     <p class="fixed_top">
         <a href="#top">위로</a>
     </p>
+
+<!--    모달-->
+    <div id="myModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">회원등록</h5>
+                </div>
+                <div class="modal-body">
+                    <p>등록하시겠습니까?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="register">등록하기</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </th:block>
 <th:block layout:fragment="script">
     <script>
-        var maxCardCount = 5;
-        var cardCount = 0;
-
-        function addCard() {
-            if (cardCount >= maxCardCount) {
-                alert("최대 " + maxCardCount + "개의 카드를 추가할 수 있습니다.");
-                return;
-            }
-            cardCount++;
-
-            var originalCard = document.getElementById('pet');
-            var newCard = originalCard.cloneNode(true);
-            newCard.setAttribute('id', 'pet' + cardCount);
-
-            var registerButton = newCard.querySelector('.button');
-            registerButton.setAttribute('id', 'register1' + cardCount);
-            registerButton.addEventListener('click', function() {
-                document.getElementById('myModal').style.display = 'block';
-            });
-
-            document.getElementById('card_all').appendChild(newCard);
-        }
-
-        document.getElementById('addCardBtn').addEventListener('click', addCard);
-
-        for (let i = 1; i <= maxCardCount; i++) {
-            document.getElementById('register' + i).addEventListener('click', function() {
-                document.getElementById('myModal').style.display = 'block';
-            });
-        }
-
-        document.getElementById('close').addEventListener('click', function() {
-            document.getElementById('myModal').style.display = 'none';
-        });
-        document.getElementById('close1').addEventListener('click', function() {
-            document.getElementById('myModal').style.display = 'none';
+        // 모달을 열기 위한 JavaScript 코드
+        document.getElementById('openModalBtn').addEventListener('click', function() {
+            document.getElementById('myModal').style.display = 'block';
         });
 
-
-        // 모달 창 외부 클릭 시 모달 창 닫기
-        window.addEventListener('click', function(event) {
-            if (event.target === document.getElementById('myModal')) {
+        // 모달을 닫기 위한 JavaScript 코드
+        document.querySelectorAll('[data-dismiss="modal"]').forEach(function(element) {
+            element.addEventListener('click', function() {
                 document.getElementById('myModal').style.display = 'none';
-            }
+            });
         });
+        // 등록하는 코드
+        document.getElementById('register').addEventListener('click', function() {
+            document.getElementById('myModal').style.display = 'none';
+            alert('회원가입이 완료 되었습니다!')
+        })
+        document.getElementById('addCardBtn').addEventListener('click', function() {
+
+        })
     </script>
 </th:block>
 </body>
@@ -250,6 +241,7 @@
         text-indent: -99999999px;
         overflow: hidden;
     }
+    /* 하단등록버튼 */
     .custom-btn {
         width: 130px;
         height: 40px;
@@ -268,7 +260,7 @@
         4px 4px 5px 0px rgba(0,0,0,.1);
         outline: none;
     }
-    /* 등록버튼 */
+
     .btn-12{
         position: relative;
         right: 20px;
