@@ -8,4 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReadPetResponse {
+
+    private Long petNum;  //펫 번호
+
 }

@@ -8,4 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DeletePetResponse {
+
+    private Long petNum;  //펫 번호
+
 }
