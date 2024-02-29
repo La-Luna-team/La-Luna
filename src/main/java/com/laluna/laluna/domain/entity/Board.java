@@ -17,11 +17,12 @@ public class Board extends Date{
     @GeneratedValue
     private Long boardId;
 
-    /*@ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "mNum")
-    private Member member;*/
-    @Column(length = 50, nullable = false)
-    private String writer;
+    private Member member;
+
+//    @Column(length = 50, nullable = false)
+//    private String writer;
 
     @Column(length = 50, nullable = false)
     private String title;
@@ -36,6 +37,6 @@ public class Board extends Date{
 
     private LocalDateTime modDate;
 
-    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
-    private List<Photo> photo;
+//    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+//    private List<Photo> photo;
 }
