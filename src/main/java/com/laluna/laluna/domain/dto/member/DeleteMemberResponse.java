@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class DeleteMemberResponse {
 
     private Long mNum;
+
 }
