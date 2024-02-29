@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ReadMemberResponse {
 
+    private Long mNum;
+
     private String mId;
 
     private String mPw;

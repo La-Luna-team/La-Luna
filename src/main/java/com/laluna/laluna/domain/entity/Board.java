@@ -11,6 +11,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Board extends Date{
 
     @Id
@@ -32,11 +33,6 @@ public class Board extends Date{
 
     @Column(length = 50, nullable = false)
     private String category;
-
-    private LocalDateTime regDate;
-
-    private LocalDateTime modDate;
-
 //    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
 //    private List<Photo> photo;
 }

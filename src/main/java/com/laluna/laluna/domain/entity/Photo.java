@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Builder
@@ -21,7 +24,8 @@ public class Photo {
     private Member member;
 
     @Column(length = 200, nullable = false)
-    private String link;
+    @ElementCollection
+    private List<String> link = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "boardId")
