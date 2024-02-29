@@ -31,4 +31,8 @@ public class SampleController {
     public String showTest5() {
         return "view/mypagect";
     }
+    @GetMapping("/test6")
+    public String showTest6() {
+        return "home/register";
+    }
 }
