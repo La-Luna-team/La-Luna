@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/basic.html}">
+<head>
+    <meta charset="UTF-8">
+    <th:block layout:fragment="head">
+        <title>Title</title>
+    </th:block>
+</head>
+<body style="background: radial-gradient(200% 140% at top left, #DCEED3, #EBE3CC)">
+<th:block layout:fragment="content">
+    <div style="display: flex; justify-content: flex-end; margin-right: 100px; margin-top: 75px">
+        <button id="secession" class="button">회원 탈퇴</button>
+    </div>
+
+    <div id="card_all" class="card-group" style="height: 75vh; text-align: center; justify-content: center; align-items: center;">
+        <div class="modal" tabindex="-1" role="dialog" id="myModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content rounded-4 shadow">
+                    <div class="modal-header border-bottom-0">
+                        <h1 class="modal-title fs-5">등록하기</h1>
+                        <button id="close" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body py-0">
+                        <p3>등록을 하시겠습니까?</p3>
+                    </div>
+                    <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
+                        <button type="button" class="btn btn-lg btn-primary">저장하기</button>
+                        <button id="close1" type="button" class="btn btn-lg btn-secondary" data-bs-dismiss="modal">취소하기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card master-border-style" style="max-width: 400px; margin: 20px; background-color: #829787; border: 2px solid #000000; border-radius: 20px; width: 30rem;">
+            <div class="card-header">
+                <h4>Master</h4>
+            </div>
+            <div class="card-body">
+                <div class="column">
+                    <form class="box">
+                        <div class="field">
+                            <label class="label" style="text-align: left;">아이디</label>
+                            <div class="control">
+                                <input class="input" style="text-align: center;" type="id" placeholder="ID">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">비밀번호</label>
+                            <div class="control">
+                                <input class="input" style="text-align: center;" type="password" placeholder="PASSWORD">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">핸드폰 번호</label>
+                            <div class="control">
+                                <input class="input" style="text-align: center;" type="phonenumber" placeholder="PhoneNumber">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">성별</label>
+                            <div class="control">
+                                <input class="input" style="text-align: center;" type="sex" placeholder="Sex">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">주소</label>
+                            <div class="control">
+                                <input class="input" style="text-align: center;" type="adress" placeholder="Adress">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">이메일</label>
+                            <div class="control">
+                                <input class="input" style="text-align: center;" type="email" placeholder="Email">
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            <div>
+                <button id="register" class="button" style="background-color: #0f5132 ">등록하기</button>
+            </div>
+        </div>
+
+
+        <div style="display: flex; align-items: center;">
+            <div id="pet" class="card pet-border-style" style="max-width: 400px; border: 2px solid #000000;border-radius: 20px;background-color: #C5BA9E;margin-left: 20px; width: 30rem;">
+                <div class="card-header">
+                    <h4>Pet</h4>
+                </div>
+                <div class="card-body">
+                    <div class="column">
+                        <form class="box">
+                            <div class="field">
+                                <label class="label">이름</label>
+                                <div class="control">
+                                    <input class="input" style="text-align: center;" type="name" placeholder="Name">
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="label">품종</label>
+                                <div class="control">
+                                    <input class="input" style="text-align: center;" type="kind" placeholder="Kind">
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="label">나이</label>
+                                <div class="control">
+                                    <input class="input" style="text-align: center;" type="age" placeholder="Age">
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="label">성별</label>
+                                <div class="control">
+                                    <input class="input" style="text-align: center;" type="sex" placeholder="Sex">
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="label">현재 상태</label>
+                                <div class="control">
+                                    <input class="input" style="text-align: center;" type="post" placeholder="Post">
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="label">건강 상태</label>
+                                <div class="control">
+                                    <input class="input" style="text-align: center;" type="condition" placeholder="Condition">
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="label">예방 접종</label>
+                                <div class="control">
+                                    <input class="input" style="text-align: center;" type="vac" placeholder="Vac">
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="label">사진</label>
+                                <div class="control">
+                                    <input class="input" style="text-align: center;" type="picture" placeholder="Picture">
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+                <div>
+                    <button id="register1" class="button" style="background-color: #523e02">등록하기</button>
+                </div>
+            </div>
+            <button id="addCardBtn" class="btn-icon" style="margin-left: 10px; border: none; background-color: transparent;">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     width="25"
+                     height="25"
+                     fill="currentColor"
+                     class="bi bi-plus-circle"
+                     viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                </svg>
+            </button>
+            <button id="deleteCardBtn" class="btn-icon" style="margin-right: 10px; margin-top: 75px; border: none; background-color: transparent;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                    <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div style="display: flex; justify-content: flex-end; margin-right: 100px; margin-bottom: 75px">
+        <button class="button">홈 화면</button>
+    </div>
+
+
+    <div class="modal" tabindex="-1" role="dialog" id="secessionModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content rounded-4 shadow">
+                <div class="modal-header border-bottom-0">
+                    <h1 class="modal-title fs-5">탈퇴하기</h1>
+                    <button id="close2" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body py-0">
+                    <p3>탈퇴를 하시겠습니까?</p3>
+                </div>
+                <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
+                    <button type="button" class="btn btn-lg btn-primary">탈퇴하기</button>
+                    <button id="close3" type="button" class="btn btn-lg btn-secondary" data-bs-dismiss="modal">취소하기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="script">
+
+    <script>
+        var maxCardCount = 5;
+        var cardCount = 0;
+
+        function addCard() {
+            if (cardCount >= maxCardCount) {
+                alert("최대 " + maxCardCount + "개의 카드를 추가할 수 있습니다.");
+                return;
+            }
+            cardCount++;
+
+            var originalCard = document.getElementById('pet');
+            var newCard = originalCard.cloneNode(true);
+            newCard.setAttribute('id', 'pet' + cardCount);
+
+            var registerButton = newCard.querySelector('.button');
+            registerButton.setAttribute('id', 'register1' + cardCount);
+            registerButton.addEventListener('click', function() {
+                document.getElementById('myModal').style.display = 'block';
+            });
+
+            document.getElementById('card_all').appendChild(newCard);
+        }
+
+        document.getElementById('addCardBtn').addEventListener('click', addCard);
+
+
+        var minCardCount = 1;
+
+        function deleteCard() {
+            var cardToRemove = document.getElementById('pet' + cardCount);
+            cardToRemove.parentNode.removeChild(cardToRemove);
+
+            if (cardCount <= minCardCount) {
+                cardToRemove.parentNode.removeChild(cardToRemove);
+                return;
+            }
+
+            cardCount--;
+
+        }
+
+        document.getElementById('deleteCardBtn').addEventListener('click', deleteCard);
+
+
+        document.getElementById('secession').addEventListener('click', function() {
+            document.getElementById('secessionModal').style.display = 'block';
+        });
+
+
+        document.getElementById('register').addEventListener('click', function() {
+            document.getElementById('myModal').style.display = 'block';
+        });
+        document.getElementById('register1').addEventListener('click', function() {
+            document.getElementById('myModal').style.display = 'block';
+        });
+
+        document.getElementById('close').addEventListener('click', function() {
+            document.getElementById('myModal').style.display = 'none';
+        });
+        document.getElementById('close1').addEventListener('click', function() {
+            document.getElementById('myModal').style.display = 'none';
+        });
+        document.getElementById('close2').addEventListener('click', function() {
+            document.getElementById('secessionModal').style.display = 'none';
+        });
+        document.getElementById('close3').addEventListener('click', function() {
+            document.getElementById('secessionModal').style.display = 'none';
+        });
+
+        window.addEventListener('click', function(event) {
+            if (event.target == document.getElementById('myModal')) {
+                document.getElementById('myModal').style.display = 'none';
+            }
+        });
+        window.addEventListener('click', function(event) {
+            if (event.target == document.getElementById('secessionModal')) {
+                document.getElementById('secessionModal').style.display = 'none';
+            }
+        });
+    </script>
+
+</th:block>
+</body>
+</html>
