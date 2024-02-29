@@ -1,5 +1,6 @@
 package com.laluna.laluna.domain.dto.member;
 
+import com.laluna.laluna.domain.entity.Photo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,7 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateMemberRequest {
-
 
     private String mId;
 
@@ -21,4 +21,7 @@ public class UpdateMemberRequest {
     private String address;
 
     private String email;
+
+    private Photo photo;
+
 }
