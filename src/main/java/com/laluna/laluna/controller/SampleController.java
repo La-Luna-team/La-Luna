@@ -14,6 +14,9 @@ public class SampleController {
     @GetMapping("/test1")
     public String showTest1() {
         return "view/list";
+    }
+    @GetMapping("/test2")
+        public String showTest2() {
         return "home/register";
     }
 }
