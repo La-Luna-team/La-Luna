@@ -9,10 +9,8 @@ public class SampleController {
 
     @GetMapping("/test")
     public String showTest() {
-<<<<<<<<< Temporary merge branch 1
+
         return "home/mypage";
-=========
-        return "view/home";
     }
     @GetMapping("/test1")
     public String showTest1() {
@@ -33,6 +31,6 @@ public class SampleController {
     @GetMapping("/test5")
     public String showTest5() {
         return "view/mypagect";
->>>>>>>>> Temporary merge branch 2
+
     }
 }
