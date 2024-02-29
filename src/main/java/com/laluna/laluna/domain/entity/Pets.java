@@ -16,7 +16,7 @@ public class Pets {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long petNum;  //펫 이름
+    private Long petNum;  //펫 번호
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "mNum")

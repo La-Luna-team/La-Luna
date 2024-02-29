@@ -5,12 +5,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateBoardRequest {
 
-    private String link;  //이미지 링크
+    private List<String> link;  //이미지 링크
 
     //작성자 id= 세션값으로 받아오기
 
