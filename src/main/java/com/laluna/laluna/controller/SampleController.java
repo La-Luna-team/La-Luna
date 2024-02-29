@@ -16,6 +16,19 @@ public class SampleController {
         return "view/list";
     }
     @GetMapping("/test2")
-    public String showTest2() { return "board/submit";
+    public String showTest2() {
+        return "view/boardview";
+    }
+    @GetMapping("/test3")
+    public String showTest3() {
+        return "view/submit";
+    }
+    @GetMapping("/test4")
+    public String showTest4() {
+        return "view/mypage";
+    }
+    @GetMapping("/test5")
+    public String showTest5() {
+        return "view/mypagect";
     }
 }
