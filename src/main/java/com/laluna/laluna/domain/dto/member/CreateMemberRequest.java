@@ -8,4 +8,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateMemberRequest {
+
+
+    private String mId;
+
+    private String mPw;
+
+    private String mPhone;
+
+    private Boolean mSex;
+
+    private String address;
+
+    private String email;
 }

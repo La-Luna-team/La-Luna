@@ -8,4 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateReplyRequest {
+
+    private String replyText;
+
+    private String replyer;
 }
