@@ -15,12 +15,20 @@ public class SampleController {
     public String showTest1() {
         return "view/list";
     }
-
     @GetMapping("/test2")
     public String showTest2() {
-        return "board/submit";
+        return "view/boardview";
     }
-    @GetMapping("/test2")
-    public String showTest3() { return "home/boardview";
+    @GetMapping("/test3")
+    public String showTest3() {
+        return "view/submit";
+    }
+    @GetMapping("/test4")
+    public String showTest4() {
+        return "view/mypage";
+    }
+    @GetMapping("/test5")
+    public String showTest5() {
+        return "view/mypagect";
     }
 }
