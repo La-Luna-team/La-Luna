@@ -33,9 +33,12 @@ public class Board extends Date{
     @Column(length = 50, nullable = false)
     private String category;
 
-    private LocalDateTime regDate;
+    public void update(String title, String content, String category) {
+        this.title = title;
+        this.content = content;
+        this.category = category;
+    }
 
-    private LocalDateTime modDate;
 
 //    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
 //    private List<Photo> photo;

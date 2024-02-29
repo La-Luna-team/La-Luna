@@ -46,17 +46,6 @@ dependencies {
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 
 
-//    implementation 'org.springframework', name: 'spring-core', version: '5.3.19'
-//    implementation 'org.springframework', name: 'spring-context', version: '5.3.19'
-//    implementation 'org.springframework', name: 'spring-test', version: '5.3.19'
-//    implementation 'org.springframework', name: 'spring-webmvc', version: '5.3.19'
-//    implementation 'org.springframework', name: 'spring-jdbc', version: '5.3.19'
-//    implementation 'org.springframework', name: 'spring-tx', version: '5.3.19'
-
-
-
-
-
 }
 
 tasks.named('bootBuildImage') {
