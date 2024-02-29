@@ -16,25 +16,25 @@ public class Pets {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long petNum;
+    private Long petNum;  //펫 이름
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "mNum")
-    private Member member;
+    private Member member;   //주인 정보 받아오기
 
-    private String petName;
+    private String petName; //펫 이름
 
-    private int petAge;
+    private int petAge;  //펫 나이
 
-    private Boolean petSex;
+    private Boolean petSex;  //펫 성별
 
-    private String petKind;
+    private String petKind;  //펫 종류
 
-    @Column(length = 300)
-    private String petPost;
+    @Column(length = 500)
+    private String petFeature;  //펫 정보(특징)
 
-    private String petVac;
+    private String petVac; //펫 백신
 
-    private String petCondition;
+    private String petCondition; //펫 건강상태
 
 }

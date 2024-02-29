@@ -38,6 +38,9 @@ public class Member {
     @JoinColumn(name = "photoNum")
     private Photo photo;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<Pets> pets;
+//    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+//    private List<Pets> pets;
+
+//    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+//    private List<Board> board;
 }

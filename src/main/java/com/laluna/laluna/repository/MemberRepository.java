@@ -1,4 +1,7 @@
 package com.laluna.laluna.repository;
 
-public interface MemberRepository {
+import com.laluna.laluna.domain.entity.Member;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface MemberRepository extends JpaRepository<Member, Long> {
 }
