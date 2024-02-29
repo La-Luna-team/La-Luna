@@ -1,8 +1,6 @@
 package com.laluna.laluna.domain.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,7 +17,14 @@ public class Photo {
     @GeneratedValue
     private Long photoNum;
 
-    private Long boardId;
+    @OneToOne(mappedBy = "photo", cascade = CascadeType.ALL)
+    private Member member;
+
+    @Column(length = 200, nullable = false)
     private String link;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "boardId")
+    private Board board;
 
 }
