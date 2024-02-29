@@ -82,7 +82,6 @@
             </div>
         </div>
     </div>
-
     <div style="height: 600px; width: 600px; margin: 20px auto; display: flex; align-items: center; justify-content: center;">
         <div style="display: flex; align-items: center;">
             <div id="pet" class="card pet-border-style" style="max-width: 800px; border: 1px solid #000000;border-radius: 20px;background-color: #C5BA9E;margin-left: 20px; width: 30rem;">
@@ -171,9 +170,8 @@
             </button>
         </div>
     </div>
-
     <div style="display: flex; justify-content: center;  margin-bottom: 50px;" >
-        <button class="custom-btn btn-12"><span>등록완료!</span><span>등록하기</span></button>
+        <button class="custom-btn btn-12" id="register"><span>등록완료!</span><span>등록하기</span></button>
     </div>
     <p class="fixed_top">
         <a href="#top">위로</a>
@@ -206,13 +204,11 @@
 
         document.getElementById('addCardBtn').addEventListener('click', addCard);
 
-
-        document.getElementById('register').addEventListener('click', function() {
-            document.getElementById('myModal').style.display = 'block';
-        });
-        document.getElementById('register1').addEventListener('click', function() {
-            document.getElementById('myModal').style.display = 'block';
-        });
+        for (let i = 1; i <= maxCardCount; i++) {
+            document.getElementById('register' + i).addEventListener('click', function() {
+                document.getElementById('myModal').style.display = 'block';
+            });
+        }
 
         document.getElementById('close').addEventListener('click', function() {
             document.getElementById('myModal').style.display = 'none';
@@ -224,7 +220,7 @@
 
         // 모달 창 외부 클릭 시 모달 창 닫기
         window.addEventListener('click', function(event) {
-            if (event.target == document.getElementById('myModal')) {
+            if (event.target === document.getElementById('myModal')) {
                 document.getElementById('myModal').style.display = 'none';
             }
         });

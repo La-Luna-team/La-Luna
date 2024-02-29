@@ -19,4 +19,8 @@ public class SampleController {
         public String showTest2() {
         return "home/register";
     }
+    @GetMapping("/test3")
+    public String showTest3() {
+        return "home/mypage";
+    }
 }
