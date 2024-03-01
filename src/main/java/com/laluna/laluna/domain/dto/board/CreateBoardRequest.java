@@ -1,5 +1,6 @@
 package com.laluna.laluna.domain.dto.board;
 
+import com.laluna.laluna.domain.entity.Photo;
 import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 public class CreateBoardRequest {
 
-    private List<String> link;  //이미지 링크
+    private List<Photo> link;  //이미지 링크
 
     //작성자 id= 세션값으로 받아오기
 

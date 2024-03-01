@@ -23,9 +23,8 @@ public class Photo {
     @OneToOne(mappedBy = "photo", cascade = CascadeType.ALL)
     private Member member;
 
-    @Column(length = 200, nullable = false)
-    @ElementCollection
-    private List<String> link = new ArrayList<>();
+    @Column(length = 200, nullable = true)
+    private String link;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "boardId")
