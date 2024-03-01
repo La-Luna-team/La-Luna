@@ -56,7 +56,7 @@ public class BoardControllerTest {
                         .param("category", requestDTO.getCategory())
                         .flashAttr("board", responseDTO))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/view/mypage"));
+                .andExpect(redirectedUrl("/view/list"));
     }
 
     @Test

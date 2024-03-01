@@ -25,13 +25,13 @@ public class Board extends Date{
 //    @Column(length = 50, nullable = false)
 //    private String writer;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 50)
     private String title;
 
-    @Column(length = 1000, nullable = false)
+    @Column(length = 1000)
     private String content;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 50)
     private String category;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)

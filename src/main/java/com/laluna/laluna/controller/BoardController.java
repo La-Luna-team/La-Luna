@@ -19,10 +19,10 @@ public class BoardController {
 
     private final BoardService boardService;
 
-    @GetMapping("/create")
+    @GetMapping("/register")
     public void createGET() {
     }
-    @PostMapping("/create")
+    @PostMapping("/register")
     public String createBoard(@ModelAttribute CreateBoardRequest requestDTO, RedirectAttributes redirectAttributes) {
         CreateBoardResponse responseDTO = boardService.boardCreate(requestDTO);
 
@@ -30,7 +30,7 @@ public class BoardController {
 //      return "boardView";   //해당 데이터는 현재 요청에서 처리되는 뷰에서만 사용할 수 있고 사용되면 더이상 사용불가
 
         redirectAttributes.addFlashAttribute("board", responseDTO);
-        return "redirect:/view/list";    //글작성후, 리다이렉트 해서 해당 페이지에 정보를 전달할 때 사용
+        return "redirect:/boards/list";    //글작성후, 리다이렉트 해서 해당 페이지에 정보를 전달할 때 사용
     }
 
     @GetMapping("/{boardId}")
@@ -69,7 +69,7 @@ public class BoardController {
         Pageable pageable = PageRequest.of(page, 9, Sort.by("boardId").descending());
         Page<ReadBoardResponse> boardPage = boardService.boardList(pageable);
         model.addAttribute("boards", boardPage);
-        return "boardList";
+        return "/boards/boardlist";
     }
 
 }
