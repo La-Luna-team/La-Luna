@@ -2,15 +2,15 @@ package com.laluna.laluna.domain.dto.board;
 
 import com.laluna.laluna.domain.entity.Photo;
 import jakarta.persistence.Column;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
+@Setter
 public class CreateBoardRequest {
 
     private List<Photo> link;  //이미지 링크
