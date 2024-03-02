@@ -25,12 +25,6 @@ public class Reply {
 
     private String replyer;
 
-    public Reply(Long replyNum, String replyText, String replyer) {
-        this.replyNum = replyNum;
-        this.replyText = replyText;
-        this.replyer = replyer;
-    }
-
     public void update(String replyText,String replyer){
         this.replyText = replyText;
         this.replyer = replyer;
