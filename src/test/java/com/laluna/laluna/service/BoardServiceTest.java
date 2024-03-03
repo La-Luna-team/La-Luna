@@ -58,7 +58,7 @@ public class BoardServiceTest {
 
         CreateBoardResponse createBoardResponse = boardService.boardCreate(createBoardRequest);
 
-        assertThat(createBoardResponse.getBoardId()).isEqualTo(1L);
+        assertThat(createBoardResponse.getBoardid()).isEqualTo(1L);
         assertThat(createBoardResponse.getLink()).isEqualTo(null);
         assertThat(createBoardResponse.getTitle()).isEqualTo("제목");
         assertThat(createBoardResponse.getContent()).isEqualTo("내용");
@@ -67,13 +67,13 @@ public class BoardServiceTest {
     }
 
     @Test
-    @DisplayName("BoardId로 게시글 조회하는 테스트")
+    @DisplayName("Boardid로 게시글 조회하는 테스트")
     void read() {
         when(boardRepository.findById(any())).thenReturn(Optional.of(saveBoard));
 
-        ReadBoardResponse readBoardResponse = boardService.boardRead(saveBoard.getBoardId());
+        ReadBoardResponse readBoardResponse = boardService.boardRead(saveBoard.getBoardid());
 
-        assertThat(readBoardResponse.getBoardId()).isEqualTo(saveBoard.getBoardId());
+        assertThat(readBoardResponse.getBoardid()).isEqualTo(saveBoard.getBoardid());
         assertThat(readBoardResponse.getTitle()).isEqualTo(saveBoard.getTitle());
     }
 

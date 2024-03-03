@@ -10,20 +10,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ReadMemberResponse {
 
-    private Long mNum;
+    private Long mnum;
 
-    private String mId;
+    private String mid;
 
-    private String mPw;
+    private String mpw;
 
-    private String mPhone;
-
-    private Boolean mSex;
+    private String mphone;
 
     private String address;
 
     private String email;
-
-    private Photo photo;
 
 }

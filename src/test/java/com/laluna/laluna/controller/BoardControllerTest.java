@@ -62,13 +62,13 @@ public class BoardControllerTest {
     @Test
     public void testReadBoard() throws Exception {
         // Given
-        Long boardId = 1L;
+        Long boardid = 1L;
 
         // When
-        given(boardService.boardRead(boardId)).willReturn(new ReadBoardResponse());
+        given(boardService.boardRead(boardid)).willReturn(new ReadBoardResponse());
 
         // Then
-        mockMvc.perform(get("/boards/" + boardId))
+        mockMvc.perform(get("/boards/" + boardid))
                 .andExpect(status().isOk())
                 .andExpect(view().name("boardView"));
     }
@@ -76,29 +76,29 @@ public class BoardControllerTest {
     @Test
     public void testUpdateBoard() throws Exception {
         // Given
-        Long boardId = 1L;
+        Long boardid = 1L;
         UpdateBoardRequest requestDTO = new UpdateBoardRequest();
 
         // When
         given(boardService.boardUpdate(Mockito.anyLong(), Mockito.any())).willReturn(new UpdateBoardResponse());
 
         // Then
-        mockMvc.perform(put("/boards/" + boardId)
+        mockMvc.perform(put("/boards/" + boardid)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{}"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/view/boardview/" + boardId));
+                .andExpect(redirectedUrl("/view/boardview/" + boardid));
     }
 
     @Test
     public void testDeleteBoard() throws Exception {
         // Given
-        Long boardId = 1L;
+        Long boardid = 1L;
         // When
         given(boardService.boardDelete(Mockito.anyLong())).willReturn(new DeleteBoardResponse());
 
         // Then
-        mockMvc.perform(delete("/boards/" + boardId)
+        mockMvc.perform(delete("/boards/" + boardid)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/view/list"));

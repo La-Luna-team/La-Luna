@@ -33,9 +33,9 @@ public class BoardController {
         return "redirect:/boards/list";    //글작성후, 리다이렉트 해서 해당 페이지에 정보를 전달할 때 사용
     }
 
-    @GetMapping("/{boardId}")
-    public String readBoard(@PathVariable Long boardId, Model model) {
-        ReadBoardResponse responseDTO = boardService.boardRead(boardId);
+    @GetMapping("/{boardid}")
+    public String readBoard(@PathVariable Long boardid, Model model) {
+        ReadBoardResponse responseDTO = boardService.boardRead(boardid);
         model.addAttribute("board", responseDTO);
         return "boardView";
         //Spring MVC 는 뷰 리졸버(view resolver)를 사용하여 뷰 이름을 실제 뷰로 변환한다.
@@ -43,20 +43,20 @@ public class BoardController {
         // 기본 설정에서는 src/main/resources/templates 디렉토리가 템플릿 파일의 기본 위치이다.
     }
 
-    @PutMapping("/{boardId}")
-    public String updateBoard(@PathVariable Long boardId,
+    @PutMapping("/{boardid}")
+    public String updateBoard(@PathVariable Long boardid,
                               @ModelAttribute UpdateBoardRequest requestDTO,
                               RedirectAttributes redirectAttributes) {
-        UpdateBoardResponse responseDTO = boardService.boardUpdate(boardId, requestDTO);
+        UpdateBoardResponse responseDTO = boardService.boardUpdate(boardid, requestDTO);
         redirectAttributes.addFlashAttribute("board", responseDTO);
-        return "redirect:/view/boardview/" + boardId;
+        return "redirect:/view/boardview/" + boardid;
     }
 
-    @DeleteMapping("/{boardId}")
-    public String deleteBoard(@PathVariable Long boardId, RedirectAttributes redirectAttributes) {
-        DeleteBoardResponse responseDTO = boardService.boardDelete(boardId);
+    @DeleteMapping("/{boardid}")
+    public String deleteBoard(@PathVariable Long boardid, RedirectAttributes redirectAttributes) {
+        DeleteBoardResponse responseDTO = boardService.boardDelete(boardid);
         redirectAttributes.addFlashAttribute("board", responseDTO);
-        //게시글을 삭제후에 boardId에 해당하는 값을 받아와서 메세지로 띄울 경우가아니면  삭제해도 무방할듯싶다.
+        //게시글을 삭제후에 boardid에 해당하는 값을 받아와서 메세지로 띄울 경우가아니면  삭제해도 무방할듯싶다.
         return "redirect:/view/list";
     }
 
@@ -66,7 +66,7 @@ public class BoardController {
         // page 값을 가져와서 int 타입의 page 변수에 바인딩하는 역할
         // http://localhost:8080/boards/list?page=1 -> 이런식
 
-        Pageable pageable = PageRequest.of(page, 9, Sort.by("boardId").descending());
+        Pageable pageable = PageRequest.of(page, 9, Sort.by("boardid").descending());
         Page<ReadBoardResponse> boardPage = boardService.boardList(pageable);
         model.addAttribute("boards", boardPage);
         return "/boards/boardlist";

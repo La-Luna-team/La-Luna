@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 
@@ -16,17 +17,17 @@ import java.util.List;
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long mNum;
+    private Long mnum;
+
+    @Column(length = 20, nullable = false, unique = true)
+    private String mid;
 
     @Column(length = 20, nullable = false)
-    private String mId;
+    private String mpw;
 
-    @Column(length = 20, nullable = false)
-    private String mPw;
+    private String roles;
 
-    private String mPhone;
-
-    private Boolean mSex;
+    private String mphone;
 
     @Column(length = 100)
     private String address;
@@ -34,13 +35,23 @@ public class Member {
     @Column(length = 100)
     private String email;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "photoNum")
-    private Photo photo;
-
 //    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
 //    private List<Pets> pets;
 
 //    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
 //    private List<Board> board;
+
+    public static Member createUser(String mid, String mpw, PasswordEncoder passwordEncoder, String mphone, String address,
+                                    String email) {
+
+        return Member.builder()
+                .mid(mid)
+                .mpw(passwordEncoder.encode(mpw))
+                .roles("USER")
+                .mphone(mphone)
+                .address(address)
+                .email(email)
+                .build();
+    }
+
 }

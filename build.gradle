@@ -26,6 +26,7 @@ repositories {
 dependencies {
     //spring-boot-web
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
     //spring-boot-jap
@@ -47,8 +48,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 
+    //modelmapper
     implementation 'org.modelmapper:modelmapper:3.1.0'
 
+    //security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
 
 }
 

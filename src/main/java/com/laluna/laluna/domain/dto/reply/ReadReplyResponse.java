@@ -11,17 +11,17 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class ReadReplyResponse {
 
-    private Long replyNum;
+    private Long replynum;
 
-    private Long boardId;
+    private Long boardid;
 
-    private String replyText;
+    private String replytext;
 
     private String replyer;
 
-    private LocalDateTime regDate;
+    private LocalDateTime regdate;
 
-    private LocalDateTime modDate;
+    private LocalDateTime moddate;
 
 
 }

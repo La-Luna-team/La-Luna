@@ -13,18 +13,18 @@ public class CreatePetRequest {
 
     private Member member;   //주인 정보 받아오기
 
-    private String petName; //펫 이름
+    private String petname; //펫 이름
 
-    private int petAge;  //펫 나이
+    private int petage;  //펫 나이
 
-    private Boolean petSex;  //펫 성별
+    private Boolean petsex;  //펫 성별
 
-    private String petKind;  //펫 종류
+    private String petkind;  //펫 종류
 
-    private String petFeature;  //펫 정보(특징)
+    private String petfeature;  //펫 정보(특징)
 
-    private String petVac; //펫 백신
+    private String petvac; //펫 백신
 
-    private String petCondition;
+    private String petcondition;
 
 }

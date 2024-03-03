@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DeleteMemberResponse {
 
-    private Long mNum;
+    private Long mnum;
 
 }
