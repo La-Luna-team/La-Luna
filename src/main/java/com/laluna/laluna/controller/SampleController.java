@@ -10,28 +10,16 @@ public class SampleController {
     public String showTest() {
         return "view/home";
     }
-    @GetMapping("/test1")
-    public String showTest1() {
-        return "view/list";
-    }
     @GetMapping("/test2")
     public String showTest2() {
-        return "view/boardview";
+        return "view/mypage";
     }
     @GetMapping("/test3")
     public String showTest3() {
-        return "view/submit";
+        return "view/mypagect";
     }
     @GetMapping("/test4")
     public String showTest4() {
-        return "view/mypage";
-    }
-    @GetMapping("/test5")
-    public String showTest5() {
-        return "view/mypagect";
-    }
-    @GetMapping("/test6")
-    public String showTest6() {
         return "home/register";
     }
 }
