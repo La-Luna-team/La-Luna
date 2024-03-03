@@ -16,10 +16,10 @@ public class Board extends Date{
 
     @Id
     @GeneratedValue
-    private Long boardId;
+    private Long boardid;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "mNum")
+    @JoinColumn(name = "mnum")
     private Member member;
 
 //    @Column(length = 50, nullable = false)

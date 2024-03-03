@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 public class ReadBoardResponse {
 
-    private Long boardId;
+    private Long boardid;
 
     private List<Photo> link;  //이미지 링크
 
@@ -23,7 +23,7 @@ public class ReadBoardResponse {
 
     private String category; //게시글 카테고리 (건강, 팁, 일상)
 
-    private LocalDateTime regDate;
+    private LocalDateTime regdate;
 
-    private LocalDateTime modDate;
+    private LocalDateTime moddate;
 }

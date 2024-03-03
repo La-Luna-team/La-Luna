@@ -32,57 +32,57 @@ public class BoardService {
         Board saveBoard= boardRepository.save(board);
 
         return new CreateBoardResponse(
-                saveBoard.getBoardId(),
+                saveBoard.getBoardid(),
                 saveBoard.getPhotos(),
                 saveBoard.getTitle(),
                 saveBoard.getContent(),
                 saveBoard.getCategory(),
-                saveBoard.getRegDate(),
-                saveBoard.getModDate());
+                saveBoard.getRegdate(),
+                saveBoard.getModdate());
     }
 
-    public ReadBoardResponse boardRead(Long boardId) {
+    public ReadBoardResponse boardRead(Long boardid) {
 
-        Board findBoard = boardRepository.findById(boardId)
-                .orElseThrow(() -> new EntityNotFoundException("해당 boardId로 조회된 게시글이 없습니다."));
+        Board findBoard = boardRepository.findById(boardid)
+                .orElseThrow(() -> new EntityNotFoundException("해당 boardid로 조회된 게시글이 없습니다."));
 
         return new ReadBoardResponse(
-                findBoard.getBoardId(),
+                findBoard.getBoardid(),
                 findBoard.getPhotos(),
                 findBoard.getTitle(),
                 findBoard.getContent(),
                 findBoard.getCategory(),
-                findBoard.getRegDate(),
-                findBoard.getModDate());
+                findBoard.getRegdate(),
+                findBoard.getModdate());
     }
 
     @Transactional
-    public UpdateBoardResponse boardUpdate(Long boardId, UpdateBoardRequest requestDTO) {
+    public UpdateBoardResponse boardUpdate(Long boardid, UpdateBoardRequest requestDTO) {
 
-        Board findBoard = boardRepository.findById(boardId)
-                .orElseThrow(() -> new EntityNotFoundException("해당 boardId로 조회된 게시글이 없습니다."));
+        Board findBoard = boardRepository.findById(boardid)
+                .orElseThrow(() -> new EntityNotFoundException("해당 boardid로 조회된 게시글이 없습니다."));
 
         findBoard.update(requestDTO.getLink(), requestDTO.getTitle(), requestDTO.getContent(), requestDTO.getCategory());
 
         return new UpdateBoardResponse(
-                findBoard.getBoardId(),
+                findBoard.getBoardid(),
                 findBoard.getPhotos(),
                 findBoard.getTitle(),
                 findBoard.getContent(),
                 findBoard.getCategory(),
-                findBoard.getRegDate(),
-                findBoard.getModDate());
+                findBoard.getRegdate(),
+                findBoard.getModdate());
     }
 
     @Transactional
-    public DeleteBoardResponse boardDelete(Long boardId) {
+    public DeleteBoardResponse boardDelete(Long boardid) {
 
-        Board findBoard = boardRepository.findById(boardId)
-                .orElseThrow(() -> new EntityNotFoundException("해당 boardId로 조회된 게시글이 없습니다."));
+        Board findBoard = boardRepository.findById(boardid)
+                .orElseThrow(() -> new EntityNotFoundException("해당 boardid로 조회된 게시글이 없습니다."));
 
         boardRepository.delete(findBoard);
 
-        return new DeleteBoardResponse(findBoard.getBoardId());
+        return new DeleteBoardResponse(findBoard.getBoardid());
     }
 
     public Page<ReadBoardResponse> boardList(Pageable pageable) {
@@ -90,13 +90,13 @@ public class BoardService {
         Page<Board> boardPage = boardRepository.findAll(pageable);
 
         return boardPage.map(board -> new ReadBoardResponse(
-                board.getBoardId(),
+                board.getBoardid(),
                 board.getPhotos(),
                 board.getTitle(),
                 board.getContent(),
                 board.getCategory(),
-                board.getRegDate(),
-                board.getModDate()
+                board.getRegdate(),
+                board.getModdate()
         ));
     }
 }
