@@ -27,4 +27,10 @@ public class MemberController {
         model.addAttribute("loginRoles", user.getAuthorities());
         return "/view/dashboard";
     }
+
+    @GetMapping("/mypage")
+    public String myPage(@AuthenticationPrincipal User user, Model model) {
+        model.addAttribute("loginId", user.getUsername());
+        return "/view/mypage";
+    }
 }
