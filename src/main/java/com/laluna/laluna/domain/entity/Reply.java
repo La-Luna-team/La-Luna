@@ -25,4 +25,9 @@ public class Reply {
 
     private String replyer;
 
+    public void update(String replyText,String replyer){
+        this.replyText = replyText;
+        this.replyer = replyer;
+    }
+
 }
