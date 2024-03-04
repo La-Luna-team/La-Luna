@@ -18,11 +18,10 @@ public class ReplyService {
 
     @Transactional
     public CreateReplyResponse replyCreate(CreateReplyRequest requestDTO) {
-        Board board = new Board();
+
         Reply reply = Reply.builder()
                 .replytext(requestDTO.getReplytext())
                 .replyer(requestDTO.getReplyer())
-                .board(board)
                 .build();
         Reply saveReply = replyRepository.save(reply);
 
@@ -35,9 +34,9 @@ public class ReplyService {
                 saveReply.getBoard().getModdate());
     }
 
-    public ReadReplyResponse replyRead(Long replyNum) {
+    public ReadReplyResponse replyRead(Long replynum) {
 
-        Reply findReply = replyRepository.findById(replyNum)
+        Reply findReply = replyRepository.findById(replynum)
                 .orElseThrow(() -> new EntityNotFoundException("해당 id로 조회된 댓글이 없습니다"));
 
         return new ReadReplyResponse(
@@ -50,9 +49,9 @@ public class ReplyService {
     }
 
     @Transactional
-    public UpdateReplyResponse replyUpdate(Long replyNum, UpdateReplyRequest requestDTO){
+    public UpdateReplyResponse replyUpdate(Long replynum, UpdateReplyRequest requestDTO){
 
-        Reply findReply = replyRepository.findById(replyNum)
+        Reply findReply = replyRepository.findById(replynum)
                 .orElseThrow(() -> new EntityNotFoundException("해당 id로 조회된 댓글이 없습니다"));
 
         findReply.update(requestDTO.getReplytext(),requestDTO.getReplyer());
@@ -67,9 +66,9 @@ public class ReplyService {
     }
 
     @Transactional
-    public DeleteReplyResponse deleteReply(Long replyNum){
+    public DeleteReplyResponse deleteReply(Long replynum){
 
-        Reply findReply = replyRepository.findById(replyNum)
+        Reply findReply = replyRepository.findById(replynum)
                 .orElseThrow(() -> new EntityNotFoundException("해당 id로 조회된 댓글이 없습니다"));
 
         replyRepository.delete(findReply);
