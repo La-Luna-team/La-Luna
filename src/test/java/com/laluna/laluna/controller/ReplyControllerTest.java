@@ -16,10 +16,17 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Arrays;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -102,6 +109,24 @@ public class ReplyControllerTest {
         DeleteReplyResponse response = new DeleteReplyResponse(replynum);
         //when
         given(replyService.deleteReply(any())).willReturn(response);
+    }
+    @Test
+    public void testReplyList() throws Exception {
+        // Given
+        Page<ReadReplyResponse> replyPage = new PageImpl<>(Arrays.asList(
+                new ReadReplyResponse(1L, null, "댓글 내용 1", "작성자 1", null, null),
+                new ReadReplyResponse(2L, null, "댓글 내용 2", "작성자 2",null,null ),
+                new ReadReplyResponse(3L, null, "댓글 내용 3", "작성자 3",null,null)
+        ));
+        given(replyService.replyList(any(Pageable.class))).willReturn(replyPage);
+
+        // When & Then
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/replies/boardview"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.view().name("/view/boardview"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("reply"))
+                .andExpect(MockMvcResultMatchers.model().attribute("reply", replyPage))
+                .andReturn();
     }
 }
 

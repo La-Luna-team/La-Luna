@@ -12,7 +12,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
@@ -101,5 +107,23 @@ public class ReplyServiceTest {
 
         assertThrows(EntityNotFoundException.class, () ->
                 replyService.replyRead(1L));
+    }
+
+    @Test
+    @DisplayName("댓글 목록 전체 조회테스트")
+    void replyList(){
+        Pageable pageable = PageRequest.of(0,10);
+        List<Reply> replyList = Arrays.asList(reply,saveReply);
+        Page<Reply> replyPage = new PageImpl<>(replyList, pageable, replyList.size());
+
+        given(replyRepository.findAll(pageable)).willReturn(replyPage);
+
+        Page<ReadReplyResponse> responses = replyService.replyList(pageable);
+
+        assertThat(responses.getContent()).hasSize(2);
+        assertThat(responses.getContent().get(0).getReplytext()).isEqualTo("댓글 내용");
+        assertThat(responses.getContent().get(0).getReplyer()).isEqualTo("유저");
+        assertThat(responses.getContent().get(1).getReplytext()).isEqualTo("댓글 내용");
+        assertThat(responses.getContent().get(1).getReplyer()).isEqualTo("유저");
     }
 }

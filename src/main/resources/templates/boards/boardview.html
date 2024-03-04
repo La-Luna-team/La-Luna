@@ -19,7 +19,7 @@
                 <div class="Content">
                         <div class="user-body">
                             <div class="user-body">
-                                <p class="userid" style="padding-left: 20px">작성자:<span class="profilename">sy99639</span></p>
+                                <p class="userid" style="padding-left: 20px">작성자:<span class="profilename" th:text="${mid}">사용자이름</span></p>
                                 <p class="petid" style="padding-left: 20px">펫 정보: 짱아 포메라니안 6살 수컷 입양 팔팔함 6차 예방접촉</p>
                                 <button type="submit" class="btn btn-outline-success">게시글 수정</button>
                                 <button type="submit" class="btn btn-outline-danger" id="boardremove">게시글 삭제</button>
@@ -44,7 +44,19 @@
                     <label for="content">sy99639</label>
                     <input type="text" id="content" style="width: 800px" placeholder="댓글을 입력해주세요.">
                     <button id="modalOpenButton"class="btn btn-success">등록</button>
-                <div>
+            </div>
+                <ul class="list-group" replyList>
+                </ul>
+        </div>
+            </div>
+        <div class="row mt-3">
+            <div class="col">
+                <ul class="pagination replyPaging">
+                </ul>
+        </div>
+        </div>
+            <div style="display: flex; justify-content: center;  margin-bottom: 50px;" >
+                <button class="custom-btn btn-12" id="register" onclick="location.href='/boards/list'"><span>메인으로!!</span><span>메인으로</span></button>
             </div>
         </div>
         <p class="fixed_top">
@@ -57,6 +69,7 @@
                         <button id="modalRegisterButton" class="btn-register">등록하기</button>
                     </div>
                 </div>
+
 </th:block>
 
 <th:block layout:fragment="script">
@@ -70,7 +83,7 @@
             modal.classList.remove('hidden');
         });
 
-        modalRegisterButton.addEventListener('click', ()=>{
+        modalRegisterButton.addEventListener('click', () => {
             modal.classList.add('hidden');
             registerComment()
         });
@@ -79,66 +92,64 @@
             modal.classList.add('hidden');
         });
 
-        function registerComment(){
-            const commentContent = document.getElementById('content').value;
-
-            if(commentContent.trim() ===''){
-                alert('댓글 내용을 입력해주세요');
-                return;
-            }
-            alert(commentContent +'가 입력되었습니다!');
-        }
-        function removeBoard(){
-            const remove = document.getElementById('boardremove').value;
-            alert('게시물이 삭제 되었습니다.')
-        }
     </script>
 </th:block>
 </body>
 </html>
 <style>
-    .card-title{
+    .card-title {
         text-align: center;
     }
-    .card-subtitle{
+
+    .card-subtitle {
         text-align: center;
     }
+
     .user-body {
         display: flex;
         flex-direction: column;
     }
-    .userid{
-        margin:0;
+
+    .userid {
+        margin: 0;
     }
-    .petid{
-        margin:0;
+
+    .petid {
+        margin: 0;
     }
-    .profilename{
+
+    .profilename {
         margin-left: 5px;
     }
-    .line1{
+
+    .line1 {
         width: 100%;
         margin-right: unset;
     }
+
     .line2 {
         width: 100%;
         margin: 0;
     }
-    .btn-outline-danger{
+
+    .btn-outline-danger {
         position: absolute;
         right: 10px;
     }
-    .btn-outline-success{
+
+    .btn-outline-success {
         position: absolute;
         right: 130px;
     }
+
     .vertical-line {
         border-left: 2px solid #b7bed5; /* 세로줄의 스타일을 지정합니다. */
         height: 50px; /* 세로줄의 높이를 조정할 수 있습니다. */
         margin: 0 10px; /* 세로줄의 좌우 간격을 조정할 수 있습니다. */
     }
+
     /*위로 가기 버튼*/
-    .fixed_top{
+    .fixed_top {
         position: fixed;
         top: 49%;
         right: 3%;
@@ -147,7 +158,8 @@
         margin: 0;
         z-index: 1;
     }
-    .fixed_top a{
+
+    .fixed_top a {
         display: block;
         width: 33px;
         height: 33px;
@@ -155,12 +167,14 @@
         text-indent: -99999999px;
         overflow: hidden;
     }
+
     /*댓글*/
-    .reply_write_box{
+    .reply_write_box {
         padding: 12px 12px 12px;
         background: #fafafa;
         border-top: 2px solid #5c64ad;
     }
+
     /* 모달 */
     #modalOpenButton, #modalCloseButton {
         cursor: pointer;
@@ -169,6 +183,7 @@
     #modalContainer.hidden {
         display: none;
     }
+
     #modalContainer {
         position: fixed;
         top: 0;
@@ -181,6 +196,7 @@
         justify-content: center;
         align-items: center;
     }
+
     #modalContent {
         width: 230px;
         height: 130px;
@@ -190,6 +206,7 @@
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         text-align: center;
     }
+
     .btn-register {
         background-color: #28a745;
         color: white;
@@ -198,8 +215,78 @@
         border-radius: 4px;
         cursor: pointer;
     }
+
     .btn-close {
         float: right;
+    }
+    .btn-12{
+        position: relative;
+        right: 20px;
+        bottom: 20px;
+        border:none;
+        box-shadow: none;
+        width: 130px;
+        height: 40px;
+        line-height: 42px;
+        -webkit-perspective: 230px;
+        perspective: 230px;
+    }
+    .btn-12 span {
+        background: rgb(0,172,238);
+        background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
+        display: block;
+        position: absolute;
+        width: 130px;
+        height: 40px;
+        box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+        7px 7px 20px 0px rgba(0,0,0,.1),
+        4px 4px 5px 0px rgba(0,0,0,.1);
+        border-radius: 5px;
+        margin:0;
+        text-align: center;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        -webkit-transition: all .3s;
+        transition: all .3s;
+    }
+    .btn-12 span:nth-child(1) {
+        box-shadow:
+                -7px -7px 20px 0px #fff9,
+                -4px -4px 5px 0px #fff9,
+                7px 7px 20px 0px #0002,
+                4px 4px 5px 0px #0001;
+        -webkit-transform: rotateX(90deg);
+        -moz-transform: rotateX(90deg);
+        transform: rotateX(90deg);
+        -webkit-transform-origin: 50% 50% -20px;
+        -moz-transform-origin: 50% 50% -20px;
+        transform-origin: 50% 50% -20px;
+    }
+    .btn-12 span:nth-child(2) {
+        -webkit-transform: rotateX(0deg);
+        -moz-transform: rotateX(0deg);
+        transform: rotateX(0deg);
+        -webkit-transform-origin: 50% 50% -20px;
+        -moz-transform-origin: 50% 50% -20px;
+        transform-origin: 50% 50% -20px;
+    }
+    .btn-12:hover span:nth-child(1) {
+        box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+        7px 7px 20px 0px rgba(0,0,0,.1),
+        4px 4px 5px 0px rgba(0,0,0,.1);
+        -webkit-transform: rotateX(0deg);
+        -moz-transform: rotateX(0deg);
+        transform: rotateX(0deg);
+    }
+    .btn-12:hover span:nth-child(2) {
+        box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+        7px 7px 20px 0px rgba(0,0,0,.1),
+        4px 4px 5px 0px rgba(0,0,0,.1);
+        color: transparent;
+        -webkit-transform: rotateX(-90deg);
+        -moz-transform: rotateX(-90deg);
+        transform: rotateX(-90deg);
     }
 
 

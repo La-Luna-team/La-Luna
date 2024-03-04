@@ -6,6 +6,8 @@ import com.laluna.laluna.domain.entity.Reply;
 import com.laluna.laluna.repository.ReplyRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -74,5 +76,19 @@ public class ReplyService {
         replyRepository.delete(findReply);
 
         return new DeleteReplyResponse(findReply.getReplynum());
+    }
+
+    public Page<ReadReplyResponse> replyList(Pageable pageable){
+
+        Page<Reply> replyPage = replyRepository.findAll(pageable);
+
+        return replyPage.map(reply -> new ReadReplyResponse(
+                reply.getReplynum(),
+                reply.getBoard().getBoardid(),
+                reply.getReplytext(),
+                reply.getReplyer(),
+                reply.getBoard().getRegdate(),
+                reply.getBoard().getModdate()
+        ));
     }
 }

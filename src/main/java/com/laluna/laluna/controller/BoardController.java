@@ -37,7 +37,7 @@ public class BoardController {
     public String readBoard(@PathVariable Long boardid, Model model) {
         ReadBoardResponse responseDTO = boardService.boardRead(boardid);
         model.addAttribute("board", responseDTO);
-        return "boardView";
+        return "boardview";
         //Spring MVC 는 뷰 리졸버(view resolver)를 사용하여 뷰 이름을 실제 뷰로 변환한다.
         //Thymeleaf 를 사용하는 경우 ThymeleafViewResolver 가 뷰 리졸버로 사용되며, 뷰 이름을 템플릿 파일의 경로로 변환한다.
         // 기본 설정에서는 src/main/resources/templates 디렉토리가 템플릿 파일의 기본 위치이다.
