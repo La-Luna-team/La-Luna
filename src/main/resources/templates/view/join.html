@@ -12,7 +12,7 @@
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                height: 100vh;
+                height: 200vh;
                 width: 100%;
             }
             .form-signin form {
@@ -51,6 +51,43 @@
                 <p>
                     <label for="email" class="sr-only">이메일</label>
                     <input type="text" id="email" name="email" class="form-control" placeholder="이메일">
+                </p>
+                <!-- 펫 정보 -->
+                <p>
+                    <label for="petName" class="sr-only">펫 이름</label>
+                    <input type="text" id="petName" name="petname" class="form-control" placeholder="펫 이름" required="">
+                </p>
+                <p>
+                    <label for="petAge" class="sr-only">펫 나이</label>
+                    <input type="number" id="petAge" name="petage" class="form-control" placeholder="펫 나이" required="">
+                </p>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="petsex"   value="true"  id="petSexMale">
+                    <label class="form-check-label" for="petSexMale">
+                        Male
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="petsex" value="false"  id="petSexFemale" checked>
+                    <label class="form-check-label" for="petSexFemale">
+                        Female
+                    </label>
+                </div>
+                 <p>
+                    <label for="petKind" class="sr-only">펫 종류</label>
+                    <input type="text" id="petKind" name="petkind" class="form-control" placeholder="펫 종류" required="">
+                </p>
+                <p>
+                    <label for="petFeature" class="sr-only">펫 특징</label>
+                    <input type="text" id="petFeature" name="petfeature" class="form-control" placeholder="펫 특징" required="">
+                </p>
+                <p>
+                    <label for="petVac" class="sr-only">펫 백신 여부</label>
+                    <input type="text" id="petVac" name="petvac" class="form-control" placeholder="펫 백신 여부" required="">
+                </p>
+                <p>
+                    <label for="petCondition" class="sr-only">펫 상태</label>
+                    <input type="text" id="petCondition" name="petcondition" class="form-control" placeholder="펫 상태" required="">
                 </p>
 
                 <button class="mt-5 btn btn-lg btn-outline-success btn-block w-100" type="submit"
