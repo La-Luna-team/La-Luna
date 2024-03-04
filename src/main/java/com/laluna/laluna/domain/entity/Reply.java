@@ -15,14 +15,19 @@ public class Reply {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long replyNum;
+    private Long replynum;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "boardId")
+    @JoinColumn(name = "boardid")
     private Board board;
 
-    private String replyText;
+    private String replytext;
 
     private String replyer;
+
+    public void update(String replytext,String replyer){
+        this.replytext = replytext;
+        this.replyer = replyer;
+    }
 
 }

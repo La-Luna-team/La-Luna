@@ -1,4 +1,4 @@
-package com.laluna.laluna.domain.dto.reply;
+package com.laluna.laluna.domain.dto.member;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DeleteReplyResponse {
+public class MemberLoginDto {
+    private String mid;
 
-    private Long replynum;
+    private String mpw;
 }

@@ -15,18 +15,19 @@
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            <a class="nav-link active" aria-current="page" href="/test">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
-                        </li>
+
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Dropdown
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" href="/boards/list">list</a></li>
+                                <li><a class="dropdown-item" href="/boards/register">register</a></li>
+                                <li><a class="dropdown-item" href="/test2">myPage</a></li>
+                                <li><a class="dropdown-item" href="/test3">myPage modify</a></li>
+                                <li><a class="dropdown-item" href="/test4">register!</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -35,14 +36,14 @@
                         </li>
                     </ul>
                     <!--로그인 폼-->
-                    <main class="form-signin w-70 m-auto">
-                        <form>
+                    <main class="w-70 m-auto">
+                        <form id="loginForm" method="post">
                             <div class="form-floating">
-                                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="mid">
                                 <label for="floatingInput">Id</label>
                             </div>
                             <div class="form-floating">
-                                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                                <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="mpw">
                                 <label for="floatingPassword">Password</label>
                             </div>
 
@@ -60,5 +61,50 @@
             </div>
         </div>
     </nav>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // form의 기본 submit 동작을 막음
+
+            var formData = new FormData(document.getElementById('loginForm'));
+
+            fetch('/login-process', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams(formData)
+            })
+                .then(function(response) {
+                    if (response.ok) {
+                        // 로그인 폼 숨기기
+                        document.getElementById('loginForm').style.display = 'none';
+
+                        // 로그아웃 버튼 보이기
+                        var logoutButton = document.createElement('button');
+                        logoutButton.textContent = 'Logout';
+                        logoutButton.addEventListener('click', function() {
+                            // 로그아웃 처리...
+                        });
+                        document.body.appendChild(logoutButton);
+
+                        // 사용자 이름 보이기
+                        // 이 부분은 서버에서 로그인 성공 시 사용자 이름을 같이 반환한다고 가정하고 작성했습니다.
+                        response.json().then(function(data) {
+                            var username = document.createElement('p');
+                            username.textContent = data.username; // data.username은 서버에서 반환한 사용자 이름입니다.
+                            document.body.appendChild(username);
+                        });
+
+                        window.location.href = "/view/dashboard"; // 페이지 이동
+                    } else {
+                        alert("로그인이 실패했습니다."); // 경고 창 표시
+                    }
+                })
+                .catch(function(error) {
+                    console.error('Error:', error);
+                });
+        });
+
+    </script>
 </th:block>
 </html>

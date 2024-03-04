@@ -14,7 +14,7 @@
 <body>
 <th:block layout:fragment="content">
     <div class="container" id="customContainer">
-
+        <form action = "/boards/register" method="post">
         <!-- 게시판 카테고리 -->
         <div class="row">
             <div class="col-md-3">
@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <select id="categorySelect" class="form-select">
+                <select id="categorySelect" class="form-select" name="category">
                     <option selected>게시판 카테고리를 선택해 주세요</option>
                     <option value="category1">카테고리 1</option>
                     <option value="category2">카테고리 2</option>
@@ -82,7 +82,7 @@
             </div>
             <div class="col-md-8">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" aria-label="Sizing example input"
+                    <input type="text" name="title" class="form-control" aria-label="Sizing example input"
                            aria-describedby="inputGroup-sizing-default" placeholder="제목을 입력하세요">
                 </div>
             </div>
@@ -97,7 +97,7 @@
             </div>
             <div class="col-md-8">
                 <div class="input-group mb-3">
-                        <textarea class="form-control" aria-label="Sizing example input"
+                        <textarea class="form-control" aria-label="Sizing example input" name="content"
                                   aria-describedby="inputGroup-sizing-default" placeholder="내용을 입력하세요"
                                   style="resize: vertical; color: #000;"></textarea>
                 </div>
@@ -119,7 +119,6 @@
             <br>
             <input type="text" id="hexInput" value="#47627b" oninput="changeColorByHex()">
         </div>
-
     </div>
 
     <!-- 등록 모달 -->
@@ -135,12 +134,12 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary" submitBtn>Submit</button>
                 </div>
             </div>
         </div>
     </div>
-
+    </form>
     <style>
         .col-md-4 {
             margin-left: 500px;
@@ -323,6 +322,18 @@
             img.alt = file.name;
             img.className = "thumbnail";
             return img;
+        }
+
+        const errors = [[${errors}]]
+        console.log(errors)
+
+        let errorMsh = ''
+
+        if(errors) {
+            for (let i = 0; i < errors.length; i++) {
+                errorMsg += `${errors[i].filed}은(는) ${errors[i].code} \n`
+            }
+            alert(errorMsg)
         }
     </script>
 </th:block>
