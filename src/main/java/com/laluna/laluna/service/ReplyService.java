@@ -20,19 +20,19 @@ public class ReplyService {
     public CreateReplyResponse replyCreate(CreateReplyRequest requestDTO) {
         Board board = new Board();
         Reply reply = Reply.builder()
-                .replyText(requestDTO.getReplyText())
+                .replytext(requestDTO.getReplytext())
                 .replyer(requestDTO.getReplyer())
                 .board(board)
                 .build();
         Reply saveReply = replyRepository.save(reply);
 
         return new CreateReplyResponse(
-                saveReply.getReplyNum(),
-                saveReply.getBoard().getBoardId(),
-                saveReply.getReplyText(),
+                saveReply.getReplynum(),
+                saveReply.getBoard().getBoardid(),
+                saveReply.getReplytext(),
                 saveReply.getReplyer(),
-                saveReply.getBoard().getRegDate(),
-                saveReply.getBoard().getModDate());
+                saveReply.getBoard().getRegdate(),
+                saveReply.getBoard().getModdate());
     }
 
     public ReadReplyResponse replyRead(Long replyNum) {
@@ -41,12 +41,12 @@ public class ReplyService {
                 .orElseThrow(() -> new EntityNotFoundException("해당 id로 조회된 댓글이 없습니다"));
 
         return new ReadReplyResponse(
-                findReply.getReplyNum(),
-                findReply.getBoard().getBoardId(),
-                findReply.getReplyText(),
+                findReply.getReplynum(),
+                findReply.getBoard().getBoardid(),
+                findReply.getReplytext(),
                 findReply.getReplyer(),
-                findReply.getBoard().getRegDate(),
-                findReply.getBoard().getModDate());
+                findReply.getBoard().getRegdate(),
+                findReply.getBoard().getModdate());
     }
 
     @Transactional
@@ -55,15 +55,15 @@ public class ReplyService {
         Reply findReply = replyRepository.findById(replyNum)
                 .orElseThrow(() -> new EntityNotFoundException("해당 id로 조회된 댓글이 없습니다"));
 
-        findReply.update(requestDTO.getReplyText(),requestDTO.getReplyer());
+        findReply.update(requestDTO.getReplytext(),requestDTO.getReplyer());
 
         return new UpdateReplyResponse(
-                findReply.getReplyNum(),
-                findReply.getBoard().getBoardId(),
-                findReply.getReplyText(),
+                findReply.getReplynum(),
+                findReply.getBoard().getBoardid(),
+                findReply.getReplytext(),
                 findReply.getReplyer(),
-                findReply.getBoard().getRegDate(),
-                findReply.getBoard().getModDate());
+                findReply.getBoard().getRegdate(),
+                findReply.getBoard().getModdate());
     }
 
     @Transactional
@@ -74,6 +74,6 @@ public class ReplyService {
 
         replyRepository.delete(findReply);
 
-        return new DeleteReplyResponse(findReply.getReplyNum());
+        return new DeleteReplyResponse(findReply.getReplynum());
     }
 }
