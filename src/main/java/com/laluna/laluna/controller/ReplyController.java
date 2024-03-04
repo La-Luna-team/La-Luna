@@ -21,7 +21,7 @@ public class ReplyController {
     @PostMapping("/createReply")
     public String createReply(@ModelAttribute CreateReplyRequest requestDTO, RedirectAttributes redirectAttributes){
         CreateReplyResponse createReplyResponse = replyService.replyCreate(requestDTO);
-        redirectAttributes.addFlashAttribute("message","댓글이 성공적으로 작성되었습니다. 댓글 ID: " + createReplyResponse.getReplyNum());
+        redirectAttributes.addFlashAttribute("message","댓글이 성공적으로 작성되었습니다. 댓글 ID: " + createReplyResponse.getReplynum());
         return "redirect:/view/boardview";
     }
 
