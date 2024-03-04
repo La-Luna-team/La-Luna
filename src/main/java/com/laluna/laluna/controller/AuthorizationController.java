@@ -1,7 +1,11 @@
 package com.laluna.laluna.controller;
 
+import com.laluna.laluna.domain.dto.join.MemberAndPetDto;
 import com.laluna.laluna.domain.dto.member.MemberJoinDto;
+import com.laluna.laluna.domain.entity.Member;
+import com.laluna.laluna.domain.entity.Pets;
 import com.laluna.laluna.domain.entity.Photo;
+import com.laluna.laluna.service.PetsService;
 import com.laluna.laluna.service.RegisterMemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthorizationController {
 
     private final RegisterMemberService registerMemberService;
+    private final PetsService petsService;
 
     @PostMapping("/join")
     public ResponseEntity<String> join(@RequestBody MemberJoinDto dto) {

@@ -15,13 +15,14 @@ public class RegisterMemberService {
 
     private final MemberRepository repository;
 
-    public Long join(String mid, String mpw, String mphone, String address,
+    public Member join(String mid, String mpw, String mphone, String address,
                      String email){
         Member member = Member.createUser(mid, mpw, passwordEncoder, mphone, address, email);
         validateDuplicateMember(member);
-        repository.save(member);
 
-        return member.getMnum();
+        return repository.save(member);
+
+
     }
 
 

@@ -22,7 +22,7 @@ public class Member {
     @Column(length = 20, nullable = false, unique = true)
     private String mid;
 
-    @Column(length = 20, nullable = false)
+    @Column(length = 500, nullable = false)
     private String mpw;
 
     private String roles;
