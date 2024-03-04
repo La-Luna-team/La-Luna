@@ -10,13 +10,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UpdateMemberRequest {
 
-    private String mId;
+    private String mid;
 
-    private String mPw;
+    private String mpw;
 
-    private String mPhone;
-
-    private Boolean mSex;
+    private String mphone;
 
     private String address;
 
