@@ -11,15 +11,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class UpdateReplyResponse {
 
-    private Long replyNum;
+    private Long replynum;
 
-    private Long boardId;
+    private Long boardid;
 
-    private String replyText;
+    private String replytext;
 
     private String replyer;
 
-    private LocalDateTime regDate;
+    private LocalDateTime regfate;
 
-    private LocalDateTime modDate;
+    private LocalDateTime modfate;
 }
