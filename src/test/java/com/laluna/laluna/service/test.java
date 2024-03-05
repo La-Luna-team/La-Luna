@@ -48,7 +48,7 @@ public class test {
             // then
             assertNotNull(responseDTO); // responseDTO가 null이 아님을 확인합니다.
 
-            Optional<Board> boardOptional = boardRepository.findById(responseDTO.getBoardId());
+            Optional<Board> boardOptional = boardRepository.findById(responseDTO.getBoardid());
             assertTrue(boardOptional.isPresent()); // board가 데이터베이스에 존재함을 확인합니다.
 
             Board board = boardOptional.get();

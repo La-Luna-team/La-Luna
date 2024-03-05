@@ -5,24 +5,25 @@ import com.laluna.laluna.service.ReplyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/api/replies")
+@RequestMapping("/reply")
 @RequiredArgsConstructor
 public class ReplyController {
 
     private final ReplyService replyService;
 
-
     @PostMapping("/createReply")
-    public String createReply(@ModelAttribute CreateReplyRequest requestDTO, RedirectAttributes redirectAttributes){
-        CreateReplyResponse createReplyResponse = replyService.replyCreate(requestDTO);
-        redirectAttributes.addFlashAttribute("message","댓글이 성공적으로 작성되었습니다. 댓글 ID: " + createReplyResponse.getReplynum());
-        return "redirect:/view/boardview";
+    public String createReply(@ModelAttribute CreateReplyRequest request, RedirectAttributes redirectAttributes){
+        CreateReplyResponse response = replyService.replyCreate(request);
+        redirectAttributes.addFlashAttribute("reply", response);
+        return "redirect:/test5";
     }
 
     @GetMapping("/viewReply/{replyNum}")

@@ -54,9 +54,9 @@ public class ReplyServiceTest {
 
         CreateReplyResponse createReplyResponse = replyService.replyCreate(createReplyRequest);
 
-        assertThat(createReplyResponse.getReplyNum()).isEqualTo(1L);
-        assertThat(createReplyResponse.getBoardId()).isNull();
-        assertThat(createReplyResponse.getReplyText()).isEqualTo("댓글 내용");
+        assertThat(createReplyResponse.getReplynum()).isEqualTo(1L);
+        assertThat(createReplyResponse.getBoardid()).isNull();
+        assertThat(createReplyResponse.getReplytext()).isEqualTo("댓글 내용");
         assertThat(createReplyResponse.getReplyer()).isEqualTo("유저");
     }
 
@@ -65,10 +65,10 @@ public class ReplyServiceTest {
     void readReply(){
         when(replyRepository.findById(any())).thenReturn(Optional.of(saveReply));
 
-        ReadReplyResponse readReplyResponse = replyService.replyRead(saveReply.getReplyNum());
+        ReadReplyResponse readReplyResponse = replyService.replyRead(saveReply.getReplynum());
 
-        assertThat(readReplyResponse.getReplyNum()).isEqualTo(saveReply.getReplyNum());
-        assertThat(readReplyResponse.getReplyText()).isEqualTo(saveReply.getReplyText());
+        assertThat(readReplyResponse.getReplynum()).isEqualTo(saveReply.getReplynum());
+        assertThat(readReplyResponse.getReplytext()).isEqualTo(saveReply.getReplytext());
         assertThat(readReplyResponse.getReplyer()).isEqualTo(saveReply.getReplyer());
     }
 
@@ -77,9 +77,9 @@ public class ReplyServiceTest {
     void updateReply(){
         given(replyRepository.findById(any())).willReturn(Optional.of(saveReply));
 
-        UpdateReplyResponse updateReplyResponse = replyService.replyUpdate(saveReply.getReplyNum(), updateReplyRequest);
+        UpdateReplyResponse updateReplyResponse = replyService.replyUpdate(saveReply.getReplynum(), updateReplyRequest);
 
-        assertThat(updateReplyResponse.getReplyText()).isEqualTo("변경된 내용");
+        assertThat(updateReplyResponse.getReplytext()).isEqualTo("변경된 내용");
         assertThat(updateReplyResponse.getReplyer()).isEqualTo("변경된 유저");
     }
 
@@ -88,9 +88,9 @@ public class ReplyServiceTest {
     void deleteReply(){
         when(replyRepository.findById(any())).thenReturn(Optional.of(saveReply));
 
-        DeleteReplyResponse response = replyService.deleteReply(saveReply.getReplyNum());
+        DeleteReplyResponse response = replyService.deleteReply(saveReply.getReplynum());
 
-        assertThat(response.getReplyNum()).isEqualTo(2L);
+        assertThat(response.getReplynum()).isEqualTo(2L);
     }
 
     @Test
