@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/reply")
+@RequestMapping("/boards")
 @RequiredArgsConstructor
 public class ReplyController {
 
     private final ReplyService replyService;
 
-    @PostMapping("/createReply")
+    @PostMapping("/boardview")
     public String createReply(@ModelAttribute CreateReplyRequest request, RedirectAttributes redirectAttributes){
         CreateReplyResponse response = replyService.replyCreate(request);
         redirectAttributes.addFlashAttribute("reply", response);

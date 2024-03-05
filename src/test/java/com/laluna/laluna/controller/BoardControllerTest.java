@@ -70,7 +70,7 @@ public class BoardControllerTest {
         // Then
         mockMvc.perform(get("/boards/" + boardid))
                 .andExpect(status().isOk())
-                .andExpect(view().name("boardView"));
+                .andExpect(view().name("boardview"));
     }
 
     @Test

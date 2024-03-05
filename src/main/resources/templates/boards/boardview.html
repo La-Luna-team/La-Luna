@@ -12,14 +12,14 @@
 <th:block layout:fragment="content">
     <div class="card" style="width: 65rem; margin: 0 auto;">
         <div class="card-body">
-            <h1 class="card-title">일상 게시판</h1>
-            <h3 class="card-subtitle mb-2 text-body-secondary">귀여운 나의 강아지</h3>
+            <h1 class="card-title" th:text="${board.category}"></h1>
+            <h3 class="card-subtitle mb-2 text-body-secondary" th:text="${board.title}"></h3>
     </div>
     <hr class="line1" />
                 <div class="Content">
                         <div class="user-body">
                             <div class="user-body">
-                                <p class="userid" style="padding-left: 20px">작성자:<span class="profilename">sy99639</span></p>
+                                <p class="userid" style="padding-left: 20px">작성자:<span class="profilename" th:text="${loginId}"></span></p>
                                 <p class="petid" style="padding-left: 20px">펫 정보: 짱아 포메라니안 6살 수컷 입양 팔팔함 6차 예방접촉</p>
                                 <button type="submit" class="btn btn-outline-success">게시글 수정</button>
                                 <button type="submit" class="btn btn-outline-danger" id="boardremove">게시글 삭제</button>
@@ -32,14 +32,14 @@
         <div class="row justify-content-between">
             <div class="Content">
                 <img th:src="@{/images/강아지 사진.jpg}" alt="..."/>
-    <p class="card-text">스타크래프트 립버전 1.16.1다운 스타크래프트 립버전 1.16.1다운 있을 것 같았다. 그건 실로 벅찬 감격이었다.고마워요 본드. 덕분에 마음이 아주 편해졌어요.고마워할 필요는 없어.킴은 미소지으며 손을 내밀었다. 니콜라는 기쁜 얼굴로 악수를  리를 질렀다. 이건....정말 상황 파악이 느린 녀석이로군. 네가 지금 어디에 스타크래프트 립버전 1.16.1다운 알기나 하는 거야 어리광을 받아주는 것도 여기까지다. 어서 이름이나 말해 어디서 감히 스타크래프트 립버전 1.16.1다운 지르나 천한  입구가 녹슬어 엉겨붙은 문을 열어 부지내</p>
+    <p class="card-text" th:text="${board.content}"></p>
     </div>
         </div>
     </div>
 </div>
         <hr class="line2" />
         <form action="/reply/createReply" method="POST">
-            <label for="replyContent" >댓글 내용:</label>
+            <span th:text="${loginId}" name="replyer"></span>
             <input type="text" id="replyContent" name="replytext" style="width: 400px;" placeholder="댓글을 입력해주세요.">
             <button type="submit" class="btn btn-primary">댓글 등록</button>
         </form>
@@ -54,6 +54,7 @@
                         <button id="modalRegisterButton" class="btn-register">등록하기</button>
                     </div>
                 </div>
+    </div>
 </th:block>
 
 <th:block layout:fragment="script">
