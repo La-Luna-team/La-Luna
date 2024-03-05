@@ -22,7 +22,7 @@
                                 <p class="userid" style="padding-left: 20px">작성자:<span class="profilename" th:text="${loginId}"></span></p>
                                 <p class="petid" style="padding-left: 20px">펫 정보: 짱아 포메라니안 6살 수컷 입양 팔팔함 6차 예방접촉</p>
                                 <button type="submit" class="btn btn-outline-success">게시글 수정</button>
-                                <button type="submit" class="btn btn-outline-danger" id="boardremove">게시글 삭제</button>
+                                <button type="submit" class="btn btn-outline-danger removeBtn" id="boardremove">게시글 삭제</button>
                             </div>
                 </div>
         </div>
@@ -38,9 +38,10 @@
     </div>
 </div>
         <hr class="line2" />
-        <form action="/reply/createReply" method="POST">
-            <span th:text="${loginId}" name="replyer"></span>
-            <input type="text" id="replyContent" name="replytext" style="width: 400px;" placeholder="댓글을 입력해주세요.">
+        <form action="/boards/boardview" method="post">
+            <input type="hidden" name="boardid" th:value="${board.boardid}">
+            <input type="hidden" name="replyer" th:value="${loginId}">
+            <input type="text" id="replyContent" name="replytext" style="width: 900px;" placeholder="댓글을 입력해주세요.">
             <button type="submit" class="btn btn-primary">댓글 등록</button>
         </form>
 

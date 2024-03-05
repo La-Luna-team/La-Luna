@@ -56,13 +56,13 @@ public class ReplyControllerTest {
     @Test
     public void testCreateReply() throws Exception {
         // Given
-        CreateReplyRequest requestDTO = new CreateReplyRequest("댓글 내용", "작성자");
-        CreateReplyResponse response = new CreateReplyResponse(1L, null, "댓글 내용", "작성자", null, null);
+        CreateReplyRequest requestDTO = new CreateReplyRequest("댓글 내용", "작성자", 1L);
+        CreateReplyResponse response = new CreateReplyResponse(1L, 1L, "댓글 내용", "작성자", null, null);
 
         //When
-        when(replyService.replyCreate(any(CreateReplyRequest.class))).thenReturn(response);
+        given(replyService.replyCreate(any())).willReturn(response);
         //Then
-        mockMvc.perform(post("/createReply")
+        mockMvc.perform(post("/boards/boardview")
                 .param("replytext", requestDTO.getReplytext())
                 .param("replyer", requestDTO.getReplyer()))
                 .andExpect(status().is3xxRedirection());
@@ -72,13 +72,13 @@ public class ReplyControllerTest {
     @Test
     public void testViewReply() throws Exception {
         // Given
-        Long replyNum = 1L;
+        Long replynum = 1L;
         ReadReplyResponse response = new ReadReplyResponse(1L,null, "댓글 내용", "작성자", null, null);
         when(replyService.replyRead(any())).thenReturn(response);
 
         // When & Then
-        mockMvc.perform(get("/api/replies/viewReply/{replynum}", replyNum))
-                .andExpect(status().isOk())
+        mockMvc.perform(get("/boards/replylist/{replynum}", replynum))
+                .andExpect(status().is3xxRedirection())
                 .andExpect(model().attributeExists("reply"))
                 .andExpect(view().name("boardview"))
                 .andExpect(model().attribute("reply", response))

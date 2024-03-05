@@ -14,4 +14,6 @@ public class CreateReplyRequest {
     private String replytext;
 
     private String replyer;
+
+    private Long boardid;
 }

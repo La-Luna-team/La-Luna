@@ -1,6 +1,9 @@
 package com.laluna.laluna.controller;
 
 import com.laluna.laluna.domain.dto.reply.*;
+import com.laluna.laluna.domain.entity.Board;
+import com.laluna.laluna.repository.BoardRepository;
+import com.laluna.laluna.service.BoardService;
 import com.laluna.laluna.service.ReplyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,19 +26,19 @@ public class ReplyController {
     public String createReply(@ModelAttribute CreateReplyRequest request, RedirectAttributes redirectAttributes){
         CreateReplyResponse response = replyService.replyCreate(request);
         redirectAttributes.addFlashAttribute("reply", response);
-        return "redirect:/boards/boardview";
+        return "redirect:/boards/read/"+ request.getBoardid();
     }
 
-    @GetMapping("/replylist")
-    public String viewReply(@PathVariable Long replyNum, Model model) {
-        ReadReplyResponse replyResponse = replyService.replyRead(replyNum);
+    @GetMapping("/replylist/{boardid}")
+    public String viewReply(@PathVariable Long replynum, Model model) {
+        ReadReplyResponse replyResponse = replyService.replyRead(replynum);
         model.addAttribute("reply", replyResponse);
         return "boardview";
     }
 
     @PutMapping("/{replyNum}")
-    public String updateReply(@PathVariable Long replyNum,@ModelAttribute UpdateReplyRequest requestDTO, RedirectAttributes redirectAttributes){
-        replyService.replyUpdate(replyNum, requestDTO);
+    public String updateReply(@PathVariable Long replynum,@ModelAttribute UpdateReplyRequest requestDTO, RedirectAttributes redirectAttributes){
+        replyService.replyUpdate(replynum, requestDTO);
         redirectAttributes.addFlashAttribute("message","ㅁ댓글이 성공적으로 수정되었습니다.");
         return "redirect:/view/boardview";
     }
