@@ -1,5 +1,6 @@
 package com.laluna.laluna.controller;
 
+import com.laluna.laluna.config.MyUserDetails;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -22,9 +23,12 @@ public class MemberController {
     }
 
     @GetMapping("/dashboard")
-    public String dashboardPage(@AuthenticationPrincipal User user, Model model) {
-        model.addAttribute("loginId", user.getUsername());
-        model.addAttribute("loginRoles", user.getAuthorities());
+    public String dashboardPage(@AuthenticationPrincipal MyUserDetails userDetails, Model model) {
+        model.addAttribute("loginId", userDetails.getUsername());
+        model.addAttribute("loginRoles", userDetails.getAuthorities());
+        model.addAttribute("loginMphone", userDetails.getMphone());
+        model.addAttribute("loginAddress", userDetails.getAddress());
+        model.addAttribute("loginEmail", userDetails.getEmail());
         return "/view/dashboard";
     }
 }
