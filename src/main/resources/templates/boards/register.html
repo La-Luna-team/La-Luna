@@ -24,9 +24,9 @@
             <div class="col-md-4">
                 <select id="categorySelect" class="form-select" name="category">
                     <option selected>게시판 카테고리를 선택해 주세요</option>
-                    <option value="category1">카테고리 1</option>
-                    <option value="category2">카테고리 2</option>
-                    <option value="category3">카테고리 3</option>
+                    <option value="category1">건강</option>
+                    <option value="category2">일상</option>
+                    <option value="category3">팁</option>
                 </select>
             </div>
         </div>
@@ -118,7 +118,7 @@
             <br>
             <input type="text" id="hexInput" value="#47627b" oninput="changeColorByHex()">
         </div>
-    </div>
+
 
     <!-- 등록 모달 -->
     <div class="modal" tabindex="-1" id="myModal">
@@ -138,7 +138,9 @@
             </div>
         </div>
     </div>
-    </form>
+        </form>
+</div>
+
     <style>
         .col-md-4 {
             margin-left: 500px;
@@ -307,8 +309,12 @@
             let dt = e.dataTransfer;
             let files = dt.files;
 
-            // 각 드롭 영역에 이미지를 표시하도록 수정
-            let dropArea = e.currentTarget;
+            // 파일 처리를 담당하는 공통 함수 호출
+            handleFiles(files, e.currentTarget);
+        }
+
+        // 파일 처리 및 이미지 표시를 담당하는 공통 함수
+        function handleFiles(files, dropArea) {
             dropArea.innerHTML = "";
 
             // 파일을 이미지로 표시하는 예시
@@ -328,17 +334,23 @@
             }
         }
 
-        const errors = [[${errors}]]
-        console.log(errors)
-
-        let errorMsh = ''
-
-        if(errors) {
-            for (let i = 0; i < errors.length; i++) {
-                errorMsg += `${errors[i].filed}은(는) ${errors[i].code} \n`
-            }
-            alert(errorMsg)
+        // 파일 입력 변경 이벤트 처리 함수
+        function handleFileInputChange(event, dropArea) {
+            handleFiles(event.target.files, dropArea);
         }
+
+        // 파일 입력 변경 이벤트에 대한 리스너 설정
+        document.getElementById("chooseFile1").addEventListener("change", function (e) {
+            handleFileInputChange(e, document.getElementById("drop-file1"));
+        });
+
+        document.getElementById("chooseFile2").addEventListener("change", function (e) {
+            handleFileInputChange(e, document.getElementById("drop-file2"));
+        });
+
+        document.getElementById("chooseFile3").addEventListener("change", function (e) {
+            handleFileInputChange(e, document.getElementById("drop-file3"));
+        });
     </script>
 </th:block>
 </body>
