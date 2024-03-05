@@ -15,6 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/boards")
 @RequiredArgsConstructor
@@ -30,11 +32,12 @@ public class ReplyController {
     }
 
     @GetMapping("/replylist/{boardid}")
-    public String viewReply(@PathVariable Long replynum, Model model) {
-        ReadReplyResponse replyResponse = replyService.replyRead(replynum);
-        model.addAttribute("reply", replyResponse);
-        return "boardview";
+    public String viewReply(@PathVariable("boardid") Long boardid, Model model) {
+        List<ReadReplyResponse> replyResponses = replyService.getRepliesByBoardId(boardid);
+        model.addAttribute("reply", replyResponses);
+        return "boards/boardview";
     }
+
 
     @PutMapping("/{replyNum}")
     public String updateReply(@PathVariable Long replynum,@ModelAttribute UpdateReplyRequest requestDTO, RedirectAttributes redirectAttributes){

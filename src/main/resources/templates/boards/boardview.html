@@ -44,7 +44,22 @@
             <input type="text" id="replyContent" name="replytext" style="width: 900px;" placeholder="댓글을 입력해주세요.">
             <button type="submit" class="btn btn-primary">댓글 등록</button>
         </form>
-
+        <table>
+            <thead>
+            <tr>
+                <th>아이디</th>
+                <th>댓글</th>
+                <th>작성일</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="reply : ${reply}">
+                <td th:text="${reply.replyer}"></td>
+                <td th:text="${reply.replytext}"></td>
+                <td th:text="${reply.regdate}"></td>
+            </tr>
+            </tbody>
+        </table>
         <p class="fixed_top">
             <a href="#">위로</a>
         </p>

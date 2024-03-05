@@ -10,6 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -39,19 +42,19 @@ public class ReplyService {
                 saveReply.getBoard().getModdate());
     }
 
-    public ReadReplyResponse replyRead(Long replynum) {
-
-        Reply findReply = replyRepository.findById(replynum)
-                .orElseThrow(() -> new EntityNotFoundException("해당 id로 조회된 댓글이 없습니다"));
-
-        return new ReadReplyResponse(
-                findReply.getReplynum(),
-                findReply.getBoard().getBoardid(),
-                findReply.getReplytext(),
-                findReply.getReplyer(),
-                findReply.getBoard().getRegdate(),
-                findReply.getBoard().getModdate());
+    public List<ReadReplyResponse> getRepliesByBoardId(Long boardid) {
+        List<Reply> replies = replyRepository.findByBoardBoardid(boardid);
+        return replies.stream()
+                .map(reply -> new ReadReplyResponse(
+                        reply.getReplynum(),
+                        reply.getBoard().getBoardid(),
+                        reply.getReplytext(),
+                        reply.getReplyer(),
+                        reply.getRegdate(),
+                        reply.getModdate()))
+                .collect(Collectors.toList());
     }
+
 
     @Transactional
     public UpdateReplyResponse replyUpdate(Long replynum, UpdateReplyRequest requestDTO){
@@ -80,4 +83,5 @@ public class ReplyService {
 
         return new DeleteReplyResponse(findReply.getReplynum());
     }
+
 }
