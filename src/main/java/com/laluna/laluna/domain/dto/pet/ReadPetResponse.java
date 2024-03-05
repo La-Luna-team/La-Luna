@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ReadPetResponse {
 
-    private Long petNum;  //펫 번호
+    private Long petnum;  //펫 번호
 
     private Member member;   //주인 정보 받아오기
 

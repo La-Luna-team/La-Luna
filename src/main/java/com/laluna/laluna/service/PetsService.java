@@ -1,11 +1,12 @@
 package com.laluna.laluna.service;
 
 import com.laluna.laluna.domain.dto.join.MemberAndPetDto;
-import com.laluna.laluna.domain.dto.pet.CreatePetRequest;
+import com.laluna.laluna.domain.dto.pet.ReadPetResponse;
 import com.laluna.laluna.domain.entity.Member;
 import com.laluna.laluna.domain.entity.Pets;
 import com.laluna.laluna.repository.MemberRepository;
 import com.laluna.laluna.repository.PetsRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -35,3 +36,4 @@ public class PetsService {
         return petsRepository.save(pets);
     }
 }
+
