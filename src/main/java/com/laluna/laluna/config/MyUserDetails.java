@@ -1,24 +1,31 @@
 package com.laluna.laluna.config;
 
+import com.laluna.laluna.domain.entity.Pets;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import java.util.Collection;
+import java.util.List;
 
 @Getter
 public class MyUserDetails extends User {
+    private Long mnum;
     private String mphone;
     private String address;
     private String email;
 
     public MyUserDetails(String username, String password,
                          Collection<? extends GrantedAuthority> authorities,
-                         String mphone, String address, String email) {
+                         Long mnum, String mphone, String address, String email) {
         super(username, password, authorities);
+        this.mnum = mnum;
         this.mphone = mphone;
         this.address = address;
         this.email = email;
+    }
+    public Long getmnum() {
+        return mnum;
     }
     public String getMphone() {
         return mphone;
