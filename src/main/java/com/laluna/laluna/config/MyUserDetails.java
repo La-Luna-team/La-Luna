@@ -1,12 +1,10 @@
 package com.laluna.laluna.config;
 
-import com.laluna.laluna.domain.entity.Pets;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import java.util.Collection;
-import java.util.List;
 
 @Getter
 public class MyUserDetails extends User {
