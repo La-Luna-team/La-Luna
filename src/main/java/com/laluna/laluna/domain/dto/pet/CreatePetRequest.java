@@ -10,9 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreatePetRequest {
-
-    private Member member;   //주인 정보 받아오기
-
+    
     private String petname; //펫 이름
 
     private int petage;  //펫 나이
