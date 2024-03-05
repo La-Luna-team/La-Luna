@@ -39,6 +39,7 @@ public class Pets {
     private String petcondition; //펫 건강상태
 
 
+
     public static Pets createPet( Member member, String petname, int petage, Boolean petsex,
                                    String petkind, String petfeature,String petvac, String petcondition ) {
 
