@@ -1,8 +1,9 @@
 package com.laluna.laluna.domain.dto.join;
 
-import com.laluna.laluna.domain.entity.Member;
 import com.laluna.laluna.domain.entity.Pets;
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,6 +17,7 @@ public class MemberAndPetDto {
     private String mphone;
     private String address;
     private String email;
+    private Long mnum;
 
     // 펫 정보
     private String petname;

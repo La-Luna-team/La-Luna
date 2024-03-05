@@ -36,7 +36,8 @@ public class MyUserDetailsService implements UserDetailsService {
                 authorities,
                 member.getMphone(),
                 member.getAddress(),
-                member.getEmail()
+                member.getEmail(),
+                member.getMnum()
         );
     }
 }

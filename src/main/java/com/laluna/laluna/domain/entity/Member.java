@@ -35,14 +35,15 @@ public class Member {
     @Column(length = 100)
     private String email;
 
-//    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-//    private List<Pets> pets;
+    @Getter
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Pets> pets;
 
 //    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
 //    private List<Board> board;
 
     public static Member createUser(String mid, String mpw, PasswordEncoder passwordEncoder, String mphone, String address,
-                                    String email) {
+                                    String email, Long mnum) {
 
         return Member.builder()
                 .mid(mid)
@@ -51,6 +52,7 @@ public class Member {
                 .mphone(mphone)
                 .address(address)
                 .email(email)
+                .mnum(mnum)
                 .build();
     }
 

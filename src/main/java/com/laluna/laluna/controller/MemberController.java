@@ -22,6 +22,7 @@ public class MemberController {
     }
 
     private void addLoginAttributes(MyUserDetails userDetails, Model model) {
+
         model.addAttribute("loginId", userDetails.getUsername());
         model.addAttribute("loginRoles", userDetails.getAuthorities());
         model.addAttribute("loginMphone", userDetails.getMphone());
@@ -40,7 +41,6 @@ public class MemberController {
         addLoginAttributes(userDetails, model);
         return "/view/mypage";
     }
-
 
 
 }

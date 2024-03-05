@@ -1,10 +1,6 @@
 package com.laluna.laluna.controller;
 
 import com.laluna.laluna.domain.dto.join.MemberAndPetDto;
-import com.laluna.laluna.domain.dto.member.MemberJoinDto;
-import com.laluna.laluna.domain.entity.Member;
-import com.laluna.laluna.domain.entity.Pets;
-import com.laluna.laluna.domain.entity.Photo;
 import com.laluna.laluna.service.PetsService;
 import com.laluna.laluna.service.RegisterMemberService;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +22,8 @@ public class AuthorizationController {
     public ResponseEntity<String> join(@RequestBody MemberAndPetDto dto) {
         System.out.println(dto.toString());  // 로깅
         try {
-            registerMemberService.join(dto.getMid(), dto.getMpw(), dto.getMphone(), dto.getAddress(), dto.getEmail());
-            petsService.savePet(dto, dto.getMid());
+            registerMemberService.join(dto.getMid(), dto.getMpw(), dto.getMphone(), dto.getAddress(), dto.getEmail(), dto.getMnum());
+            petsService.savePet(dto, dto.getMnum());
             return ResponseEntity.ok("join success");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());

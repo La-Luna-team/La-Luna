@@ -20,7 +20,7 @@ public class Pets {
     private Long petnum;  //펫 번호
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "mid")
+    @JoinColumn(name = "mnum")
     private Member member;   //주인 아이디 받아오기
 
     private String petname; //펫 이름
