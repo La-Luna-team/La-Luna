@@ -23,10 +23,10 @@ public class ReplyController {
     public String createReply(@ModelAttribute CreateReplyRequest request, RedirectAttributes redirectAttributes){
         CreateReplyResponse response = replyService.replyCreate(request);
         redirectAttributes.addFlashAttribute("reply", response);
-        return "redirect:/test5";
+        return "redirect:/boards/boardview";
     }
 
-    @GetMapping("/viewReply/{replyNum}")
+    @GetMapping("/replylist")
     public String viewReply(@PathVariable Long replyNum, Model model) {
         ReadReplyResponse replyResponse = replyService.replyRead(replyNum);
         model.addAttribute("reply", replyResponse);

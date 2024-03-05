@@ -38,11 +38,12 @@
     </div>
 </div>
         <hr class="line2" />
-        <form th:action="${createReply}" method="POST">
-            <label for="replyContent">댓글 내용:</label>
-            <input type="text" id="replyContent" name="content" style="width: 400px;" placeholder="댓글을 입력해주세요.">
+        <form action="/reply/createReply" method="POST">
+            <label for="replyContent" >댓글 내용:</label>
+            <input type="text" id="replyContent" name="replytext" style="width: 400px;" placeholder="댓글을 입력해주세요.">
             <button type="submit" class="btn btn-primary">댓글 등록</button>
         </form>
+
         <p class="fixed_top">
             <a href="#">위로</a>
         </p>

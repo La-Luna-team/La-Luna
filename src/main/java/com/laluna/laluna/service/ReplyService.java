@@ -18,11 +18,9 @@ public class ReplyService {
 
     @Transactional
     public CreateReplyResponse replyCreate(CreateReplyRequest requestDTO) {
-        Board board = new Board();
         Reply reply = Reply.builder()
                 .replytext(requestDTO.getReplytext())
                 .replyer(requestDTO.getReplyer())
-                .board(board)
                 .build();
         Reply saveReply = replyRepository.save(reply);
 
