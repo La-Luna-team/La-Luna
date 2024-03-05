@@ -11,32 +11,36 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Board extends Date{
 
     @Id
     @GeneratedValue
-    private Long boardId;
+    private Long boardid;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "mNum")
+    @JoinColumn(name = "mnum")
     private Member member;
 
 //    @Column(length = 50, nullable = false)
 //    private String writer;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 50)
     private String title;
 
-    @Column(length = 1000, nullable = false)
+    @Column(length = 1000)
     private String content;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 50)
     private String category;
 
-    private LocalDateTime regDate;
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+    private List<Photo> photos;
 
-    private LocalDateTime modDate;
-
-//    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
-//    private List<Photo> photo;
+    public void update(List<Photo> photos, String title, String content, String category) {
+        this.photos = photos;
+        this.title = title;
+        this.content = content;
+        this.category = category;
+    }
 }
