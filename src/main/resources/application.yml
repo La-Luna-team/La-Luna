@@ -18,3 +18,27 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL57Dialect
         show_sql: true
+cloud:
+  aws:
+    s3:
+      bucket: boards11
+    stack:
+      auto: false
+    region:
+      static: ap-northeast-2
+      auto: false
+    credentials:
+      accessKey: AKIA5FTZFRIBRM3JO663
+      secretKey: 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
+
+  spring:
+    servlet:
+      multipart:
+        max-file-size: 100MB
+        max-request-size: 100MB
+
+logging:
+  level:
+    com:
+      laluna:
+        laluna: debug
