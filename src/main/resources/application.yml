@@ -29,7 +29,7 @@ cloud:
       auto: false
     credentials:
       accessKey:
-      secretKey:
+      secretKey: asdf
 
   spring:
     servlet:
