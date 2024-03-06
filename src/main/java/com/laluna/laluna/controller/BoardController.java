@@ -48,13 +48,13 @@ public class BoardController {
         // 기본 설정에서는 src/main/resources/templates 디렉토리가 템플릿 파일의 기본 위치이다.
 
 
-    @PutMapping("/{boardid}")
+    @PutMapping("/update/{boardid}")
     public String updateBoard(@PathVariable Long boardid,
                               @ModelAttribute UpdateBoardRequest requestDTO,
                               RedirectAttributes redirectAttributes) {
         UpdateBoardResponse responseDTO = boardService.boardUpdate(boardid, requestDTO);
         redirectAttributes.addFlashAttribute("board", responseDTO);
-        return "redirect:/view/boardview/" + boardid;
+        return "redirect:/view/boardupdate/" + boardid;
     }
 
     @DeleteMapping("/delete/{boardid}")
