@@ -61,7 +61,7 @@
                 <td th:text="${reply.replytext}"></td>
                 <td th:text="${reply.regdate}"></td>
                 <td>
-                    <button class="delete-btn">삭제</button>
+                    <button class="delete-btn" th:data-replynum="${reply.replynum}">삭제</button>
                 </td>
             </tr>
             </tbody>
@@ -108,31 +108,18 @@
         //     }
         //     alert(commentContent +'가 입력되었습니다!');
         // }
-        document.querySelectorAll('.delete-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                // 삭제할 댓글의 번호 가져오기
-                const replynum = this.parentElement.dataset.replynum;
-
-                // 사용자에게 삭제 확인 메시지 표시
-                if (confirm('정말로 삭제하시겠습니까?')) {
-                    // 서버로 삭제 요청 보내기
-                    fetch(`/deleteReply/${replynum}`, {
-                        method: 'DELETE',
-                        headers: {
-                            'Content-Type': 'application/json'
+        document.querySelectorAll('.delete-btn').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                var replynum = e.target.getAttribute('data-replynum');
+                fetch('/deleteReply/' + replynum, { method: 'DELETE' })
+                    .then(function(response) {
+                        if (response.ok) {
+                            alert('댓글이 삭제되었습니다.');
+                            location.reload();  // 페이지를 새로 고침하여 댓글 목록을 업데이트합니다.
+                        } else {
+                            alert('댓글 삭제에 실패하였습니다.');
                         }
-                    })
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('댓글 삭제 중 오류가 발생했습니다.');
-                            }
-                            // 삭제가 성공하면 댓글을 화면에서 제거
-                            this.parentElement.remove();
-                        })
-                        .catch(error => {
-                            console.error('댓글 삭제 중 오류:', error);
-                        });
-                }
+                    });
             });
         });
     </script>

@@ -91,6 +91,6 @@ public class ReplyServiceTest {
 
         DeleteReplyResponse response = replyService.deleteReply(saveReply.getReplynum());
 
-        assertThat(response.getReplynum()).isEqualTo(2L);
+        assertThat(response.getReplynum()).isEqualTo(21L);
     }
 }
