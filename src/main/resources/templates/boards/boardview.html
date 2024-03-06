@@ -3,6 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/basic.html}">
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <meta charset="UTF-8">
     <th:block layout:fragment="head">
         <title>일상게시판</title>
@@ -60,17 +61,7 @@
                 <td th:text="${reply.replytext}"></td>
                 <td th:text="${reply.regdate}"></td>
                 <td>
-                    <button onclick="showEditForm('${reply.replynum}')">수정</button> <!-- 수정 버튼 -->
-                    <div id="editForm${reply.replynum}" style="display: none;"> <!-- 수정 폼 -->
-                        <form th:action="@{/updateReply}" method="post">
-                            <input type="hidden" name="replyer" th:value="${reply.replyer}">
-                            <input type="text" name="replytext" th:value="${reply.replytext}">
-                            <button type="submit">수정 완료</button>
-                        </form>
-                    </div>
-                </td>
-                <td>
-                <button onclick="deleteReply('${reply.replynum}')">삭제</button>
+                    <button class="delete-btn">삭제</button>
                 </td>
             </tr>
             </tbody>
@@ -90,82 +81,100 @@
 
 <th:block layout:fragment="script">
     <script>
-        const modalOpenButton = document.getElementById('modalOpenButton');
-        const modalCloseButton = document.getElementById('modalCloseButton');
-        const modalRegisterButton = document.getElementById('modalRegisterButton')
-        const modal = document.getElementById('modalContainer');
+        // const modalOpenButton = document.getElementById('modalOpenButton');
+        // const modalCloseButton = document.getElementById('modalCloseButton');
+        // const modalRegisterButton = document.getElementById('modalRegisterButton')
+        // const modal = document.getElementById('modalContainer');
+        //
+        // modalOpenButton.addEventListener('click', () => {
+        //     modal.classList.remove('hidden');
+        // });
+        //
+        // modalRegisterButton.addEventListener('click', ()=>{
+        //     modal.classList.add('hidden');
+        //     registerComment()
+        // });
+        //
+        // modalCloseButton.addEventListener('click', () => {
+        //     modal.classList.add('hidden');
+        // });
+        //
+        // function registerComment(){
+        //     const commentContent = document.getElementById('content').value;
+        //
+        //     if(commentContent.trim() ===''){
+        //         alert('댓글 내용을 입력해주세요');
+        //         return;
+        //     }
+        //     alert(commentContent +'가 입력되었습니다!');
+        // }
+        document.querySelectorAll('.delete-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                // 삭제할 댓글의 번호 가져오기
+                const replynum = this.parentElement.dataset.replynum;
 
-        modalOpenButton.addEventListener('click', () => {
-            modal.classList.remove('hidden');
+                // 사용자에게 삭제 확인 메시지 표시
+                if (confirm('정말로 삭제하시겠습니까?')) {
+                    // 서버로 삭제 요청 보내기
+                    fetch(`/deleteReply/${replynum}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('댓글 삭제 중 오류가 발생했습니다.');
+                            }
+                            // 삭제가 성공하면 댓글을 화면에서 제거
+                            this.parentElement.remove();
+                        })
+                        .catch(error => {
+                            console.error('댓글 삭제 중 오류:', error);
+                        });
+                }
+            });
         });
-
-        modalRegisterButton.addEventListener('click', ()=>{
-            modal.classList.add('hidden');
-            registerComment()
-        });
-
-        modalCloseButton.addEventListener('click', () => {
-            modal.classList.add('hidden');
-        });
-
-        function registerComment(){
-            const commentContent = document.getElementById('content').value;
-
-            if(commentContent.trim() ===''){
-                alert('댓글 내용을 입력해주세요');
-                return;
-            }
-            alert(commentContent +'가 입력되었습니다!');
-        }
-        function deleteReply(replynum){
-            if(confirm("정말로 삭제하겠습니까?")){
-                $.ajax({
-                    url:'/deleteReply/' + replynum,
-                    type: 'DELETE',
-                    success: function (response){
-                        console.log('댓글이 삭제되었습니다:', response);
-                        location.reload();
-                    },
-                    error:function (xhr, status, error){
-                        console.error('댓글 삭제중 오류가 발생:', error);
-                    }
-                });
-            }else{
-                console.log('댓글 삭제가 취소되었습니다.')
-            }
-        }
     </script>
 </th:block>
 </body>
 </html>
 <style>
-    .card-title{
+    .card-title {
         text-align: center;
     }
-    .card-subtitle{
+
+    .card-subtitle {
         text-align: center;
     }
+
     .user-body {
         display: flex;
         flex-direction: column;
     }
-    .userid{
-        margin:0;
+
+    .userid {
+        margin: 0;
     }
-    .petid{
-        margin:0;
+
+    .petid {
+        margin: 0;
     }
-    .profilename{
+
+    .profilename {
         margin-left: 5px;
     }
-    .line1{
+
+    .line1 {
         width: 100%;
         margin-right: unset;
     }
+
     .line2 {
         width: 100%;
         margin: 0;
     }
+
     .btn-outline-danger{
         position: absolute;
         right: 10px;

@@ -39,8 +39,8 @@ public class ReplyController {
     }
 
     @DeleteMapping("/deleteReply/{replynum}")
-    public ResponseEntity<?> deleteReply(@PathVariable Long replynum){
-        replyService.deleteReply(replynum);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<DeleteReplyResponse> deleteReply(@PathVariable Long replynum) {
+        DeleteReplyResponse response = replyService.deleteReply(replynum);
+        return ResponseEntity.ok(response);
     }
 }
