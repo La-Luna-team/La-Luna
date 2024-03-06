@@ -1,48 +1,46 @@
 package com.laluna.laluna.controller;
 
 import com.laluna.laluna.domain.dto.reply.*;
+import com.laluna.laluna.domain.entity.Board;
+import com.laluna.laluna.repository.BoardRepository;
+import com.laluna.laluna.service.BoardService;
 import com.laluna.laluna.service.ReplyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 @Controller
-@RequestMapping("/api/replies")
+@RequestMapping("/reply")
 @RequiredArgsConstructor
 public class ReplyController {
 
     private final ReplyService replyService;
 
+    @PostMapping("/boardview")
+    public String createReply(@ModelAttribute CreateReplyRequest request, RedirectAttributes redirectAttributes){
+        CreateReplyResponse response = replyService.replyCreate(request);
+        redirectAttributes.addFlashAttribute("replies", response);
+        return "redirect:/boards/read/"+ request.getBoardid();
+    }
 
-    @PostMapping("/createReply")
-    public String createReply(@ModelAttribute CreateReplyRequest requestDTO, RedirectAttributes redirectAttributes){
-        CreateReplyResponse createReplyResponse = replyService.replyCreate(requestDTO);
-        redirectAttributes.addFlashAttribute("message","댓글이 성공적으로 작성되었습니다. 댓글 ID: " + createReplyResponse.getReplynum());
+    @PutMapping("/updateReply")
+    public String updateReply(@PathVariable Long replynum,@ModelAttribute UpdateReplyRequest requestDTO, RedirectAttributes redirectAttributes){
+        replyService.replyUpdate(replynum, requestDTO);
+        redirectAttributes.addFlashAttribute("message","댓글이 성공적으로 수정되었습니다.");
         return "redirect:/view/boardview";
     }
 
-    @GetMapping("/viewReply/{replyNum}")
-    public String viewReply(@PathVariable Long replyNum, Model model) {
-        ReadReplyResponse replyResponse = replyService.replyRead(replyNum);
-        model.addAttribute("reply", replyResponse);
-        return "boardview";
-    }
-
-    @PutMapping("/{replyNum}")
-    public String updateReply(@PathVariable Long replyNum,@ModelAttribute UpdateReplyRequest requestDTO, RedirectAttributes redirectAttributes){
-        replyService.replyUpdate(replyNum, requestDTO);
-        redirectAttributes.addFlashAttribute("message","ㅁ댓글이 성공적으로 수정되었습니다.");
-        return "redirect:/view/boardview";
-    }
-
-    @DeleteMapping("/{replynum}")
-    public String deleteReply(@PathVariable Long replynum, RedirectAttributes redirectAttributes){
-        replyService.deleteReply(replynum);
-        redirectAttributes.addFlashAttribute("message","댓글이 삭제되었습니다.");
-        return "redirect:/view/boardview";
+    @DeleteMapping("/deleteReply/{replynum}")
+    public ResponseEntity<DeleteReplyResponse> deleteReply(@PathVariable Long replynum) {
+        DeleteReplyResponse response = replyService.deleteReply(replynum);
+        return ResponseEntity.ok(response);
     }
 }

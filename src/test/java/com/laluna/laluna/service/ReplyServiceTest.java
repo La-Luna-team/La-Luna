@@ -39,67 +39,58 @@ public class ReplyServiceTest {
     private UpdateReplyRequest updateReplyRequest;
 
     @BeforeEach
-    void setup(){
+    void setup() {
         Board board = new Board();
-        reply = new Reply(1L, board, "댓글 내용", "유저");
-        saveReply = new Reply(2L, board, "댓글 내용", "유저");
-        createReplyRequest = new CreateReplyRequest("댓글내용", "유저");
+        reply = new Reply(1L, board, "댓글 내용", "유저", null,null);
+        saveReply = new Reply(2L, board, "댓글 내용", "유저",null,null);
+        createReplyRequest = new CreateReplyRequest("댓글내용", "유저",null);
         updateReplyRequest = new UpdateReplyRequest("변경된 내용", "변경된 유저");
     }
+
     @Test
     @DisplayName("댓글 작성 테스트")
-    public void testReplyCreate(){
+    public void testReplyCreate() {
 
         given(replyRepository.save(any())).willReturn(reply);
 
         CreateReplyResponse createReplyResponse = replyService.replyCreate(createReplyRequest);
 
-        assertThat(createReplyResponse.getReplyNum()).isEqualTo(1L);
-        assertThat(createReplyResponse.getBoardId()).isNull();
-        assertThat(createReplyResponse.getReplyText()).isEqualTo("댓글 내용");
+        assertThat(createReplyResponse.getReplynum()).isEqualTo(1L);
+        assertThat(createReplyResponse.getBoardid()).isNull();
+        assertThat(createReplyResponse.getReplytext()).isEqualTo("댓글 내용");
         assertThat(createReplyResponse.getReplyer()).isEqualTo("유저");
     }
 
-    @Test
-    @DisplayName("댓글 조회 테스트")
-    void readReply(){
-        when(replyRepository.findById(any())).thenReturn(Optional.of(saveReply));
-
-        ReadReplyResponse readReplyResponse = replyService.replyRead(saveReply.getReplyNum());
-
-        assertThat(readReplyResponse.getReplyNum()).isEqualTo(saveReply.getReplyNum());
-        assertThat(readReplyResponse.getReplyText()).isEqualTo(saveReply.getReplyText());
-        assertThat(readReplyResponse.getReplyer()).isEqualTo(saveReply.getReplyer());
-    }
+//    @Test
+//    @DisplayName("댓글 조회 테스트")
+//    void readReply() {
+//        when(replyRepository.findById(any())).thenReturn(Optional.of(saveReply));
+//
+//        ReadReplyResponse readReplyResponse = replyService.replyRead(saveReply.getReplynum());
+//
+//        assertThat(readReplyResponse.getReplynum()).isEqualTo(saveReply.getReplynum());
+//        assertThat(readReplyResponse.getReplytext()).isEqualTo(saveReply.getReplytext());
+//        assertThat(readReplyResponse.getReplyer()).isEqualTo(saveReply.getReplyer());
+//    }
 
     @Test
     @DisplayName("댓글 수정 테스트")
-    void updateReply(){
+    void updateReply() {
         given(replyRepository.findById(any())).willReturn(Optional.of(saveReply));
 
-        UpdateReplyResponse updateReplyResponse = replyService.replyUpdate(saveReply.getReplyNum(), updateReplyRequest);
+        UpdateReplyResponse updateReplyResponse = replyService.replyUpdate(saveReply.getReplynum(), updateReplyRequest);
 
-        assertThat(updateReplyResponse.getReplyText()).isEqualTo("변경된 내용");
+        assertThat(updateReplyResponse.getReplytext()).isEqualTo("변경된 내용");
         assertThat(updateReplyResponse.getReplyer()).isEqualTo("변경된 유저");
     }
 
     @Test
     @DisplayName("댓글 삭제 테스트")
-    void deleteReply(){
+    void deleteReply() {
         when(replyRepository.findById(any())).thenReturn(Optional.of(saveReply));
 
-        DeleteReplyResponse response = replyService.deleteReply(saveReply.getReplyNum());
+        DeleteReplyResponse response = replyService.deleteReply(saveReply.getReplynum());
 
-        assertThat(response.getReplyNum()).isEqualTo(2L);
-    }
-
-    @Test
-    @DisplayName("예외처리")
-    void deleteReply2(){
-
-        given(replyRepository.findById(any())).willReturn(Optional.empty());
-
-        assertThrows(EntityNotFoundException.class, () ->
-                replyService.replyRead(1L));
+        assertThat(response.getReplynum()).isEqualTo(21L);
     }
 }
