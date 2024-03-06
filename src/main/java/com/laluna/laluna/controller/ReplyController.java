@@ -27,29 +27,20 @@ public class ReplyController {
     @PostMapping("/boardview")
     public String createReply(@ModelAttribute CreateReplyRequest request, RedirectAttributes redirectAttributes){
         CreateReplyResponse response = replyService.replyCreate(request);
-        redirectAttributes.addFlashAttribute("reply", response);
+        redirectAttributes.addFlashAttribute("replies", response);
         return "redirect:/boards/read/"+ request.getBoardid();
     }
 
-    @GetMapping("/replylist/{boardid}")
-    public String viewReply(@PathVariable("boardid") Long boardid, Model model) {
-        List<ReadReplyResponse> replyResponses = replyService.getRepliesByBoardId(boardid);
-        model.addAttribute("reply", replyResponses);
-        return "boards/boardview";
-    }
-
-
-    @PutMapping("/{replyNum}")
+    @PutMapping("/updateReply")
     public String updateReply(@PathVariable Long replynum,@ModelAttribute UpdateReplyRequest requestDTO, RedirectAttributes redirectAttributes){
         replyService.replyUpdate(replynum, requestDTO);
-        redirectAttributes.addFlashAttribute("message","ㅁ댓글이 성공적으로 수정되었습니다.");
+        redirectAttributes.addFlashAttribute("message","댓글이 성공적으로 수정되었습니다.");
         return "redirect:/view/boardview";
     }
 
-    @DeleteMapping("/{replynum}")
-    public String deleteReply(@PathVariable Long replynum, RedirectAttributes redirectAttributes){
+    @DeleteMapping("/deleteReply/{replynum}")
+    public ResponseEntity<?> deleteReply(@PathVariable Long replynum){
         replyService.deleteReply(replynum);
-        redirectAttributes.addFlashAttribute("message","댓글이 삭제되었습니다.");
-        return "redirect:/view/boardview";
+        return ResponseEntity.ok().build();
     }
 }

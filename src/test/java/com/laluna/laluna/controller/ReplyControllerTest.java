@@ -69,21 +69,21 @@ public class ReplyControllerTest {
     }
 
 
-    @Test
-    public void testViewReply() throws Exception {
-        // Given
-        Long replynum = 1L;
-        ReadReplyResponse response = new ReadReplyResponse(1L,null, "댓글 내용", "작성자", null, null);
-        when(replyService.replyRead(any())).thenReturn(response);
-
-        // When & Then
-        mockMvc.perform(get("/boards/replylist/{replynum}", replynum))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(model().attributeExists("reply"))
-                .andExpect(view().name("boardview"))
-                .andExpect(model().attribute("reply", response))
-                .andDo(print());
-    }
+//    @Test
+//    public void testViewReply() throws Exception {
+//        // Given
+//        Long replynum = 1L;
+//        ReadReplyResponse response = new ReadReplyResponse(1L,null, "댓글 내용", "작성자", null, null);
+//        when(replyService.replyRead(any())).thenReturn(response);
+//
+//        // When & Then
+//        mockMvc.perform(get("/boards/replylist/{replynum}", replynum))
+//                .andExpect(status().is3xxRedirection())
+//                .andExpect(model().attributeExists("reply"))
+//                .andExpect(view().name("boardview"))
+//                .andExpect(model().attribute("reply", response))
+//                .andDo(print());
+//    }
 
     @Test
     public void testUpdateReply() throws Exception {

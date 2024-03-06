@@ -1,8 +1,11 @@
 package com.laluna.laluna.controller;
 
 import com.laluna.laluna.domain.dto.board.*;
+import com.laluna.laluna.domain.dto.reply.ReadReplyResponse;
 import com.laluna.laluna.service.BoardService;
+import com.laluna.laluna.service.ReplyService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -12,12 +15,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/boards")
 @RequiredArgsConstructor
 public class BoardController {
 
     private final BoardService boardService;
+
+    @Autowired
+    private ReplyService replyService;
 
     @GetMapping("/register")
     public void createGET() {
@@ -36,6 +44,8 @@ public class BoardController {
     @GetMapping("/read/{boardid}")
     public String readBoard(@PathVariable("boardid") Long boardid, Model model) {
         ReadBoardResponse responseDTO = boardService.boardRead(boardid);
+        List<ReadReplyResponse> responseList = replyService.getRepliesByBoardId(boardid);
+        model.addAttribute("replies", responseList);
         model.addAttribute("board", responseDTO);
         return "boards/boardview";
     }

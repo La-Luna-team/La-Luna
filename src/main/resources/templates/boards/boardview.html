@@ -47,16 +47,31 @@
         <table>
             <thead>
             <tr>
+                <th>댓글번호</th>
                 <th>아이디</th>
                 <th>댓글</th>
                 <th>작성일</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="reply : ${reply}">
+            <tr th:each="reply : ${replies}">
+                <td th:text="${reply.replynum}"></td>
                 <td th:text="${reply.replyer}"></td>
                 <td th:text="${reply.replytext}"></td>
                 <td th:text="${reply.regdate}"></td>
+                <td>
+                    <button onclick="showEditForm('${reply.replynum}')">수정</button> <!-- 수정 버튼 -->
+                    <div id="editForm${reply.replynum}" style="display: none;"> <!-- 수정 폼 -->
+                        <form th:action="@{/updateReply}" method="post">
+                            <input type="hidden" name="replyer" th:value="${reply.replyer}">
+                            <input type="text" name="replytext" th:value="${reply.replytext}">
+                            <button type="submit">수정 완료</button>
+                        </form>
+                    </div>
+                </td>
+                <td>
+                <button onclick="deleteReply('${reply.replynum}')">삭제</button>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -102,9 +117,22 @@
             }
             alert(commentContent +'가 입력되었습니다!');
         }
-        function removeBoard(){
-            const remove = document.getElementById('boardremove').value;
-            alert('게시물이 삭제 되었습니다.')
+        function deleteReply(replynum){
+            if(confirm("정말로 삭제하겠습니까?")){
+                $.ajax({
+                    url:'/deleteReply/' + replynum,
+                    type: 'DELETE',
+                    success: function (response){
+                        console.log('댓글이 삭제되었습니다:', response);
+                        location.reload();
+                    },
+                    error:function (xhr, status, error){
+                        console.error('댓글 삭제중 오류가 발생:', error);
+                    }
+                });
+            }else{
+                console.log('댓글 삭제가 취소되었습니다.')
+            }
         }
     </script>
 </th:block>
