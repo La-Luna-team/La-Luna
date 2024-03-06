@@ -1,5 +1,6 @@
 package com.laluna.laluna.controller;
 
+import com.laluna.laluna.config.MyUserDetails;
 import com.laluna.laluna.domain.dto.board.*;
 import com.laluna.laluna.service.BoardService;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,6 +12,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -47,7 +49,7 @@ public class BoardControllerTest {
         RedirectAttributes redirectAttributes = new RedirectAttributesModelMap();
 
         // When
-        when(boardService.boardCreate(any(CreateBoardRequest.class))).thenReturn(responseDTO);
+        when(boardService.boardCreate(any(MyUserDetails.class), any(CreateBoardRequest.class))).thenReturn(responseDTO);
 
         // Then
         mockMvc.perform(post("/boards/create")

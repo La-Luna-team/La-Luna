@@ -1,5 +1,6 @@
 package com.laluna.laluna.domain.dto.board;
 
+import com.laluna.laluna.domain.dto.pet.PetResponse;
 import com.laluna.laluna.domain.entity.Photo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,4 +27,8 @@ public class ReadBoardResponse {
     private LocalDateTime regdate;
 
     private LocalDateTime moddate;
+
+    private String mid;
+
+    private List<PetResponse> pets;
 }
