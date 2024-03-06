@@ -138,7 +138,25 @@
             </div>
         </div>
     </div>
-        </form>
+    <!-- 사진 업로드 모달 -->
+    <div class="modal" tabindex="-1" id="uploadModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                     <h5 class="modal-title">사진 업로드 확인</h5>
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+            <div class="modal-body">
+                <p>사진을 업로드 하시겠습니까?</p>
+            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="confirmUpload()">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 </div>
 
     <style>
@@ -351,6 +369,20 @@
         document.getElementById("chooseFile3").addEventListener("change", function (e) {
             handleFileInputChange(e, document.getElementById("drop-file3"));
         });
+
+        function confirmRegister() {
+            // 게시글 등록 확인 처리
+            alert("게시글이 등록되었습니다.");
+            // 모달 닫기
+            $('#registerModal').modal('hide');
+        }
+
+        function confirmUpload() {
+            // 사진 업로드 확인 처리
+            alert("사진이 업로드되었습니다.");
+            // 모달 닫기
+            $('#uploadModal').modal('hide');
+        }
     </script>
 </th:block>
 </body>

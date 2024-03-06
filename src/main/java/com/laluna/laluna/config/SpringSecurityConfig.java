@@ -28,7 +28,7 @@ public class SpringSecurityConfig {
             .cors(cors -> cors.disable())
                 .authorizeHttpRequests(request -> request
                                 .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
-                                .requestMatchers("/images/**","/view/join","/auth/join", "/test","/boards/list").permitAll()
+                                .requestMatchers("/images/**","/view/join","/auth/join", "/test","/boards/list","/upload").permitAll()
 //                        .requestMatchers("/view/setting/admin").hasRole("ADMIN")
 //                        .requestMatchers("/view/setting/user").hasRole("USER")
                                 .anyRequest().authenticated()	// 어떠한 요청이라도 인증필요
