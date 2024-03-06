@@ -1,6 +1,8 @@
 package com.laluna.laluna.config;
 
 import com.laluna.laluna.domain.entity.Member;
+import com.laluna.laluna.domain.entity.Pets;
+import com.laluna.laluna.repository.PetsRepository;
 import com.laluna.laluna.service.MemberService;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -34,6 +36,7 @@ public class MyUserDetailsService implements UserDetailsService {
                 member.getMid(),
                 member.getMpw(),
                 authorities,
+                member.getMnum(),
                 member.getMphone(),
                 member.getAddress(),
                 member.getEmail()

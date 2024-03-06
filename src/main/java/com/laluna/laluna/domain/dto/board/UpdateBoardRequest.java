@@ -22,5 +22,4 @@ public class UpdateBoardRequest {
 
     private String category; //게시글 카테고리 (건강, 팁, 일상)
 
-
 }

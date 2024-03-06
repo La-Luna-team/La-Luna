@@ -9,6 +9,8 @@ import com.laluna.laluna.repository.PetsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class PetsService {
@@ -33,5 +35,9 @@ public class PetsService {
 
         System.out.println(pets);
         return petsRepository.save(pets);
+    }
+
+    public List<Pets> findPetsByMemberMid(Long mnum) {
+        return petsRepository.findByMember_Mnum(mnum);
     }
 }

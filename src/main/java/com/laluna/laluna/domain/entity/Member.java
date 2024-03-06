@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -35,11 +36,11 @@ public class Member {
     @Column(length = 100)
     private String email;
 
-//    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-//    private List<Pets> pets;
+   @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+   private List<Pets> pets = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
-//    private List<Board> board;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Board> board = new ArrayList<>();
 
     public static Member createUser(String mid, String mpw, PasswordEncoder passwordEncoder, String mphone, String address,
                                     String email) {

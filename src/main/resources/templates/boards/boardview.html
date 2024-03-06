@@ -19,10 +19,35 @@
                 <div class="Content">
                         <div class="user-body">
                             <div class="user-body">
-                                <p class="userid" style="padding-left: 20px">작성자:<span class="profilename">sy99639</span></p>
-                                <p class="petid" style="padding-left: 20px">펫 정보: 짱아 포메라니안 6살 수컷 입양 팔팔함 6차 예방접촉</p>
+                                <p>작성자: <span th:text="${board.mid}"></span></p>
+                                <div th:each="petResponse : ${board.pets}">
+                                    <p th:text="${petResponse.petname}"></p>
+                                    <p th:text="${petResponse.petage}"></p>
+                                    <p th:text="${petResponse.petkind}"></p>
+                                    <p th:text="${petResponse.petfeature}"></p>
+                                    <p th:text="${petResponse.petvac}"></p>
+                                    <p th:text="${petResponse.petcondition}"></p>
+                                    <p th:text="${petResponse.petsex ? '수컷' : '암컷'}"></p>
+                                </div>
                                 <button type="submit" class="btn btn-outline-success">게시글 수정</button>
-                                <button type="submit" class="btn btn-outline-danger" id="boardremove">게시글 삭제</button>
+                                <button type="button" class="btn btn-outline-danger" id="boardremove">게시글 삭제</button>
+                                <div class="modal" tabindex="-1" role="dialog" id="myModal">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content rounded-4 shadow">
+                                            <div class="modal-header border-bottom-0">
+                                                <h1 class="modal-title fs-5">수정하기</h1>
+                                                <button id="close" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body py-0">
+                                                <p3>삭제 하시겠습니까?</p3>
+                                            </div>
+                                            <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
+                                                <button type="button" class="btn btn-lg btn-primary" id="remove">삭제하기</button>
+                                                <button id="close1" type="button" class="btn btn-lg btn-secondary" data-bs-dismiss="modal">취소하기</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                 </div>
         </div>
@@ -32,7 +57,7 @@
         <div class="row justify-content-between">
             <div class="Content">
                 <img th:src="@{/images/강아지 사진.jpg}" alt="..."/>
-    <p class="card-text">스타크래프트 립버전 1.16.1다운 스타크래프트 립버전 1.16.1다운 있을 것 같았다. 그건 실로 벅찬 감격이었다.고마워요 본드. 덕분에 마음이 아주 편해졌어요.고마워할 필요는 없어.킴은 미소지으며 손을 내밀었다. 니콜라는 기쁜 얼굴로 악수를  리를 질렀다. 이건....정말 상황 파악이 느린 녀석이로군. 네가 지금 어디에 스타크래프트 립버전 1.16.1다운 알기나 하는 거야 어리광을 받아주는 것도 여기까지다. 어서 이름이나 말해 어디서 감히 스타크래프트 립버전 1.16.1다운 지르나 천한  입구가 녹슬어 엉겨붙은 문을 열어 부지내</p>
+                <input type="text" class="form-control" th:value="${board.content}" readonly>
     </div>
         </div>
     </div>
@@ -57,6 +82,9 @@
                         <button id="modalRegisterButton" class="btn-register">등록하기</button>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
 </th:block>
 
 <th:block layout:fragment="script">
@@ -88,10 +116,32 @@
             }
             alert(commentContent +'가 입력되었습니다!');
         }
-        function removeBoard(){
-            const remove = document.getElementById('boardremove').value;
-            alert('게시물이 삭제 되었습니다.')
-        }
+
+
+        document.addEventListener('DOMContentLoaded', function(){
+            var btn = document.getElementById('boardremove');
+            var modal = new bootstrap.Modal(document.getElementById('myModal'));
+
+            btn.addEventListener('click', function(){
+                modal.show();
+            });
+        });
+
+        document.getElementById('remove').addEventListener('click', function() {
+            // 현재 페이지의 URL에서 게시글 ID 추출
+            var boardid = window.location.pathname.split('/')[3];
+
+            // 삭제 요청 보내기
+            fetch('/boards/delete/' + boardid, {
+                method: 'DELETE',
+            }).then(function(response) {
+                // 요청이 성공적으로 완료되었는지와 상관없이 게시글 목록 페이지로 이동
+                window.location.href = '/boards/list';
+            }).catch(function(error) {
+                // 네트워크 에러 처리
+                console.error('Network error: ' + error);
+            });
+        });
     </script>
 </th:block>
 </body>
@@ -201,7 +251,9 @@
     .btn-close {
         float: right;
     }
-
+    .modal-dialog {
+        margin-top: 0; /* 모달의 상단 여백을 0으로 설정 */
+    }
 
 
 
