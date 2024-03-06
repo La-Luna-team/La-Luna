@@ -39,19 +39,14 @@ public class Pets {
     private String petcondition; //펫 건강상태
 
 
-    public static Pets createPet( Member member, String petname, int petage, Boolean petsex,
-                                   String petkind, String petfeature,String petvac, String petcondition ) {
-
-        return Pets.builder()
-                .member(member)
-                .petname(petname)
-                .petage(petage)
-                .petsex(petsex)
-                .petkind(petkind)
-                .petfeature(petfeature)
-                .petvac(petvac)
-                .petcondition(petcondition)
-                .build();
+    public void update( String petname, int petage, Boolean petsex, String petkind, String petfeature,String petvac, String petcondition ) {
+                this.petname = petname;
+                this.petage = petage;
+                this.petsex = petsex;
+                this.petkind = petkind;
+                this.petfeature = petfeature;
+                this.petvac = petvac;
+                this.petcondition = petcondition;
     }
 
 }

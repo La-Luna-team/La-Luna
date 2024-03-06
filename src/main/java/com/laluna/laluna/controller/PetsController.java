@@ -21,17 +21,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/mypage")
+@RequestMapping("/view")
 @RequiredArgsConstructor
 public abstract class PetsController {
 
     private final PetsService petsService;
 
-    @GetMapping("/mypage")
-    public String mypetPage(@AuthenticationPrincipal Long petnum, Model model) {
-        ReadPetResponse responseDTO = PetsService.getPetByMemberAndPetId(petnum);
-        model.addAttribute("board", responseDTO);
-        return "/view/mypage";
-    }
+//    @GetMapping("/mypage")
+//    public String mypetPage(@AuthenticationPrincipal MyUserDetails userDetails, Model model) {
+//        Long petnum = userDetails.getMnum();
+//        List<Pets> pets = petsService.findByMember(petnum);
+//        model.addAttribute("mypage", pets);
+//        return "/view/mypage";
+//    }
 
 }

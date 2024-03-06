@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -37,7 +38,7 @@ public class Member {
 
     @Getter
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<Pets> pets;
+    private List<Pets> pets = new ArrayList<>();
 
 //    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
 //    private List<Board> board;

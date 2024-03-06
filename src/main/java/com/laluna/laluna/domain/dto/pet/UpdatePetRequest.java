@@ -1,16 +1,15 @@
 package com.laluna.laluna.domain.dto.pet;
 
-import com.laluna.laluna.domain.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Setter
 public class UpdatePetRequest {
-
-    private Member member;   //주인 정보 받아오기
 
     private String petName; //펫 이름
 
@@ -25,5 +24,7 @@ public class UpdatePetRequest {
     private String petVac; //펫 백신
 
     private String petCondition;
+
+
 
 }

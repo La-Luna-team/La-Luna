@@ -10,6 +10,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class MemberAndPetDto {
     // 멤버 정보
     private String mid;
@@ -28,21 +29,5 @@ public class MemberAndPetDto {
     private String petvac;
     private String petcondition;
 
-    @Override
-    public String toString() {
-        return "MemberAndPetDto{" +
-                "mid='" + mid + '\'' +
-                ", mpw='" + mpw + '\'' +
-                ", mphone='" + mphone + '\'' +
-                ", address='" + address + '\'' +
-                ", email='" + email + '\'' +
-                ", petname='" + petname + '\'' +
-                ", petsex='" + petsex + '\'' +
-                ", petkind='" + petkind + '\'' +
-                ", petfeature='" + petfeature + '\'' +
-                ", petvac='" + petvac + '\'' +
-                ", petcondition='" + petcondition + '\'' +
-                '}';
-    }
 
 }

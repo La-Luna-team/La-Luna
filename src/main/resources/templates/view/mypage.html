@@ -26,7 +26,7 @@
                         <p3>수정을 하시겠습니까?</p3>
                     </div>
                     <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
-                        <button type="button" class="btn btn-lg btn-primary">수정하기</button>
+                        <button type="button" onclick="window.location.href='/mypagect'" class="btn btn-lg btn-primary">수정하기</button>
                         <button id="close1" type="button" class="btn btn-lg btn-secondary" data-bs-dismiss="modal">취소하기</button>
                     </div>
                 </div>
@@ -98,59 +98,59 @@
                 <div class="card-body">
                     <div class="column">
                         <form class="box">
-                            <div class="field">
+                            <div class="field" th:each="pet : ${mypage}">
                                 <label class="label">이름</label>
                                 <div class="control">
-                                    <p th:text="${mypage.petname}"></p>
+                                    <p th:text="${pet.petname}"></p>
                                 </div>
                             </div>
 
-                            <div class="field">
+                            <div class="field" th:each="pet : ${mypage}">
                                 <label class="label">품종</label>
                                 <div class="control">
-                                    <p th:text="${mypage.petkind}"></p>
+                                    <p th:text="${pet.petkind}"></p>
                                 </div>
                             </div>
 
-                            <div class="field">
+                            <div class="field" th:each="pet : ${mypage}">
                                 <label class="label">나이</label>
                                 <div class="control">
-                                    <p th:text="${mypage.petage}"></p>
+                                    <p th:text="${pet.petage}"></p>
                                 </div>
                             </div>
 
-                            <div class="field">
+                            <div class="field" th:each="pet : ${mypage}">
                                 <label class="label">성별</label>
                                 <div class="control">
-                                    <p th:text="${mypage.petsex}"></p>
+                                    <p th:text="${pet.petsex}"></p>
                                 </div>
                             </div>
 
-                            <div class="field">
+                            <div class="field" th:each="pet : ${mypage}">
                                 <label class="label">현재 상태</label>
                                 <div class="control">
-                                    <p th:text="${mypage.petfeature}"></p>
+                                    <p th:text="${pet.petfeature}"></p>
                                 </div>
                             </div>
 
-                            <div class="field">
+                            <div class="field" th:each="pet : ${mypage}">
                                 <label class="label">건강 상태</label>
                                 <div class="control">
-                                    <p th:text="${mypage.petcondition}"></p>
+                                    <p th:text="${pet.petcondition}"></p>
                                 </div>
                             </div>
 
-                            <div class="field">
+                            <div class="field" th:each="pet : ${mypage}">
                                 <label class="label">예방 접종</label>
                                 <div class="control">
-                                    <p th:text="${mypage.petvac}"></p>
+                                    <p th:text="${pet.petvac}"></p>
                                 </div>
                             </div>
 
-                            <div class="field">
+                            <div class="field" th:each="pet : ${mypage}">
                                 <label class="label">사진</label>
                                 <div class="control">
-                                    <p th:text="${mypage.petfeature}"></p>
+                                    <p th:text="${pet.petfeature}"></p>
                                 </div>
                             </div>
 

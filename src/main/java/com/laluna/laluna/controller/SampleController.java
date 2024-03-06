@@ -14,7 +14,7 @@ public class SampleController {
     public String showTest2() {
         return "view/mypage";
     }
-    @GetMapping("/test3")
+    @GetMapping("/mypagect")
     public String showTest3() {
         return "view/mypagect";
     }
