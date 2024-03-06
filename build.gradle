@@ -53,6 +53,7 @@ dependencies {
 
     //security
     implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 
     //AWS S3
     implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
@@ -60,6 +61,9 @@ dependencies {
     //Log
     implementation 'org.springframework.boot:spring-boot-starter-logging'
     implementation 'ch.qos.logback:logback-classic'
+}
+compileJava {
+    options.compilerArgs << '-parameters'
 }
 
 tasks.named('bootBuildImage') {
