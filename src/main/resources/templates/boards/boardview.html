@@ -65,7 +65,7 @@
             </div>
         </div>
         <hr class="line2" />
-        <form action="/boards/boardview" method="post">
+        <form action="/reply/boardview" method="post">
             <input type="hidden" name="boardid" th:value="${board.boardid}">
             <input type="hidden" name="replyer" th:value="${loginId}">
             <input type="text" id="replyContent" name="replytext" style="width: 900px;" placeholder="댓글을 입력해주세요.">

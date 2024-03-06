@@ -18,8 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-@RestController
-@RequestMapping("/boards")
+@RequestMapping("/reply")
 @RequiredArgsConstructor
 public class ReplyController {
 
