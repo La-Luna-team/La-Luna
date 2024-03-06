@@ -3,6 +3,7 @@ package com.laluna.laluna.controller;
 import com.laluna.laluna.config.MyUserDetails;
 import com.laluna.laluna.domain.dto.board.*;
 import com.laluna.laluna.domain.dto.reply.ReadReplyResponse;
+import com.laluna.laluna.domain.entity.Board;
 import com.laluna.laluna.repository.ReplyRepository;
 import com.laluna.laluna.service.BoardService;
 import com.laluna.laluna.service.ReplyService;
@@ -86,6 +87,12 @@ public class BoardController {
         Pageable pageable = PageRequest.of(page, 9, Sort.by("boardid").descending());
         Page<ReadBoardResponse> boardPage = boardService.boardList(pageable);
         model.addAttribute("boards", boardPage);
+        return "/boards/boardlist";
+    }
+    @GetMapping("/category/{category}")
+    public String getPostsByCategory(@PathVariable String category, Model model) {
+        List<Board> boards = boardService.getBoardsByCategory(category);
+        model.addAttribute("boards", boards);
         return "/boards/boardlist";
     }
 
