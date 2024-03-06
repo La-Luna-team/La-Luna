@@ -39,8 +39,8 @@ public class Member {
    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
    private List<Pets> pets = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
-//    private List<Board> board;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Board> board = new ArrayList<>();
 
     public static Member createUser(String mid, String mpw, PasswordEncoder passwordEncoder, String mphone, String address,
                                     String email) {

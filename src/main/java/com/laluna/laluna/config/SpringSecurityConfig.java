@@ -29,7 +29,7 @@ public class SpringSecurityConfig {
                 .authorizeHttpRequests(request -> request
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
                         .requestMatchers("/css/**", "/images/**", "/js/**").permitAll() // static resources
-                        .requestMatchers("/view/join","/auth/join", "/test","/boards/list","/boards/{boardid}").permitAll()
+                        .requestMatchers("/view/join","/auth/join", "/test","/boards/list","/boards/read/**").permitAll()
                         .anyRequest().authenticated() // 어떠한 요청이라도 인증필요
                 )
                 .formLogin(login -> login	// form 방식 로그인 사용
