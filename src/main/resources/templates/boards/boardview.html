@@ -85,7 +85,7 @@
                 <td th:text="${reply.replynum}"></td>
                 <td th:text="${reply.replyer}"></td>
                 <td th:text="${reply.replytext}"></td>
-                <td th:text="${reply.regdate}"></td>
+                <td th:text="${#temporals.format(reply.regdate, 'MM-dd HH:mm')}"></td>
                 <td>
                     <button class="delete-btn" th:data-replynum="${reply.replynum}" th:data-replyer="${reply.replyer}" th:data-loginid="${loginId}">삭제</button>
                 </td>
