@@ -29,8 +29,7 @@
                 <a class="link-secondary" href="#" aria-label="Search">
                     <form id="searchForm" th:action="@{'/boards/board/'}" method="get">
                         <input type="text" id="title" name="title">
-                        <button type="button" onclick="submitForm()">검색</button>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24"><title>Search</title><circle cx="10.5" cy="10.5" r="7.5"/><path d="M21 21l-5.2-5.2"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" onclick="submitForm()" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24"><title>Search</title><circle cx="10.5" cy="10.5" r="7.5"/><path d="M21 21l-5.2-5.2"/></svg>
                     </form>
                 </a>
                 <a class="btn btn-sm btn-outline-secondary" href="/boards/register">추억 공유하기</a>
@@ -152,6 +151,10 @@
             form.action = '/boards/board/' + titleValue;
             form.submit();
         }
+
+        replyPaging.addEventListener("click", function (e){
+            e.preventDefault()
+        })
 
 
     </script>
