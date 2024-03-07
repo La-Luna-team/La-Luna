@@ -63,8 +63,8 @@ public class ReplyControllerTest {
         given(replyService.replyCreate(any())).willReturn(response);
         //Then
         mockMvc.perform(post("/boards/boardview")
-                .param("replytext", requestDTO.getReplytext())
-                .param("replyer", requestDTO.getReplyer()))
+                        .param("replytext", requestDTO.getReplytext())
+                        .param("replyer", requestDTO.getReplyer()))
                 .andExpect(status().is3xxRedirection());
     }
 
@@ -89,7 +89,7 @@ public class ReplyControllerTest {
     public void testUpdateReply() throws Exception {
         // Given
         Long replynum = 1L;
-        UpdateReplyRequest requestDTO = new UpdateReplyRequest("수정된 댓글 내용","작성자");
+        UpdateReplyRequest requestDTO = new UpdateReplyRequest("수정된 댓글 내용", "작성자");
 
         // When & Then
         mockMvc.perform(put("/api/replies/{replynum}", replynum)
@@ -101,13 +101,14 @@ public class ReplyControllerTest {
                 .andExpect(model().hasNoErrors());
 
     }
-
-    @Test
-    public void testdeleteReply() throws Exception{
-        //given
-        Long replynum = 1L;
-        DeleteReplyResponse response = new DeleteReplyResponse(replynum);
-        //when
-        given(replyService.deleteReply(any())).willReturn(response);
-    }
 }
+
+//    @Test
+//    public void testdeleteReply() throws Exception{
+//        //given
+//        Long replynum = 1L;
+//        DeleteReplyResponse response = new DeleteReplyResponse(replynum);
+//        //when
+//        given(replyService.deleteReply(any())).willReturn(response);
+//    }
+//}

@@ -74,7 +74,7 @@ public class ReplyService {
     }
 
     @Transactional
-    public DeleteReplyResponse deleteReply(Long replynum){
+    public DeleteReplyResponse replyDelete(Long replynum){
 
         Reply findReply = replyRepository.findById(replynum)
                 .orElseThrow(() -> new EntityNotFoundException("해당 id로 조회된 댓글이 없습니다"));
