@@ -8,6 +8,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Builder
@@ -47,6 +50,21 @@ public class Pets {
                 this.petfeature = petfeature;
                 this.petvac = petvac;
                 this.petcondition = petcondition;
+    }
+
+    @Override
+    public String toString() {
+        return "Pets{" +
+                "petnum=" + petnum +
+                ", member=" + member +
+                ", petname='" + petname + '\'' +
+                ", petage=" + petage +
+                ", petsex='" + petsex + '\'' +
+                ", petkind='" + petkind + '\'' +
+                ", petfeature='" + petfeature + '\'' +
+                ", petvac='" + petvac + '\'' +
+                ", petcondition='" + petcondition + '\'' +
+                '}';
     }
 
 }

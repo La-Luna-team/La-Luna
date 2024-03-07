@@ -8,7 +8,12 @@ import com.laluna.laluna.domain.entity.Member;
 import com.laluna.laluna.domain.entity.Pets;
 import com.laluna.laluna.repository.MemberRepository;
 import com.laluna.laluna.repository.PetsRepository;
+import groovy.util.logging.Slf4j;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,10 +21,14 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PetsService {
 
     private final PetsRepository petsRepository;
     private final MemberRepository memberRepository;
+    @Autowired
+    private EntityManager entityManager;
+
 
     public Pets savePet(MemberAndPetDto dto, String mid) {
         Member member = memberRepository.findBymid(mid)
@@ -44,12 +53,15 @@ public class PetsService {
         return petsRepository.findByMember_mnum(mnum);
     }
 
+    Logger logger = LoggerFactory.getLogger(PetsService.class);
+
     @Transactional
     public UpdatePetResponse petUpdate(Long mnum, UpdatePetRequest dto) {
         List<Pets> findMember = petsRepository.findByMember_mnum(mnum);
 
         for (Pets pet : findMember) {
             pet.update(dto.getPetName(), dto.getPetAge(), dto.getPetSex(), dto.getPetKind(), dto.getPetFeature(), dto.getPetVac(), dto.getPetCondition());
+            entityManager.flush();
         }
 
         Pets updatedPet = findMember.get(0);

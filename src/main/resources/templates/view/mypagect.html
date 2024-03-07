@@ -21,7 +21,7 @@
             </div>
             <div class="card-body">
                 <div class="column">
-                    <form id="masterForm" class="box">
+                    <form th:action="@{/auth/update_master_info}" method="post">
                         <div class="field">
                             <label class="label" style="text-align: left;">아이디</label>
                             <div class="control">
@@ -80,53 +80,59 @@
                 </div>
                 <div class="card-body">
                     <div class="column">
-                        <form id="petForm" class="box">
+                        <form th:action="@{/auth/update_pet_info}" method="post">
                             <div class="field">
                                 <label class="label">이름</label>
                                 <div class="control">
-                                    <input class="input" name="petname" style="text-align: center;" type="text" placeholder="Name">
+                                    <input class="input" name="petName" style="text-align: center;" type="text" placeholder="Name">
                                 </div>
                             </div>
 
                             <div class="field">
                                 <label class="label">품종</label>
                                 <div class="control">
-                                    <input class="input" name="petkind" style="text-align: center;" type="text" placeholder="Kind">
+                                    <input class="input" name="petKind" style="text-align: center;" type="text" placeholder="Kind">
                                 </div>
                             </div>
 
                             <div class="field">
                                 <label class="label">나이</label>
                                 <div class="control">
-                                    <input class="input" name="petage" style="text-align: center;" type="text" placeholder="Age">
+                                    <input class="input" name="petAge" style="text-align: center;" type="number" placeholder="Age">
                                 </div>
                             </div>
 
-                            <div class="field">
-                                <label class="label">성별</label>
-                                <div class="control">
-                                    <input class="input" style="text-align: center;" type="text" placeholder="Sex">
-                                </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="petSex"   value="true"  id="petSexMale">
+                                <label class="form-check-label" for="petSexMale">
+                                    Male
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="petSex" value="false"  id="petSexFemale" checked>
+                                <label class="form-check-label" for="petSexFemale">
+                                    Female
+                                </label>
                             </div>
 
                             <div class="field">
                                 <label class="label">펫 정보</label>
                                 <div class="control">
-                                    <input class="input" name="petfeature" style="text-align: center;" type="text" placeholder="Post">
+                                    <input class="input" name="petFeature" style="text-align: center;" type="text" placeholder="Post">
                                 </div>
                             </div>
 
                             <div class="field">
                                 <label class="label">건강 상태</label>
                                 <div class="control">
-                                    <input class="input" name="petcondition" style="text-align: center;" type="text" placeholder="Condition">
+                                    <input class="input" name="petCondition" style="text-align: center;" type="text" placeholder="Condition">
                                 </div>
                             </div>
 
                             <div class="field">
                                 <label class="label">예방 접종</label>
                                 <div class="control">
-                                    <input class="input" name="petvac" style="text-align: center;" type="text" placeholder="Vac">
+                                    <input class="input" name="petVac" style="text-align: center;" type="text" placeholder="Vac">
                                 </div>
                             </div>
                             <div class="modal" tabindex="-1" role="dialog" id="myModal">
@@ -281,33 +287,6 @@
             }
         });
 
-        const petForm = document.getElementById('petForm');
-
-        petForm.addEventListener('submit', e => {
-            e.preventDefault();
-
-            const data = new FormData(petForm);
-            const param = JSON.stringify(Object.fromEntries(data));
-
-            console.log(Object.fromEntries(data));
-
-            fetch('/auth/update_pet_info', {
-                method: 'POST',
-                body: param,
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-                .then(response => {
-                    if (response.status == 200) {
-                        window.location.href = '/view/mypage';
-                        alert("펫 정보 수정 완료");
-                    } else {
-                        alert("펫 정보 수정 실패");
-                    }
-                })
-                .catch(error => console.error('Error:', error));
-        });
 
     </script>
 </th:block>

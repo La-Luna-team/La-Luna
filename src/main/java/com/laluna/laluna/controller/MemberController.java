@@ -1,6 +1,7 @@
 package com.laluna.laluna.controller;
 
 import com.laluna.laluna.config.MyUserDetails;
+import com.laluna.laluna.domain.dto.board.DeleteBoardResponse;
 import com.laluna.laluna.domain.dto.board.UpdateBoardRequest;
 import com.laluna.laluna.domain.dto.board.UpdateBoardResponse;
 import com.laluna.laluna.domain.dto.pet.UpdatePetRequest;
@@ -60,10 +61,11 @@ public class MemberController {
                               @ModelAttribute UpdatePetRequest requestDTO, RedirectAttributes redirectAttributes) {
         Long petnum = userDetails.getMnum();
         UpdatePetResponse responseDTO = petsService.petUpdate(petnum, requestDTO);
-        System.out.println(requestDTO);
         redirectAttributes.addFlashAttribute("mypage", responseDTO);
         return "/view/mypage";
     }
 
+
+    //펫 정보가 삭제되고 그 다음에 사용자가 삭제되어야 한다.
 
 }
