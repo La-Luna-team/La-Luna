@@ -21,12 +21,12 @@ public class GlobalControllerAdvice {
 
 
         if (userDetails != null) {
-            Long mnum = userDetails.getmnum();
-            List<Pets> pets = petsService.findByMember(mnum);
+            Long memberno = userDetails.getMemberno();
+            List<Pets> pets = petsService.findByMember(memberno);
             model.addAttribute("pets", pets);
             model.addAttribute("loginId", userDetails.getUsername());
             model.addAttribute("loginRoles", userDetails.getAuthorities());
-            model.addAttribute("loginMphone", userDetails.getMphone());
+            model.addAttribute("loginPhone", userDetails.getPhone());
             model.addAttribute("loginAddress", userDetails.getAddress());
             model.addAttribute("loginEmail", userDetails.getEmail());
         }

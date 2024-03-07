@@ -11,11 +11,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MemberJoinDto {
 
-    private String mid;
+    private String memberid;
 
-    private String mpw;
+    private String memberpassword;
 
-    private String mphone;
+    private String phone;
 
     private String address;
 
@@ -24,9 +24,9 @@ public class MemberJoinDto {
     @Override
     public String toString() {
         return "MemberJoinDto{" +
-                "mid='" + mid + '\'' +
-                ", mpw='" + mpw + '\'' +
-                ", mphone='" + mphone + '\'' +
+                "memberid='" + memberid + '\'' +
+                ", memberpassword='" + memberpassword + '\'' +
+                ", phone='" + phone + '\'' +
                 ", address='" + address + '\'' +
                 ", email='" + email + '\'' +
                 '}';

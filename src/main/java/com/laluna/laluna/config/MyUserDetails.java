@@ -8,25 +8,25 @@ import java.util.Collection;
 
 @Getter
 public class MyUserDetails extends User {
-    private Long mnum;
-    private String mphone;
+    private Long memberno;
+    private String phone;
     private String address;
     private String email;
 
     public MyUserDetails(String username, String password,
                          Collection<? extends GrantedAuthority> authorities,
-                         Long mnum, String mphone, String address, String email) {
+                         Long memberno, String phone, String address, String email) {
         super(username, password, authorities);
-        this.mnum = mnum;
-        this.mphone = mphone;
+        this.memberno = memberno;
+        this.phone = phone;
         this.address = address;
         this.email = email;
     }
-    public Long getmnum() {
-        return mnum;
+    public Long getMemberno() {
+        return memberno;
     }
-    public String getMphone() {
-        return mphone;
+    public String getPhone() {
+        return phone;
     }
 
     public String getAddress() {

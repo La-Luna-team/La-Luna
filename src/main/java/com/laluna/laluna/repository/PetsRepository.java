@@ -8,5 +8,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PetsRepository extends JpaRepository<Pets, Long> {
-    List<Pets> findByMember_mnum(Long mnum);
+    List<Pets> findByMember_memberno(Long memberno);
 }

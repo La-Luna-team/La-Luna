@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DeletePetResponse {
 
-    private Long petNum;  //펫 번호
+    private Long petno;  //펫 번호
 
 }

@@ -11,9 +11,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class UpdateReplyResponse {
 
-    private Long replynum;
+    private Long replyno;
 
-    private Long boardid;
+    private Long boardno;
 
     private String replytext;
 

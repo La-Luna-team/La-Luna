@@ -33,11 +33,11 @@ public class MyUserDetailsService implements UserDetailsService {
         List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
 
         return new MyUserDetails(
-                member.getMid(),
-                member.getMpw(),
+                member.getMemberid(),
+                member.getMemberpassword(),
                 authorities,
-                member.getMnum(),
-                member.getMphone(),
+                member.getMemberno(),
+                member.getPhone(),
                 member.getAddress(),
                 member.getEmail()
         );

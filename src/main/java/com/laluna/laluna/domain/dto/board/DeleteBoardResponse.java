@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DeleteBoardResponse {
 
-    private Long boardid;
+    private Long boardno;
 
 }

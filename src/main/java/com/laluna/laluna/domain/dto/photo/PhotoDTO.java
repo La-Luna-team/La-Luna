@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class PhotoDTO {
 
 
-    private Long photonum;
+    private Long photono;
 
     private Member member;
 
