@@ -1,7 +1,6 @@
 package com.laluna.laluna.service;
 
 import com.laluna.laluna.domain.entity.Member;
-import com.laluna.laluna.domain.entity.Photo;
 import com.laluna.laluna.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,8 +15,8 @@ public class RegisterMemberService {
     private final MemberRepository repository;
 
     public Member join(String mid, String mpw, String mphone, String address,
-                     String email){
-        Member member = Member.createUser(mid, mpw, passwordEncoder, mphone, address, email);
+                     String email, Long mnum){
+        Member member = Member.createUser(mid, mpw, passwordEncoder, mphone, address, email, mnum);
         validateDuplicateMember(member);
 
         return repository.save(member);
