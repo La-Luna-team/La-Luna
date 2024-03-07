@@ -8,6 +8,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Builder
@@ -20,7 +23,7 @@ public class Pets {
     private Long petnum;  //펫 번호
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "mid")
+    @JoinColumn(name = "mnum")
     private Member member;   //주인 아이디 받아오기
 
     private String petname; //펫 이름
@@ -38,5 +41,30 @@ public class Pets {
 
     private String petcondition; //펫 건강상태
 
+
+    public void update( String petname, int petage, Boolean petsex, String petkind, String petfeature,String petvac, String petcondition ) {
+                this.petname = petname;
+                this.petage = petage;
+                this.petsex = petsex;
+                this.petkind = petkind;
+                this.petfeature = petfeature;
+                this.petvac = petvac;
+                this.petcondition = petcondition;
+    }
+
+    @Override
+    public String toString() {
+        return "Pets{" +
+                "petnum=" + petnum +
+                ", member=" + member +
+                ", petname='" + petname + '\'' +
+                ", petage=" + petage +
+                ", petsex='" + petsex + '\'' +
+                ", petkind='" + petkind + '\'' +
+                ", petfeature='" + petfeature + '\'' +
+                ", petvac='" + petvac + '\'' +
+                ", petcondition='" + petcondition + '\'' +
+                '}';
+    }
 
 }

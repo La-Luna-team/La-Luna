@@ -1,18 +1,26 @@
 package com.laluna.laluna.service;
 
 import com.laluna.laluna.domain.dto.join.MemberAndPetDto;
-import com.laluna.laluna.domain.dto.pet.CreatePetRequest;
+import com.laluna.laluna.domain.dto.pet.UpdatePetRequest;
+import com.laluna.laluna.domain.dto.pet.UpdatePetResponse;
 import com.laluna.laluna.domain.entity.Member;
 import com.laluna.laluna.domain.entity.Pets;
 import com.laluna.laluna.repository.MemberRepository;
 import com.laluna.laluna.repository.PetsRepository;
+import groovy.util.logging.Slf4j;
+
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PetsService {
 
     private final PetsRepository petsRepository;
@@ -37,7 +45,32 @@ public class PetsService {
         return petsRepository.save(pets);
     }
 
-    public List<Pets> findPetsByMemberMid(Long mnum) {
-        return petsRepository.findByMember_Mnum(mnum);
+    public List<Pets> findByMember(Long mnum){
+        return petsRepository.findByMember_mnum(mnum);
+    }
+
+    Logger logger = LoggerFactory.getLogger(PetsService.class);
+
+    @Transactional
+    public UpdatePetResponse petUpdate(Long mnum, UpdatePetRequest dto) {
+        List<Pets> findMember = petsRepository.findByMember_mnum(mnum);
+
+        for (Pets pet : findMember) {
+            pet.update(dto.getPetName(), dto.getPetAge(), dto.getPetSex(), dto.getPetKind(), dto.getPetFeature(), dto.getPetVac(), dto.getPetCondition());
+        }
+
+        Pets updatedPet = findMember.get(0);
+
+        return new UpdatePetResponse(
+                updatedPet.getPetnum(),
+                updatedPet.getMember(),
+                updatedPet.getPetname(),
+                updatedPet.getPetage(),
+                updatedPet.getPetsex(),
+                updatedPet.getPetkind(),
+                updatedPet.getPetfeature(),
+                updatedPet.getPetvac(),
+                updatedPet.getPetcondition()
+        );
     }
 }

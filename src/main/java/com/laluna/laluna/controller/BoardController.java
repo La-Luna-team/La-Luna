@@ -60,14 +60,21 @@ public class BoardController {
     //Thymeleaf 를 사용하는 경우 ThymeleafViewResolver 가 뷰 리졸버로 사용되며, 뷰 이름을 템플릿 파일의 경로로 변환한다.
     // 기본 설정에서는 src/main/resources/templates 디렉토리가 템플릿 파일의 기본 위치이다.
 
-
+    @GetMapping("/update/{boardid}")
+    public String modifyBoard(@PathVariable("boardid") Long boardid, Model model) {
+        ReadBoardResponse responseDTO = boardService.boardRead(boardid);
+        List<ReadReplyResponse> responseList = replyService.getRepliesByBoardId(boardid);
+        model.addAttribute("replies", responseList);
+        model.addAttribute("board", responseDTO);
+        return "boards/boardupdate";
+    }
     @PutMapping("/update/{boardid}")
     public String updateBoard(@PathVariable Long boardid,
                               @ModelAttribute UpdateBoardRequest requestDTO,
                               RedirectAttributes redirectAttributes) {
         UpdateBoardResponse responseDTO = boardService.boardUpdate(boardid, requestDTO);
         redirectAttributes.addFlashAttribute("board", responseDTO);
-        return "redirect:/view/boardupdate/" + boardid;
+        return "redirect:/boards/read/" + boardid;
     }
 
     @DeleteMapping("/delete/{boardid}")
