@@ -138,4 +138,7 @@ public class BoardService {
     public List<Board> getBoardsByCategory(String category) {
         return boardRepository.findByCategory(category);
     }
+    public Page<Board> getBoardsListByCategory(String category, Pageable pageable){
+        return boardRepository.findByCategory(category, pageable);
+    }
 }
