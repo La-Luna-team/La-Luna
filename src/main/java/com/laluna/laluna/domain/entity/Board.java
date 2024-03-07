@@ -34,10 +34,14 @@ public class Board extends Date{
     @Column(length = 50)
     private String category;
 
+    @Column(length = 255) // 이미지 URL이 저장될 필드 추가
+    private String imageUrl;
+
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     private List<Photo> photos;
 
     public void update(List<Photo> photos, String title, String content, String category) {
+
         this.photos = photos;
         this.title = title;
         this.content = content;

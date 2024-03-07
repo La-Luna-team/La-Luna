@@ -28,8 +28,8 @@ cloud:
       static: ap-northeast-2
       auto: false
     credentials:
-      accessKey:
-      secretKey: asdf
+      accessKey: AKIA5FTZFRIBVAM4QF7A
+      secretKey: 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
 
   spring:
     servlet:

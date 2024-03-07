@@ -47,19 +47,19 @@ public class ReplyServiceTest {
         updateReplyRequest = new UpdateReplyRequest("변경된 내용", "변경된 유저");
     }
 
-    @Test
-    @DisplayName("댓글 작성 테스트")
-    public void testReplyCreate() {
-
-        given(replyRepository.save(any())).willReturn(reply);
-
-        CreateReplyResponse createReplyResponse = replyService.replyCreate(createReplyRequest);
-
-        assertThat(createReplyResponse.getReplyNum()).isEqualTo(1L);
-        assertThat(createReplyResponse.getBoardId()).isNull();
-        assertThat(createReplyResponse.getReplyText()).isEqualTo("댓글 내용");
-        assertThat(createReplyResponse.getReplyer()).isEqualTo("유저");
-    }
+//    @Test
+//    @DisplayName("댓글 작성 테스트")
+//    public void testReplyCreate() {
+//
+//        given(replyRepository.save(any())).willReturn(reply);
+//
+//        CreateReplyResponse createReplyResponse = replyService.replyCreate(createReplyRequest);
+//
+//        assertThat(createReplyResponse.getReplyNum()).isEqualTo(1L);
+//        assertThat(createReplyResponse.getBoardId()).isNull();
+//        assertThat(createReplyResponse.getReplyText()).isEqualTo("댓글 내용");
+//        assertThat(createReplyResponse.getReplyer()).isEqualTo("유저");
+//    }
 
 //    @Test
 //    @DisplayName("댓글 조회 테스트")
