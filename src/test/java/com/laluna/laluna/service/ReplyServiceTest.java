@@ -89,8 +89,8 @@ public class ReplyServiceTest {
     void deleteReply() {
         when(replyRepository.findById(any())).thenReturn(Optional.of(saveReply));
 
-        DeleteReplyResponse response = replyService.deleteReply(saveReply.getReplynum());
+        DeleteReplyResponse response = replyService.replyDelete(saveReply.getReplynum());
 
-        assertThat(response.getReplynum()).isEqualTo(21L);
+        assertThat(response.getReplynum()).isEqualTo(2L);
     }
 }

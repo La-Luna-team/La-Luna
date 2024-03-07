@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-@RequestMapping("/reply")
+@RequestMapping("/boards")
 @RequiredArgsConstructor
 public class ReplyController {
 
@@ -39,8 +39,8 @@ public class ReplyController {
     }
 
     @DeleteMapping("/deleteReply/{replynum}")
-    public ResponseEntity<DeleteReplyResponse> deleteReply(@PathVariable Long replynum) {
-        DeleteReplyResponse response = replyService.deleteReply(replynum);
-        return ResponseEntity.ok(response);
+    public ResponseEntity<?> deleteReply(@PathVariable Long replynum) {
+        replyService.replyDelete(replynum);
+        return ResponseEntity.ok().build();
     }
 }

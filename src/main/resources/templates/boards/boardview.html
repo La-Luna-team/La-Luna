@@ -19,20 +19,29 @@
                 <div class="Content">
                         <div class="user-body">
                             <div class="user-body">
-                                <p>작성자: <span th:text="${board.mid}"></span></p>
-                                <div th:each="petResponse : ${board.pets}">
-                                    <p th:text="${petResponse.petname}"></p>
-                                    <p th:text="${petResponse.petage}"></p>
-                                    <p th:text="${petResponse.petkind}"></p>
-                                    <p th:text="${petResponse.petfeature}"></p>
-                                    <p th:text="${petResponse.petvac}"></p>
-                                    <p th:text="${petResponse.petcondition}"></p>
-                                    <p th:text="${petResponse.petsex ? '수컷' : '암컷'}"></p>
-                                </div>
-                                <a th:href="@{/boards/update/{boardid}(boardid = ${board.getBoardid})}">
-                                <button type="submit" class="btn btn-outline-success">게시글 수정</button>
+                                <p>작성자: <span th:text="${board.mid}"></span>
+                                <div th:if="${#authorization.expression('isAuthenticated()')}">
+                                <div th:if="${board.mid == loginId}">
+                                    <a class="update1" href="#" th:href="@{/boards/update/{boardid}(boardid=${board.boardid})}">
+                                    <button type="submit" class="btn btn-outline-success">게시글 수정</button>
                                 </a>
-                                <button type="button" class="btn btn-outline-danger" id="boardremove">게시글 삭제</button>
+                                    <div th:if="${#authorization.expression('isAuthenticated()')}">
+                                        <div th:if="${board.mid == loginId}">
+                                            <button type="button" class="btn btn-outline-danger" id="boardremove">게시글 삭제</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                </p>
+                                <div th:each="petResponse : ${board.pets}">
+                                    <span th:text="'|이름: ' + ${petResponse.petname}"></span>
+                                    <span th:text="'|나이: ' + ${petResponse.petage}"></span>
+                                    <span th:text="'|종류: ' + ${petResponse.petkind}"></span>
+                                    <span th:text="'|특징: ' + ${petResponse.petfeature}"></span>
+                                    <span th:text="'|예방접종: ' + ${petResponse.petvac}"></span>
+                                    <span th:text="'|상태: ' + ${petResponse.petcondition}"></span>
+                                    <span th:text="${petResponse.petsex ? '|성별: 수컷' : '성별: 암컷'}"></span>
+                                </div>
                                 <div class="modal" tabindex="-1" role="dialog" id="myModal">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content rounded-4 shadow">
@@ -65,7 +74,7 @@
             </div>
         </div>
         <hr class="line2" />
-        <form action="/reply/boardview" method="post">
+        <form action="/boards/boardview" method="post">
             <input type="hidden" name="boardid" th:value="${board.boardid}">
             <input type="hidden" name="replyer" th:value="${loginId}">
             <input type="text" id="replyContent" name="replytext" style="width: 900px;" placeholder="댓글을 입력해주세요.">
@@ -85,9 +94,9 @@
                 <td th:text="${reply.replynum}"></td>
                 <td th:text="${reply.replyer}"></td>
                 <td th:text="${reply.replytext}"></td>
-                <td th:text="${reply.regdate}"></td>
+                <td th:text="${#temporals.format(reply.regdate, 'MM-dd HH:mm')}"></td>
                 <td>
-                    <button class="delete-btn" th:data-replynum="${reply.replynum}">삭제</button>
+                    <button class="delete-btn" th:data-replynum="${reply.replynum}" th:data-replyer="${reply.replyer}" th:data-loginid="${loginId}">삭제</button>
                 </td>
             </tr>
             </tbody>
@@ -108,20 +117,39 @@
 <th:block layout:fragment="script">
     <script>
 
-        document.querySelectorAll('.delete-btn').forEach(function(btn) {
-            btn.addEventListener('click', function(e) {
-                var replynum = e.target.getAttribute('data-replynum');
-                fetch('/deleteReply/' + replynum, { method: 'DELETE' })
-                    .then(function(response) {
-                        if (response.ok) {
-                            alert('댓글이 삭제되었습니다.');
-                            location.reload();  // 페이지를 새로 고침하여 댓글 목록을 업데이트합니다.
-                        } else {
-                            alert('댓글 삭제에 실패하였습니다.');
-                        }
-                    });
+        // 댓글 삭제 스크립트
+        document.addEventListener("DOMContentLoaded", function() {
+            // 삭제 버튼에 이벤트 리스너 추가
+            document.querySelectorAll(".delete-btn").forEach(function(button) {
+                button.addEventListener("click", function() {
+                    var replynum = this.getAttribute("data-replynum"); // 댓글 번호 가져오기
+                    var replyer = this.getAttribute("data-replyer");   // 작성자 정보 가져오기
+                    var currentUser = this.getAttribute("data-loginid"); //로그인된 회원 정보 가져오기
+
+                    if (currentUser == replyer && confirm("정말로 삭제하시겠습니까?")) { //작성자와 로그인한 작성자의 정보가 일치하면 삭제
+                        fetch(`/boards/deleteReply/${replynum}`, {
+                            method: "DELETE"
+                        })
+                            .then(response => {
+
+                                console.log('댓글이 삭제되었습니다.');
+                                location.reload();
+                            })
+                            .catch(error => {
+                                console.error('댓글 삭제중 오류가 발생:', error);
+                            });
+                    } else if (currentUser !== replyer) {
+                        // 댓글 작성자가 아닌 경우
+                        confirm("댓글 작성자만 삭제할 수 있습니다.");
+                    } else {
+                        console.log('댓글 삭제가 취소되었습니다.');
+                    }
+                });
             });
         });
+
+
+        // 게시글 삭제 스크립트
         document.addEventListener('DOMContentLoaded', function(){
             var btn = document.getElementById('boardremove');
             var modal = new bootstrap.Modal(document.getElementById('myModal'));
@@ -146,6 +174,7 @@
                 console.error('Network error: ' + error);
             });
         });
+        //로그인된 회원만 보이는 버튼
     </script>
 </th:block>
 </body>
