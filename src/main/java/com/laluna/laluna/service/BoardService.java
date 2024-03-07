@@ -138,4 +138,8 @@ public class BoardService {
     public List<Board> getBoardsByCategory(String category) {
         return boardRepository.findByCategory(category);
     }
+
+    public List<Board> getBoardsByTitle(String title) {
+        return boardRepository.findByTitle(title);
+    }
 }

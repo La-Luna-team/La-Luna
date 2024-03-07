@@ -103,4 +103,11 @@ public class BoardController {
         return "/boards/boardlist";
     }
 
+    @GetMapping("/board/{title}")
+    public String getPostsByboardtitle(@PathVariable String title, Model model) {
+        List<Board> boards = boardService.getBoardsByTitle(title);
+        model.addAttribute("boards", boards);
+        return "/boards/boardlist";
+    }
+
 }
