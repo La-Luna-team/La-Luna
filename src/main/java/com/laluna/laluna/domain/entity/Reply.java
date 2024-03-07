@@ -35,9 +35,11 @@ public class Reply {
     private String replyer;
 
     @CreatedDate
+    @JsonFormat(pattern = "yyy-MM-dd HH:mm:ss")
     private LocalDateTime regdate;
 
     @LastModifiedDate
+    @JsonFormat(pattern = "yyy-MM-dd HH:mm:ss")
     private LocalDateTime moddate;
 
     public void update(String replytext,String replyer){
