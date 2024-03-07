@@ -13,9 +13,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class ReadReplyResponse {
 
-    private Long replynum;
+    private Long replyno;
 
-    private Long boardid;
+    private Long boardno;
 
     private String replytext;
 

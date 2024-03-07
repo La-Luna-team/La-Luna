@@ -24,8 +24,8 @@ public class ReplyService {
 
     @Transactional
     public CreateReplyResponse replyCreate(CreateReplyRequest requestDTO) {
-        Board board = boardRepository.findById(requestDTO.getBoardid())
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + requestDTO.getBoardid()));
+        Board board = boardRepository.findById(requestDTO.getBoardno())
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + requestDTO.getBoardno()));
         Reply reply = Reply.builder()
                 .board(board)
                 .replytext(requestDTO.getReplytext())
@@ -34,20 +34,20 @@ public class ReplyService {
         Reply saveReply = replyRepository.save(reply);
 
         return new CreateReplyResponse(
-                saveReply.getReplynum(),
-                saveReply.getBoard().getBoardid(),
+                saveReply.getReplyno(),
+                saveReply.getBoard().getBoardno(),
                 saveReply.getReplytext(),
                 saveReply.getReplyer(),
                 saveReply.getBoard().getRegdate(),
                 saveReply.getBoard().getModdate());
     }
 
-    public List<ReadReplyResponse> getRepliesByBoardId(Long boardid) {
-        List<Reply> replies = replyRepository.findByBoardBoardid(boardid);
+    public List<ReadReplyResponse> getRepliesByBoardId(Long boardno) {
+        List<Reply> replies = replyRepository.findByBoardBoardno(boardno);
         return replies.stream()
                 .map(reply -> new ReadReplyResponse(
-                        reply.getReplynum(),
-                        reply.getBoard().getBoardid(),
+                        reply.getReplyno(),
+                        reply.getBoard().getBoardno(),
                         reply.getReplytext(),
                         reply.getReplyer(),
                         reply.getRegdate(),
@@ -57,16 +57,16 @@ public class ReplyService {
 
 
     @Transactional
-    public UpdateReplyResponse replyUpdate(Long replynum, UpdateReplyRequest requestDTO){
+    public UpdateReplyResponse replyUpdate(Long replyno, UpdateReplyRequest requestDTO){
 
-        Reply findReply = replyRepository.findById(replynum)
+        Reply findReply = replyRepository.findById(replyno)
                 .orElseThrow(() -> new EntityNotFoundException("해당 id로 조회된 댓글이 없습니다"));
 
         findReply.update(requestDTO.getReplytext(),requestDTO.getReplyer());
 
         return new UpdateReplyResponse(
-                findReply.getReplynum(),
-                findReply.getBoard().getBoardid(),
+                findReply.getReplyno(),
+                findReply.getBoard().getBoardno(),
                 findReply.getReplytext(),
                 findReply.getReplyer(),
                 findReply.getBoard().getRegdate(),
@@ -74,14 +74,14 @@ public class ReplyService {
     }
 
     @Transactional
-    public DeleteReplyResponse replyDelete(Long replynum){
+    public DeleteReplyResponse replyDelete(Long replyno){
 
-        Reply findReply = replyRepository.findById(replynum)
+        Reply findReply = replyRepository.findById(replyno)
                 .orElseThrow(() -> new EntityNotFoundException("해당 id로 조회된 댓글이 없습니다"));
 
         replyRepository.delete(findReply);
 
-        return new DeleteReplyResponse(findReply.getReplynum());
+        return new DeleteReplyResponse(findReply.getReplyno());
     }
 
 }

@@ -14,9 +14,9 @@ public class RegisterMemberService {
 
     private final MemberRepository repository;
 
-    public Member join(String mid, String mpw, String mphone, String address,
-                     String email, Long mnum){
-        Member member = Member.createUser(mid, mpw, passwordEncoder, mphone, address, email, mnum);
+    public Member join(String memberid, String memberpassword, String phone, String address,
+                     String email, Long memberno){
+        Member member = Member.createUser(memberid, memberpassword, passwordEncoder, phone, address, email, memberno);
         validateDuplicateMember(member);
 
         return repository.save(member);
@@ -26,7 +26,7 @@ public class RegisterMemberService {
 
 
     private void validateDuplicateMember(Member member) {
-        repository.findBymid(member.getMid())
+        repository.findBymemberid(member.getMemberid())
                 .ifPresent(m -> {
                     throw new IllegalStateException("이미 존재하는 회원입니다.");
                 });

@@ -22,7 +22,7 @@
                                 <p>작성자: <span th:text="${board.mid}"></span>
                                 <div th:if="${#authorization.expression('isAuthenticated()')}">
                                 <div th:if="${board.mid == loginId}">
-                                    <a class="update1" href="#" th:href="@{/boards/update/{boardid}(boardid=${board.boardid})}">
+                                    <a class="update1" href="#" th:href="@{/boards/update/{boardno}(boardno=${board.boardno})}">
                                     <button type="submit" class="btn btn-outline-success">게시글 수정</button>
                                 </a>
                                     <div th:if="${#authorization.expression('isAuthenticated()')}">
@@ -75,7 +75,7 @@
         </div>
         <hr class="line2" />
         <form action="/boards/boardview" method="post">
-            <input type="hidden" name="boardid" th:value="${board.boardid}">
+            <input type="hidden" name="boardno" th:value="${board.boardno}">
             <input type="hidden" name="replyer" th:value="${loginId}">
             <input type="text" id="replyContent" name="replytext" style="width: 900px;" placeholder="댓글을 입력해주세요.">
             <button type="submit" class="btn btn-primary">댓글 등록</button>
@@ -91,12 +91,12 @@
             </thead>
             <tbody>
             <tr th:each="reply : ${replies}">
-                <td th:text="${reply.replynum}"></td>
+                <td th:text="${reply.replyno}"></td>
                 <td th:text="${reply.replyer}"></td>
                 <td th:text="${reply.replytext}"></td>
                 <td th:text="${#temporals.format(reply.regdate, 'MM-dd HH:mm')}"></td>
                 <td>
-                    <button class="delete-btn" th:data-replynum="${reply.replynum}" th:data-replyer="${reply.replyer}" th:data-loginid="${loginId}">삭제</button>
+                    <button class="delete-btn" th:data-replyno="${reply.replyno}" th:data-replyer="${reply.replyer}" th:data-loginid="${loginId}">삭제</button>
                 </td>
             </tr>
             </tbody>
@@ -122,12 +122,12 @@
             // 삭제 버튼에 이벤트 리스너 추가
             document.querySelectorAll(".delete-btn").forEach(function(button) {
                 button.addEventListener("click", function() {
-                    var replynum = this.getAttribute("data-replynum"); // 댓글 번호 가져오기
+                    var replyno = this.getAttribute("data-replyno"); // 댓글 번호 가져오기
                     var replyer = this.getAttribute("data-replyer");   // 작성자 정보 가져오기
                     var currentUser = this.getAttribute("data-loginid"); //로그인된 회원 정보 가져오기
 
                     if (currentUser == replyer && confirm("정말로 삭제하시겠습니까?")) { //작성자와 로그인한 작성자의 정보가 일치하면 삭제
-                        fetch(`/boards/deleteReply/${replynum}`, {
+                        fetch(`/boards/deleteReply/${replyno}`, {
                             method: "DELETE"
                         })
                             .then(response => {
@@ -161,10 +161,10 @@
 
         document.getElementById('remove').addEventListener('click', function() {
             // 현재 페이지의 URL에서 게시글 ID 추출
-            var boardid = window.location.pathname.split('/')[3];
+            var boardno = window.location.pathname.split('/')[3];
 
             // 삭제 요청 보내기
-            fetch('/boards/delete/' + boardid, {
+            fetch('/boards/delete/' + boardno, {
                 method: 'DELETE',
             }).then(function(response) {
                 // 요청이 성공적으로 완료되었는지와 상관없이 게시글 목록 페이지로 이동

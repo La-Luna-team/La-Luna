@@ -15,5 +15,5 @@ public class CreateReplyRequest {
 
     private String replyer;
 
-    private Long boardid;
+    private Long boardno;
 }

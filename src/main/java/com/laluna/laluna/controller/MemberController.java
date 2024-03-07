@@ -35,14 +35,14 @@ public class MemberController {
 
     public void addLoginAttributes(@AuthenticationPrincipal MyUserDetails userDetails, Model model) {
 
-        Long mnum = userDetails.getmnum();
-        List<Pets> pets = petsService.findByMember(mnum);
+        Long memberno = userDetails.getMemberno();
+        List<Pets> pets = petsService.findByMember(memberno);
         System.out.println(pets);
         model.addAttribute("pets", pets);
-        model.addAttribute("loginno", userDetails.getmnum());
+        model.addAttribute("loginno", userDetails.getMemberno());
         model.addAttribute("loginId", userDetails.getUsername());
         model.addAttribute("loginRoles", userDetails.getAuthorities());
-        model.addAttribute("loginMphone", userDetails.getMphone());
+        model.addAttribute("loginPhone", userDetails.getPhone());
         model.addAttribute("loginAddress", userDetails.getAddress());
         model.addAttribute("loginEmail", userDetails.getEmail());
     }
@@ -62,8 +62,8 @@ public class MemberController {
     @PostMapping("/mypage")
     public String updatepetpage(@AuthenticationPrincipal MyUserDetails userDetails,
                               @ModelAttribute UpdatePetRequest requestDTO, RedirectAttributes redirectAttributes) {
-        Long petnum = userDetails.getmnum();
-        UpdatePetResponse responseDTO = petsService.petUpdate(petnum, requestDTO);
+        Long petno = userDetails.getMemberno();
+        UpdatePetResponse responseDTO = petsService.petUpdate(petno, requestDTO);
         redirectAttributes.addFlashAttribute("mypage", responseDTO);
         return "/view/mypage";
     }

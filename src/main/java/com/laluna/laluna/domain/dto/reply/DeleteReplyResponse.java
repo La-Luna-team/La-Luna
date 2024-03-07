@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DeleteReplyResponse {
 
-    private Long replynum;
+    private Long replyno;
 }

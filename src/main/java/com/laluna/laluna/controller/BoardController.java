@@ -48,10 +48,10 @@ public class BoardController {
     //      model.addAttribute("board", responseDTO);
     //      return "boardView";   //해당 데이터는 현재 요청에서 처리되는 뷰에서만 사용할 수 있고 사용되면 더이상 사용불가
 
-    @GetMapping("/read/{boardid}")
-    public String readBoard(@PathVariable("boardid") Long boardid, Model model) {
-        ReadBoardResponse responseDTO = boardService.boardRead(boardid);
-        List<ReadReplyResponse> responseList = replyService.getRepliesByBoardId(boardid);
+    @GetMapping("/read/{boardno}")
+    public String readBoard(@PathVariable("boardno") Long boardno, Model model) {
+        ReadBoardResponse responseDTO = boardService.boardRead(boardno);
+        List<ReadReplyResponse> responseList = replyService.getRepliesByBoardId(boardno);
         model.addAttribute("replies", responseList);
         model.addAttribute("board", responseDTO);
         return "boards/boardview";
@@ -60,28 +60,28 @@ public class BoardController {
     //Thymeleaf 를 사용하는 경우 ThymeleafViewResolver 가 뷰 리졸버로 사용되며, 뷰 이름을 템플릿 파일의 경로로 변환한다.
     // 기본 설정에서는 src/main/resources/templates 디렉토리가 템플릿 파일의 기본 위치이다.
 
-    @GetMapping("/update/{boardid}")
-    public String modifyBoard(@PathVariable("boardid") Long boardid, Model model) {
-        ReadBoardResponse responseDTO = boardService.boardRead(boardid);
-        List<ReadReplyResponse> responseList = replyService.getRepliesByBoardId(boardid);
+    @GetMapping("/update/{boardno}")
+    public String modifyBoard(@PathVariable("boardno") Long boardno, Model model) {
+        ReadBoardResponse responseDTO = boardService.boardRead(boardno);
+        List<ReadReplyResponse> responseList = replyService.getRepliesByBoardId(boardno);
         model.addAttribute("replies", responseList);
         model.addAttribute("board", responseDTO);
         return "boards/boardupdate";
     }
-    @PutMapping("/update/{boardid}")
-    public String updateBoard(@PathVariable Long boardid,
+    @PutMapping("/update/{boardno}")
+    public String updateBoard(@PathVariable Long boardno,
                               @ModelAttribute UpdateBoardRequest requestDTO,
                               RedirectAttributes redirectAttributes) {
-        UpdateBoardResponse responseDTO = boardService.boardUpdate(boardid, requestDTO);
+        UpdateBoardResponse responseDTO = boardService.boardUpdate(boardno, requestDTO);
         redirectAttributes.addFlashAttribute("board", responseDTO);
-        return "redirect:/boards/read/" + boardid;
+        return "redirect:/boards/read/" + boardno;
     }
 
-    @DeleteMapping("/delete/{boardid}")
-    public String deleteBoard(@PathVariable Long boardid, RedirectAttributes redirectAttributes) {
-        DeleteBoardResponse responseDTO = boardService.boardDelete(boardid);
+    @DeleteMapping("/delete/{boardno}")
+    public String deleteBoard(@PathVariable Long boardno, RedirectAttributes redirectAttributes) {
+        DeleteBoardResponse responseDTO = boardService.boardDelete(boardno);
         redirectAttributes.addFlashAttribute("board", responseDTO);
-        //게시글을 삭제후에 boardid에 해당하는 값을 받아와서 메세지로 띄울 경우가아니면  삭제해도 무방할듯싶다.
+        //게시글을 삭제후에 boardno 해당하는 값을 받아와서 메세지로 띄울 경우가아니면  삭제해도 무방할듯싶다.
         return "redirect:/view/list";
     }
 
@@ -91,7 +91,7 @@ public class BoardController {
         // page 값을 가져와서 int 타입의 page 변수에 바인딩하는 역할
         // http://localhost:8080/boards/list?page=1 -> 이런식
 
-        Pageable pageable = PageRequest.of(page, 9, Sort.by("boardid").descending());
+        Pageable pageable = PageRequest.of(page, 9, Sort.by("boardno").descending());
         Page<ReadBoardResponse> boardPage = boardService.boardList(pageable);
         model.addAttribute("boards", boardPage);
         return "/boards/boardlist";

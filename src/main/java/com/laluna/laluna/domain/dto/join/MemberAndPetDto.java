@@ -13,12 +13,12 @@ import java.util.List;
 @ToString
 public class MemberAndPetDto {
     // 멤버 정보
-    private String mid;
-    private String mpw;
-    private String mphone;
+    private String memberid;
+    private String memberpassword;
+    private String phone;
     private String address;
     private String email;
-    private Long mnum;
+    private Long memberno;
 
     // 펫 정보
     private String petname;

@@ -20,14 +20,13 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class PetsService {
 
     private final PetsRepository petsRepository;
     private final MemberRepository memberRepository;
 
-    public Pets savePet(MemberAndPetDto dto, String mid) {
-        Member member = memberRepository.findBymid(mid)
+    public Pets savePet(MemberAndPetDto dto, String memberid) {
+        Member member = memberRepository.findBymemberid(memberid)
                 .orElseThrow(() -> new IllegalStateException("해당 id의 회원이 존재하지 않습니다."));
 
         Pets pets = Pets.builder()
@@ -45,24 +44,22 @@ public class PetsService {
         return petsRepository.save(pets);
     }
 
-    public List<Pets> findByMember(Long mnum){
-        return petsRepository.findByMember_mnum(mnum);
+    public List<Pets> findByMember(Long memberno){
+        return petsRepository.findByMember_memberno(memberno);
     }
 
-    Logger logger = LoggerFactory.getLogger(PetsService.class);
-
     @Transactional
-    public UpdatePetResponse petUpdate(Long mnum, UpdatePetRequest dto) {
-        List<Pets> findMember = petsRepository.findByMember_mnum(mnum);
+    public UpdatePetResponse petUpdate(Long memberno, UpdatePetRequest dto) {
+        List<Pets> findMember = petsRepository.findByMember_memberno(memberno);
 
         for (Pets pet : findMember) {
-            pet.update(dto.getPetName(), dto.getPetAge(), dto.getPetSex(), dto.getPetKind(), dto.getPetFeature(), dto.getPetVac(), dto.getPetCondition());
+            pet.update(dto.getPetname(), dto.getPetage(), dto.getPetsex(), dto.getPetkind(), dto.getPetfeature(), dto.getPetvac(), dto.getPetcondition());
         }
 
         Pets updatedPet = findMember.get(0);
 
         return new UpdatePetResponse(
-                updatedPet.getPetnum(),
+                updatedPet.getPetno(),
                 updatedPet.getMember(),
                 updatedPet.getPetname(),
                 updatedPet.getPetage(),

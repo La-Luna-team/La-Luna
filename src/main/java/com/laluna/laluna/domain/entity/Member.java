@@ -18,17 +18,17 @@ import java.util.List;
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long mnum;
+    private Long memberno;
 
     @Column(length = 20, nullable = false, unique = true)
-    private String mid;
+    private String memberid;
 
     @Column(length = 500, nullable = false)
-    private String mpw;
+    private String memberpassword;
 
     private String roles;
 
-    private String mphone;
+    private String phone;
 
     @Column(length = 100)
     private String address;
@@ -42,17 +42,17 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Board> board = new ArrayList<>();
 
-    public static Member createUser(String mid, String mpw, PasswordEncoder passwordEncoder, String mphone, String address,
-                                    String email, Long mnum) {
+    public static Member createUser(String memberid, String memberpassword, PasswordEncoder passwordEncoder, String phone, String address,
+                                    String email, Long memberno) {
 
         return Member.builder()
-                .mid(mid)
-                .mpw(passwordEncoder.encode(mpw))
+                .memberid(memberid)
+                .memberpassword(passwordEncoder.encode(memberpassword))
                 .roles("USER")
-                .mphone(mphone)
+                .phone(phone)
                 .address(address)
                 .email(email)
-                .mnum(mnum)
+                .memberno(memberno)
                 .build();
     }
 
