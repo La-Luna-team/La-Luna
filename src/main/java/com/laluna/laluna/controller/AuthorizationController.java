@@ -49,4 +49,10 @@ public class AuthorizationController {
         }
     }
 
+    @DeleteMapping("/pets/{petno}")
+    public ResponseEntity<Void> deletePet(@PathVariable Long petno) {
+        petsService.deletePet(petno);
+        return ResponseEntity.noContent().build();
+    }
+
 }
