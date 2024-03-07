@@ -18,17 +18,17 @@ public class Photo {
 
     @Id
     @GeneratedValue
-    private Long photonum;
+    private Long photono;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "mid")
+    @JoinColumn(name = "memberno")
     private Member member;
 
     @Column(length = 200, nullable = true)
     private String link;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "boardid")
+    @JoinColumn(name = "boardno")
     private Board board;
 
     public void updateUrl(String link) {

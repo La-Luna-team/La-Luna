@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 public class ReadBoardResponse {
 
-    private Long boardid;
+    private Long boardno;
 
     private List<Photo> link;  //이미지 링크
 

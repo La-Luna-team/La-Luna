@@ -24,10 +24,10 @@ public class Reply {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long replynum;
+    private Long replyno;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "boardid")
+    @JoinColumn(name = "boardno")
     private Board board;
 
     private String replytext;

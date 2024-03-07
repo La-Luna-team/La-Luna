@@ -32,9 +32,9 @@ public class BoardService {
     @Transactional
     public CreateBoardResponse boardCreate(@AuthenticationPrincipal MyUserDetails userDetails,
                                            CreateBoardRequest requestDTO) {
-        String mid = userDetails.getUsername();  // 로그인한 사용자의 아이디를 가져옴
-        Member member = memberRepository.findBymid(mid)  // 아이디로 Member 객체를 찾음
-                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + mid));
+        String memberid = userDetails.getUsername();  // 로그인한 사용자의 아이디를 가져옴
+        Member member = memberRepository.findBymemberid(memberid)  // 아이디로 Member 객체를 찾음
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + memberid));
 
         Board board = Board.builder()
                 .member(member)  // Member를 설정함
@@ -47,7 +47,7 @@ public class BoardService {
         Board saveBoard = boardRepository.save(board);
 
         return new CreateBoardResponse(
-                saveBoard.getBoardid(),
+                saveBoard.getBoardno(),
                 saveBoard.getPhotos(),
                 saveBoard.getTitle(),
                 saveBoard.getContent(),
@@ -56,11 +56,11 @@ public class BoardService {
                 saveBoard.getModdate());
     }
 
-    public ReadBoardResponse boardRead(Long boardid) {
-        Board findBoard = boardRepository.findById(boardid)
+    public ReadBoardResponse boardRead(Long boardno) {
+        Board findBoard = boardRepository.findById(boardno)
                 .orElseThrow(() -> new EntityNotFoundException("해당 boardid로 조회된 게시글이 없습니다."));
 
-        String mid = findBoard.getMember().getMid(); // 작성자 아이디 가져오기
+        String memberid = findBoard.getMember().getMemberid(); // 작성자 아이디 가져오기
 
         List<PetResponse> petResponses = new ArrayList<>();
         if (findBoard.getMember().getPets() != null) {
@@ -70,27 +70,27 @@ public class BoardService {
         }
 
         return new ReadBoardResponse(
-                findBoard.getBoardid(),
+                findBoard.getBoardno(),
                 findBoard.getPhotos(),
                 findBoard.getTitle(),
                 findBoard.getContent(),
                 findBoard.getCategory(),
                 findBoard.getRegdate(),
                 findBoard.getModdate(),
-                mid, // 작성자 아이디 전달
+                memberid, // 작성자 아이디 전달
                 petResponses); // 펫 정보 리스트 전달
     }
 
     @Transactional
-    public UpdateBoardResponse boardUpdate(Long boardid, UpdateBoardRequest requestDTO) {
+    public UpdateBoardResponse boardUpdate(Long boardno, UpdateBoardRequest requestDTO) {
 
-        Board findBoard = boardRepository.findById(boardid)
-                .orElseThrow(() -> new EntityNotFoundException("해당 boardid로 조회된 게시글이 없습니다."));
+        Board findBoard = boardRepository.findById(boardno)
+                .orElseThrow(() -> new EntityNotFoundException("해당 board no로 조회된 게시글이 없습니다."));
 
         findBoard.update(requestDTO.getLink(), requestDTO.getTitle(), requestDTO.getContent(), requestDTO.getCategory());
 
         return new UpdateBoardResponse(
-                findBoard.getBoardid(),
+                findBoard.getBoardno(),
                 findBoard.getPhotos(),
                 findBoard.getTitle(),
                 findBoard.getContent(),
@@ -100,21 +100,21 @@ public class BoardService {
     }
 
     @Transactional
-    public DeleteBoardResponse boardDelete(Long boardid) {
+    public DeleteBoardResponse boardDelete(Long boardno) {
 
-        Board findBoard = boardRepository.findById(boardid)
-                .orElseThrow(() -> new EntityNotFoundException("해당 boardid로 조회된 게시글이 없습니다."));
+        Board findBoard = boardRepository.findById(boardno)
+                .orElseThrow(() -> new EntityNotFoundException("해당 board no로 조회된 게시글이 없습니다."));
 
         boardRepository.delete(findBoard);
 
-        return new DeleteBoardResponse(findBoard.getBoardid());
+        return new DeleteBoardResponse(findBoard.getBoardno());
     }
 
     public Page<ReadBoardResponse> boardList(Pageable pageable) {
         Page<Board> boardPage = boardRepository.findAll(pageable);
 
         return boardPage.map(board -> {
-            String mid = board.getMember().getMid(); // 작성자 아이디 가져오기
+            String memberid = board.getMember().getMemberid(); // 작성자 아이디 가져오기
 
             List<PetResponse> petResponses = new ArrayList<>();
             if (board.getMember().getPets() != null) {
@@ -124,14 +124,14 @@ public class BoardService {
             }
 
             return new ReadBoardResponse(
-                    board.getBoardid(),
+                    board.getBoardno(),
                     board.getPhotos(),
                     board.getTitle(),
                     board.getContent(),
                     board.getCategory(),
                     board.getRegdate(),
                     board.getModdate(),
-                    mid, // 작성자 아이디 전달
+                    memberid, // 작성자 아이디 전달
                     petResponses); // 펫 정보 리스트 전달
         });
     }

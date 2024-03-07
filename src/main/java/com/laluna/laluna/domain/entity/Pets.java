@@ -20,10 +20,10 @@ public class Pets {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long petnum;  //펫 번호
+    private Long petno;  //펫 번호
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "mnum")
+    @JoinColumn(name = "memberno")
     private Member member;   //주인 아이디 받아오기
 
     private String petname; //펫 이름
@@ -55,7 +55,7 @@ public class Pets {
     @Override
     public String toString() {
         return "Pets{" +
-                "petnum=" + petnum +
+                "petnum=" + petno +
                 ", member=" + member +
                 ", petname='" + petname + '\'' +
                 ", petage=" + petage +

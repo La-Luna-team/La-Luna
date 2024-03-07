@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MemberLoginDto {
-    private String mid;
+    private String memberid;
 
-    private String mpw;
+    private String memberpassword;
 }

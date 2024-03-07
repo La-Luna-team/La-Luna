@@ -55,30 +55,18 @@ public class ReplyServiceTest {
 
         CreateReplyResponse createReplyResponse = replyService.replyCreate(createReplyRequest);
 
-        assertThat(createReplyResponse.getReplynum()).isEqualTo(1L);
-        assertThat(createReplyResponse.getBoardid()).isNull();
+        assertThat(createReplyResponse.getReplyno()).isEqualTo(1L);
+        assertThat(createReplyResponse.getBoardno()).isNull();
         assertThat(createReplyResponse.getReplytext()).isEqualTo("댓글 내용");
         assertThat(createReplyResponse.getReplyer()).isEqualTo("유저");
     }
-
-//    @Test
-//    @DisplayName("댓글 조회 테스트")
-//    void readReply() {
-//        when(replyRepository.findById(any())).thenReturn(Optional.of(saveReply));
-//
-//        ReadReplyResponse readReplyResponse = replyService.replyRead(saveReply.getReplynum());
-//
-//        assertThat(readReplyResponse.getReplynum()).isEqualTo(saveReply.getReplynum());
-//        assertThat(readReplyResponse.getReplytext()).isEqualTo(saveReply.getReplytext());
-//        assertThat(readReplyResponse.getReplyer()).isEqualTo(saveReply.getReplyer());
-//    }
 
     @Test
     @DisplayName("댓글 수정 테스트")
     void updateReply() {
         given(replyRepository.findById(any())).willReturn(Optional.of(saveReply));
 
-        UpdateReplyResponse updateReplyResponse = replyService.replyUpdate(saveReply.getReplynum(), updateReplyRequest);
+        UpdateReplyResponse updateReplyResponse = replyService.replyUpdate(saveReply.getReplyno(), updateReplyRequest);
 
         assertThat(updateReplyResponse.getReplytext()).isEqualTo("변경된 내용");
         assertThat(updateReplyResponse.getReplyer()).isEqualTo("변경된 유저");
@@ -89,8 +77,8 @@ public class ReplyServiceTest {
     void deleteReply() {
         when(replyRepository.findById(any())).thenReturn(Optional.of(saveReply));
 
-        DeleteReplyResponse response = replyService.replyDelete(saveReply.getReplynum());
+        DeleteReplyResponse response = replyService.replyDelete(saveReply.getReplyno());
 
-        assertThat(response.getReplynum()).isEqualTo(2L);
+        assertThat(response.getReplyno()).isEqualTo(2L);
     }
 }

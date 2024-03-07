@@ -28,19 +28,19 @@ public class ReplyController {
     public String createReply(@ModelAttribute CreateReplyRequest request, RedirectAttributes redirectAttributes){
         CreateReplyResponse response = replyService.replyCreate(request);
         redirectAttributes.addFlashAttribute("replies", response);
-        return "redirect:/boards/read/"+ request.getBoardid();
+        return "redirect:/boards/read/"+ request.getBoardno();
     }
 
     @PutMapping("/updateReply")
-    public String updateReply(@PathVariable Long replynum,@ModelAttribute UpdateReplyRequest requestDTO, RedirectAttributes redirectAttributes){
-        replyService.replyUpdate(replynum, requestDTO);
+    public String updateReply(@PathVariable Long replyno,@ModelAttribute UpdateReplyRequest requestDTO, RedirectAttributes redirectAttributes){
+        replyService.replyUpdate(replyno, requestDTO);
         redirectAttributes.addFlashAttribute("message","댓글이 성공적으로 수정되었습니다.");
         return "redirect:/view/boardview";
     }
 
-    @DeleteMapping("/deleteReply/{replynum}")
-    public ResponseEntity<?> deleteReply(@PathVariable Long replynum) {
-        replyService.replyDelete(replynum);
+    @DeleteMapping("/deleteReply/{replyno}")
+    public ResponseEntity<?> deleteReply(@PathVariable Long replyno) {
+        replyService.replyDelete(replyno);
         return ResponseEntity.ok().build();
     }
 }

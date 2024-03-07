@@ -15,14 +15,14 @@ public class MemberService {
 
     private final MemberRepository repository;
 
-    public Optional<Member> findOne(String mid) {
-        return repository.findBymid(mid);
+    public Optional<Member> findOne(String memberid) {
+        return repository.findBymemberid(memberid);
     }
 
-    public boolean isValidMember(String mid, String password) {
-        Optional<Member> member = findOne(mid);
+    public boolean isValidMember(String memberid, String password) {
+        Optional<Member> member = findOne(memberid);
         if(member.isPresent()) {
-            return member.get().getMpw().equals(password);
+            return member.get().getMemberpassword().equals(password);
         }
         return false;
     }
