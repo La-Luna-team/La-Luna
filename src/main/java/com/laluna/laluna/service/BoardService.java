@@ -135,4 +135,7 @@ public class BoardService {
                     petResponses); // 펫 정보 리스트 전달
         });
     }
+    public List<Board> getBoardsByCategory(String category) {
+        return boardRepository.findByCategory(category);
+    }
 }

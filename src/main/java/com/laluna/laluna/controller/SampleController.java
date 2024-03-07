@@ -22,4 +22,5 @@ public class SampleController {
     public String showTest4() {
         return "home/register";
     }
+
 }
