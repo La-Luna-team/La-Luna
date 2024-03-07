@@ -4,6 +4,7 @@ import com.laluna.laluna.domain.entity.Member;
 import com.laluna.laluna.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

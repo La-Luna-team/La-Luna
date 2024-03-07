@@ -38,9 +38,15 @@ public class Board extends Date{
     private List<Photo> photos;
 
     public void update(List<Photo> photos, String title, String content, String category) {
+        System.out.println("Received values: " + photos + ", " + title + ", " + content + ", " + category);
+        System.out.println("Before update: " + this.photos + ", " + this.title + ", " + this.content + ", " + this.category);
+
         this.photos = photos;
         this.title = title;
         this.content = content;
         this.category = category;
+
+        System.out.println("After update: " + this.photos + ", " + this.title + ", " + this.content + ", " + this.category);
     }
+
 }

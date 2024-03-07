@@ -43,7 +43,7 @@ public class Member {
     private List<Board> board = new ArrayList<>();
 
     public static Member createUser(String mid, String mpw, PasswordEncoder passwordEncoder, String mphone, String address,
-                                    String email) {
+                                    String email, Long mnum) {
 
         return Member.builder()
                 .mid(mid)
@@ -52,6 +52,7 @@ public class Member {
                 .mphone(mphone)
                 .address(address)
                 .email(email)
+                .mnum(mnum)
                 .build();
     }
 

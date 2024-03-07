@@ -19,20 +19,29 @@
                 <div class="Content">
                         <div class="user-body">
                             <div class="user-body">
-                                <p>작성자: <span th:text="${board.mid}"></span></p>
-                                <div th:each="petResponse : ${board.pets}">
-                                    <p th:text="${petResponse.petname}"></p>
-                                    <p th:text="${petResponse.petage}"></p>
-                                    <p th:text="${petResponse.petkind}"></p>
-                                    <p th:text="${petResponse.petfeature}"></p>
-                                    <p th:text="${petResponse.petvac}"></p>
-                                    <p th:text="${petResponse.petcondition}"></p>
-                                    <p th:text="${petResponse.petsex ? '수컷' : '암컷'}"></p>
-                                </div>
-                                <a class="btn btn-secondary" href="#" th:href="@{/boards/update/{boardid}(boardid=${board.boardid})}">
-                                <button type="submit" class="btn btn-outline-success">게시글 수정</button>
+                                <p>작성자: <span th:text="${board.mid}"></span>
+                                <div th:if="${#authorization.expression('isAuthenticated()')}">
+                                <div th:if="${board.mid == loginId}">
+                                    <a class="update1" href="#" th:href="@{/boards/update/{boardid}(boardid=${board.boardid})}">
+                                    <button type="submit" class="btn btn-outline-success">게시글 수정</button>
                                 </a>
-                                <button type="button" class="btn btn-outline-danger" id="boardremove">게시글 삭제</button>
+                                    <div th:if="${#authorization.expression('isAuthenticated()')}">
+                                        <div th:if="${board.mid == loginId}">
+                                            <button type="button" class="btn btn-outline-danger" id="boardremove">게시글 삭제</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                </p>
+                                <div th:each="petResponse : ${board.pets}">
+                                    <span th:text="'|이름: ' + ${petResponse.petname}"></span>
+                                    <span th:text="'|나이: ' + ${petResponse.petage}"></span>
+                                    <span th:text="'|종류: ' + ${petResponse.petkind}"></span>
+                                    <span th:text="'|특징: ' + ${petResponse.petfeature}"></span>
+                                    <span th:text="'|예방접종: ' + ${petResponse.petvac}"></span>
+                                    <span th:text="'|상태: ' + ${petResponse.petcondition}"></span>
+                                    <span th:text="${petResponse.petsex ? '|성별: 수컷' : '성별: 암컷'}"></span>
+                                </div>
                                 <div class="modal" tabindex="-1" role="dialog" id="myModal">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content rounded-4 shadow">
@@ -85,7 +94,7 @@
                 <td th:text="${reply.replynum}"></td>
                 <td th:text="${reply.replyer}"></td>
                 <td th:text="${reply.replytext}"></td>
-                <td th:text="${reply.regdate}"></td>
+                <td th:text="${#temporals.format(reply.regdate, 'MM-dd HH:mm')}"></td>
                 <td>
                     <button class="delete-btn" th:data-replynum="${reply.replynum}" th:data-replyer="${reply.replyer}" th:data-loginid="${loginId}">삭제</button>
                 </td>
@@ -107,33 +116,6 @@
 
 <th:block layout:fragment="script">
     <script>
-        // const modalOpenButton = document.getElementById('modalOpenButton');
-        // const modalCloseButton = document.getElementById('modalCloseButton');
-        // const modalRegisterButton = document.getElementById('modalRegisterButton')
-        // const modal = document.getElementById('modalContainer');
-        //
-        // modalOpenButton.addEventListener('click', () => {
-        //     modal.classList.remove('hidden');
-        // });
-        //
-        // modalRegisterButton.addEventListener('click', ()=>{
-        //     modal.classList.add('hidden');
-        //     registerComment()
-        // });
-        //
-        // modalCloseButton.addEventListener('click', () => {
-        //     modal.classList.add('hidden');
-        // });
-        //
-        // function registerComment(){
-        //     const commentContent = document.getElementById('content').value;
-        //
-        //     if(commentContent.trim() ===''){
-        //         alert('댓글 내용을 입력해주세요');
-        //         return;
-        //     }
-        //     alert(commentContent +'가 입력되었습니다!');
-        // }
 
         // 댓글 삭제 스크립트
         document.addEventListener("DOMContentLoaded", function() {
@@ -192,6 +174,7 @@
                 console.error('Network error: ' + error);
             });
         });
+        //로그인된 회원만 보이는 버튼
     </script>
 </th:block>
 </body>

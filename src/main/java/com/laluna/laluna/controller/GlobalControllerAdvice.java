@@ -22,7 +22,7 @@ public class GlobalControllerAdvice {
 
         if (userDetails != null) {
             Long mnum = userDetails.getmnum();
-            List<Pets> pets = petsService.findPetsByMemberMid(mnum);
+            List<Pets> pets = petsService.findByMember(mnum);
             model.addAttribute("pets", pets);
             model.addAttribute("loginId", userDetails.getUsername());
             model.addAttribute("loginRoles", userDetails.getAuthorities());
