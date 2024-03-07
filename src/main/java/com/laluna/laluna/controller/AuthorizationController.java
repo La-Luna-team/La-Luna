@@ -41,7 +41,7 @@ public class AuthorizationController {
     @PostMapping("/update_pet_info")
     public ResponseEntity<String> update_pet_info(@AuthenticationPrincipal MyUserDetails userDetails, UpdatePetRequest dto) {
         try {
-            Long petnum = userDetails.getMnum();
+            Long petnum = userDetails.getmnum();
             petsService.petUpdate(petnum, dto);
             return ResponseEntity.ok("펫 정보 업데이트 성공");
         } catch (Exception e) {
