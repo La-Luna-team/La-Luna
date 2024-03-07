@@ -107,33 +107,7 @@
 
 <th:block layout:fragment="script">
     <script>
-        // const modalOpenButton = document.getElementById('modalOpenButton');
-        // const modalCloseButton = document.getElementById('modalCloseButton');
-        // const modalRegisterButton = document.getElementById('modalRegisterButton')
-        // const modal = document.getElementById('modalContainer');
-        //
-        // modalOpenButton.addEventListener('click', () => {
-        //     modal.classList.remove('hidden');
-        // });
-        //
-        // modalRegisterButton.addEventListener('click', ()=>{
-        //     modal.classList.add('hidden');
-        //     registerComment()
-        // });
-        //
-        // modalCloseButton.addEventListener('click', () => {
-        //     modal.classList.add('hidden');
-        // });
-        //
-        // function registerComment(){
-        //     const commentContent = document.getElementById('content').value;
-        //
-        //     if(commentContent.trim() ===''){
-        //         alert('댓글 내용을 입력해주세요');
-        //         return;
-        //     }
-        //     alert(commentContent +'가 입력되었습니다!');
-        // }
+
         document.querySelectorAll('.delete-btn').forEach(function(btn) {
             btn.addEventListener('click', function(e) {
                 var replynum = e.target.getAttribute('data-replynum');
