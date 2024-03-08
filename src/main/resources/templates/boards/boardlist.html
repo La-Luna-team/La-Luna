@@ -8,6 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Madimi+One&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Madimi+One&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Madimi+One&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <title>Title</title>
     <th:block layout:fragment="head">
@@ -23,7 +25,7 @@
                 <a class="link-secondary" href="/test">Home</a>
             </div>
             <div class="col-4 text-center">
-                <a class="blog-header-logo text-body-emphasis text-decoration-none" href="#" id="font">La-Luna Board&#127769;</a>
+                <a class="blog-header-logo text-body-emphasis text-decoration-none" href="#" id="font">La-Luna Board</a>
             </div>
             <div class="col-4 d-flex justify-content-end align-items-center">
                 <a class="link-secondary" href="#" aria-label="Search">
@@ -36,18 +38,10 @@
 <!--게시판 링크-->
     <div class="nav-scroller py-1 mb-3 border-bottom">
         <nav class="nav nav-underline justify-content-between">
-            <a class="nav-item nav-link link-body-emphasis" th:href="@{/boards/category/{category}(category='일상게시판')}">Daily board<p>&#128021;&#128007;&#128009;&#128011;</p></a>
-            <a class="nav-item nav-link link-body-emphasis" th:href="@{/boards/category/{category}(category='꿀팁게시판')}">Honey Tip board<p>&#127855;</p></a>
-            <a class="nav-item nav-link link-body-emphasis" th:href="@{/boards/category/{category}(category='건강게시판')}">Health board<p>&#128568;</p></a>
-<!--            <a class="nav-item nav-link link-body-emphasis" href="#">Design</a>-->
-<!--            <a class="nav-item nav-link link-body-emphasis" href="#">Culture</a>-->
-<!--            <a class="nav-item nav-link link-body-emphasis" href="#">Business</a>-->
-<!--            <a class="nav-item nav-link link-body-emphasis" href="#">Politics</a>-->
-<!--            <a class="nav-item nav-link link-body-emphasis" href="#">Opinion</a>-->
-<!--            <a class="nav-item nav-link link-body-emphasis" href="#">Science</a>-->
-<!--            <a class="nav-item nav-link link-body-emphasis" href="#">Health</a>-->
-<!--            <a class="nav-item nav-link link-body-emphasis" href="#">Style</a>-->
-<!--            <a class="nav-item nav-link link-body-emphasis" href="#">Travel</a>-->
+            <a class="nav-item nav-link link-body-emphasis" th:href="@{/boards/list}">Board All</a>
+            <a class="nav-item nav-link link-body-emphasis" th:href="@{/boards/category/{category}(category='일상게시판')}">Daily board</a>
+            <a class="nav-item nav-link link-body-emphasis" th:href="@{/boards/category/{category}(category='꿀팁게시판')}">Honey Tip board</a>
+            <a class="nav-item nav-link link-body-emphasis" th:href="@{/boards/category/{category}(category='건강게시판')}">Health board</a>
         </nav>
     </div>
     </div>
@@ -69,45 +63,67 @@
             <div class="col-md-6">
                 <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                     <div class="col p-4 d-flex flex-column position-static">
-                        <strong class="d-inline-block mb-2 text-primary-emphasis">World</strong>
-                        <h3 class="mb-0">Featured post</h3>
-                        <div class="mb-1 text-body-secondary">Nov 12</div>
-                        <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+                        <strong class="d-inline-block mb-2 text-primary-emphasis">a physician</strong>
+                        <h3 class="mb-0">Eunice Doctor</h3>
+                        <div class="mb-1 text-body-secondary">내과/원장</div>
+                        <h6>· 서울대학교 수의과대학 수석 졸업 및 국가고시 수석 합격</h6>
+                        <h6>· 서울대학교 수의과대학 석박사 수료(내과학)</h6>
+                        <p class="card-text mb-auto"></p>
                         <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
-                            Continue reading
+                            1:1 채팅/질문
                             <svg class="bi"><use xlink:href="#chevron-right"/></svg>
                         </a>
                     </div>
-                    <div class="col-auto d-none d-lg-block">
-                        <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                    <div class="col-auto d-none d-lg-block pt-4">
+                        <img th:src="@{/images/doctorwoman.png}" width="290" height="246" alt="여의사" />
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                     <div class="col p-4 d-flex flex-column position-static">
-                        <strong class="d-inline-block mb-2 text-success-emphasis">Design</strong>
-                        <h3 class="mb-0">Post title</h3>
-                        <div class="mb-1 text-body-secondary">Nov 11</div>
-                        <p class="mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+                        <strong class="d-inline-block mb-2 text-success-emphasis">a surgeon</strong>
+                        <h3 class="mb-0">Dragon Doctor</h3>
+                        <div class="mb-1 text-body-secondary">외과/원장</div>
+                        <h6>· 서울대학교 수의과대학 졸업</h6>
+                        <h6>· 서울대학교 수의과대학 외과학 박사</h6>
+                        <h6>· 2018-2024 서울대학교부속동물병원 내과 진료수의사</h6>
+                        <p class="mb-auto"></p>
                         <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
-                            Continue reading
+                            1:1 채팅/질문
                             <svg class="bi"><use xlink:href="#chevron-right"/></svg>
                         </a>
                     </div>
                     <div class="col-auto d-none d-lg-block">
-                        <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                        <img th:src="@{/images/doctormen.png}" width="270" height="270" alt="남의사" />
                     </div>
                 </div>
             </div>
         </div>
 <!--게시물 리스트 (반복문 처리)-->
         <div class="row">
-            <div class="col-lg-4" th:each="board : ${boards}">
-                <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
-                <h2 class="fw-normal" th:text="${board.title}">Heading</h2>
-                <p th:text="${board.content}">Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
-                <p><a class="btn btn-secondary" href="#" th:href="@{/boards/read/{boardno}(boardno=${board.boardno})}">View details &raquo;</a></p>
+            <div class="col-lg-4  pt-5" th:each="board : ${boards}">
+                <div class="mb-3" style="display: flex; align-items: flex-start;">
+                    <img class="me-3" th:src="@{/images/userImage.png}" width="50" height="50" alt="프로필" />
+                    <div style="margin-left: 10px;">
+                        <div style="height: 20px;"><strong class="d-inline-block mb-2 text-success-emphasis" th:text="${board.mid}"></strong></div>
+                        <div style="height: 20px;"><strong class="d-inline-block mb-2 text-body-secondary" th:text="${#temporals.format(board.getRegdate, 'YYYY-MM-dd')}"></strong></div>
+                    </div>
+                </div>
+                <div>
+                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                </div>
+                <h2 class="fw-normal mt-2" th:text="${board.title}">Heading</h2>
+                <p>카테고리: <span th:text="${board.category}"></span>
+                <div class="row">
+                    <p class="col-lg-8">
+                        <a class="btn btn-secondary" href="#" th:href="@{/boards/read/{boardno}(boardno=${board.boardno})}">View details &raquo;</a>
+                    </p>
+                    <div class="col-lg-4 text-right" >
+                        <img th:src="@{/images/like.png}" width="25" height="25" alt="좋아요"/>
+                        <img class="ms-4" th:src="@{/images/reply.png}" width="25" height="25" alt="댓글"/>
+                    </div>
+                </div>
             </div><!-- /.col-lg-4 -->
         </div>
 <!--페이지네이션-->
@@ -147,22 +163,17 @@
     }
     /*글씨 폰트*/
     .blog-header-logo{
-            font-family: "Madimi One", sans-serif;
-            font-weight: 400;
-            font-style: normal;
+        font-family: "Playfair Display", serif;
+        font-weight: 500;
+        font-size: 50px;
         }
     .nav-item{
-        font-family: "Nanum Pen Script", cursive;
-        font-weight: 800;
-        font-style: normal;
-    }
-    .display-4{
-        font-family: "Indie Flower", cursive;
+        font-family: "Playfair Display", serif;
         font-weight: 400;
-        font-style: normal;
+        font-size: 20px;
     }
     .lead{
-        font-family: "Nanum Pen Script", cursive;
+        font-family: "Gowun Dodum", sans-serif;
         font-weight: 400;
         font-style: normal;
     }

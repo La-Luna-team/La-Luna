@@ -98,7 +98,7 @@ public class BoardController {
     }
     @GetMapping("/category/{category}")
     public String getPostsByCategory(@PathVariable String category, Model model) {
-        List<Board> boards = boardService.getBoardsByCategory(category);
+        List<ReadBoardResponse> boards = boardService.getBoardsByCategory(category);
         model.addAttribute("boards", boards);
         return "/boards/boardlist";
     }
