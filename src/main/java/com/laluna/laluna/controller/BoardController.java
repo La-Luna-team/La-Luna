@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -102,20 +103,13 @@ public class BoardController {
         model.addAttribute("boards", boards);
         return "/boards/boardlist";
     }
+
 //    @GetMapping("/category/{category}")
 //    public String getBoardsByCategory(@PathVariable String category, @RequestParam(defaultValue = "0") int page, Model model) {
 //        Pageable pageable = PageRequest.of(page, 9,Sort.by("boardno").descending());
-////        List<Board> boards = boardService.getBoardsByCategory(category);
 //        Page<Board> pagedBoards = boardService.getBoardsListByCategory(category, pageable);
 //        model.addAttribute("boards", pagedBoards);
-////        model.addAttribute("boards", boards);
 //        return "/boards/boardlist";
 //    }
-//
-//    @GetMapping("/board/{title}")
-//    public String getBoardsByTitle(@PathVariable String title, Model model) {
-//        List<Board> boards = boardService.getBoardsByTitle(title);
-//        model.addAttribute("boards", boards);
-//        return "/boards/boardlist";
-//    }
+
 }
