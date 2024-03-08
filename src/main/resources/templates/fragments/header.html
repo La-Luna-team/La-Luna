@@ -48,11 +48,11 @@
                         <div sec:authorize="!isAuthenticated()">
                         <form id="loginForm" method="post" action="/login-process">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="mid">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="memberid">
                                 <label for="floatingInput">Id</label>
                             </div>
                             <div class="form-floating">
-                                <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="mpw">
+                                <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="memberpassword">
                                 <label for="floatingPassword">Password</label>
                             </div>
 
@@ -70,9 +70,14 @@
                 </div>
             </div>
         </div>
+        <script>
+            document.getElementById('logout_btn').addEventListener('click', function() {
+                var result = confirm("로그아웃 하시겠습니까?");
+                if (result) {
+                    document.getElementById('logoutForm').submit();
+                }
+            });
+        </script>
     </nav>
-    <script>
-
-    </script>
 </th:block>
 </html>

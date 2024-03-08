@@ -109,10 +109,11 @@ public class BoardController {
     }
 //    @GetMapping("/category/{category}")
 //    public String getPostsByCategory(@PathVariable String category, Model model) {
-//        List<Board> boards = boardService.getBoardsByCategory(category);
+//        List<ReadBoardResponse> boards = boardService.getBoardsByCategory(category);
 //        model.addAttribute("boards", boards);
 //        return "/boards/boardlist";
 //    }
+
     @GetMapping("/category/{category}")
     public String getBoardsByCategory(@PathVariable String category, @RequestParam(defaultValue = "0") int page, Model model) {
         Pageable pageable = PageRequest.of(page, 9,Sort.by("boardno").descending());
@@ -134,4 +135,10 @@ public class BoardController {
         return "/boards/boardlist";
     }
 
+@GetMapping("/board/{title}")
+public String getBoardsByTitle(@PathVariable String title, Model model) {
+    List<Board> boards = boardService.getBoardsByTitle(title);
+    model.addAttribute("boards", boards);
+    return "/boards/boardlist";
+}
 }

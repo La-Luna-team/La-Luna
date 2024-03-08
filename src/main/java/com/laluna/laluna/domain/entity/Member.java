@@ -55,5 +55,4 @@ public class Member {
                 .memberno(memberno)
                 .build();
     }
-
 }

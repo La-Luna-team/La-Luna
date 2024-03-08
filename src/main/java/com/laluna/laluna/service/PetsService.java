@@ -70,4 +70,11 @@ public class PetsService {
                 updatedPet.getPetcondition()
         );
     }
+
+    @Transactional
+    public void deletePet(Long petno) {
+        Pets pet = petsRepository.findById(petno)
+                .orElseThrow(() -> new IllegalArgumentException("해당 번호의 펫이 존재하지 않습니다."));
+        petsRepository.delete(pet);
+    }
 }

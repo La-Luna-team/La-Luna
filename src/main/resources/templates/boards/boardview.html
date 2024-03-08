@@ -18,10 +18,8 @@
     <button class="custom-btn btn-12" id="register" onclick="location.href='/boards/list'"><span>메인으로!!</span><span>메인으로</span></button>
     <div class="card" style="width: 65rem; margin: 0 auto;">
         <div class="card-body">
-<!--            <div style="display: flex; justify-content: center;  margin-bottom: 50px;" >/-->
-<!--            </div>-->
-            <h6 class="card-title" th:text="${board.category}"></h6>
-            <h1 class="card-subtitle mb-2 text-body-secondary text-color" th:text="${board.title}"></h1>
+            <h1 class="card-title" th:text="${board.category}"></h1>
+            <h3 class="card-subtitle mb-2 text-body-secondary" th:text="${board.title}"></h3>
     </div>
     <hr class="line1" />
                 <div class="Content">

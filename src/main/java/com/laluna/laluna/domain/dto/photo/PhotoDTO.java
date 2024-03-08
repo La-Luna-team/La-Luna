@@ -18,7 +18,6 @@ public class PhotoDTO {
 
     private String link;
 
-
     private Board board;
 
 }
