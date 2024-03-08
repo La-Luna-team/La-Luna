@@ -2,6 +2,7 @@ package com.laluna.laluna.controller;
 
 import com.laluna.laluna.config.MyUserDetails;
 import com.laluna.laluna.domain.entity.Pets;
+import com.laluna.laluna.service.MemberService;
 import com.laluna.laluna.service.PetsService;
 import lombok.RequiredArgsConstructor;
 
@@ -22,6 +23,7 @@ import java.util.List;
 public class MemberController {
 
     private final PetsService petsService;
+
     @GetMapping("/login")
     public String loginPage() {
         return "/view/login";
@@ -67,8 +69,4 @@ public class MemberController {
         redirectAttributes.addFlashAttribute("mypage", responseDTO);
         return "/view/mypage";
     }
-
-
-    //펫 정보가 삭제되고 그 다음에 사용자가 삭제되어야 한다.
-
 }
