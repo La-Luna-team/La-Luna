@@ -88,13 +88,23 @@ public class BoardController {
 
     @GetMapping("/list")
     public String listBoards(@RequestParam(defaultValue = "0") int page, Model model) {
-        //@RequestParam(defaultValue = "0") int page 는 URL 의 쿼리 파라미터에서
-        // page 값을 가져와서 int 타입의 page 변수에 바인딩하는 역할
-        // http://localhost:8080/boards/list?page=1 -> 이런식
-
         Pageable pageable = PageRequest.of(page, 9, Sort.by("boardno").descending());
         Page<ReadBoardResponse> boardPage = boardService.boardList(pageable);
+
+        int nowPage = boardPage.getNumber() + 1;
+        int totalPages = boardPage.getTotalPages();
+        int pageSize = 10;
+
+        int groupNumber = (nowPage - 1) / pageSize;
+
+        int startPage = groupNumber * pageSize + 1;
+        int endPage = Math.min(startPage + pageSize - 1, totalPages);
+
         model.addAttribute("boards", boardPage);
+        model.addAttribute("nowPage", nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+
         return "/boards/boardlist";
     }
 //    @GetMapping("/category/{category}")
@@ -107,7 +117,20 @@ public class BoardController {
     public String getBoardsByCategory(@PathVariable String category, @RequestParam(defaultValue = "0") int page, Model model) {
         Pageable pageable = PageRequest.of(page, 9,Sort.by("boardno").descending());
         Page<Board> pagedBoards = boardService.getBoardsListByCategory(category, pageable);
-        model.addAttribute("boards", pagedBoards);
+
+        int nowPage = pagedBoards.getNumber() + 1;
+        int totalPages = pagedBoards.getTotalPages();
+        int pageSize = 10;
+
+        int groupNumber = (nowPage - 1) / pageSize;
+
+        int startPage = groupNumber * pageSize + 1;
+        int endPage = Math.min(startPage + pageSize - 1, totalPages);
+
+        model.addAttribute("categoryPage", pagedBoards);
+        model.addAttribute("nowPage", nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
         return "/boards/boardlist";
     }
 
