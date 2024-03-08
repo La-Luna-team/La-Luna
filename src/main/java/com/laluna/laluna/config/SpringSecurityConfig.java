@@ -28,8 +28,8 @@ public class SpringSecurityConfig {
             .cors(cors -> cors.disable())
                 .authorizeHttpRequests(request -> request
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
-                        .requestMatchers("/css/**", "/images/**", "/js/**").permitAll() // static resources
-                        .requestMatchers("/view/join","/auth/join", "/test","/boards/list","/boards/read/**","/upload").permitAll()
+                        .requestMatchers("/css/**", "/images/**", "/js/**","/docs/**").permitAll() // static resources
+                        .requestMatchers("/view/join","/auth/join", "/test","/boards/list","/boards/read/**","/upload","/boards/register/**").permitAll()
                         .anyRequest().authenticated() // 어떠한 요청이라도 인증필요
                 )
                 .formLogin(login -> login	// form 방식 로그인 사용

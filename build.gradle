@@ -58,9 +58,14 @@ dependencies {
     //AWS S3
     implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 
+    //AWS SDK for Java
+    implementation 'software.amazon.awssdk:s3'
+
     //Log
     implementation 'org.springframework.boot:spring-boot-starter-logging'
     implementation 'ch.qos.logback:logback-classic'
+
+
 }
 compileJava {
     options.compilerArgs << '-parameters'

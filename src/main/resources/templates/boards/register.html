@@ -14,7 +14,7 @@
 <body>
 <th:block layout:fragment="content">
     <div class="container" id="customContainer">
-        <form action = "/boards/register" method="post" enctype="multipart/form-data">
+        <form action = "/boards/register/uploadFile" method="post" enctype="multipart/form-data">
         <!-- 게시판 카테고리 -->
         <div class="row">
             <div class="col-md-3">
@@ -42,7 +42,7 @@
                 </div>
                 <div class="upload-buttons">
                     <label class="file-label" for="chooseFile1">사진 1</label>
-                    <input class="file" id="chooseFile1" type="file" multiple onchange="handleFileInputChange(event, 'drop-file1')">
+                    <input class="file" id="chooseFile1" type="file" name="file1" multiple onchange="handleFileInputChange(event,'drop-file1')">
                 </div>
             </div>
 
@@ -54,7 +54,7 @@
                 </div>
                 <div class="upload-buttons">
                     <label class="file-label" for="chooseFile2">사진 2</label>
-                    <input class="file" id="chooseFile2" type="file" multiple onchange="handleFileInputChange(event, 'drop-file2')">
+                    <input class="file" id="chooseFile2" type="file" name="file2" multiple onchange="handleFileInputChange(event,'drop-file2')">
                 </div>
             </div>
 
@@ -66,7 +66,7 @@
                 </div>
                 <div class="upload-buttons">
                     <label class="file-label" for="chooseFile3">사진 3</label>
-                    <input class="file" id="chooseFile3" type="file" multiple onchange="handleFileInputChange(event, 'drop-file3')">
+                    <input class="file" id="chooseFile3" type="file" name="file3" multiple onchange="handleFileInputChange(event,'drop-file3')">
                 </div>
             </div>
         </div>
@@ -286,6 +286,7 @@
 
 <th:block layout:fragment="script">
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
         changeColor();
 
         function changeColor() {
@@ -298,6 +299,8 @@
             var hexColor = document.getElementById("hexInput").value;
             document.getElementById("customContainer").style.backgroundColor = hexColor;
         }
+
+        const dropAreas = document.querySelectorAll(".drag-file");
 
         // 파일 입력 변경 이벤트에 대한 리스너 설정
         document.getElementById("chooseFile1").addEventListener("change", function (e) {
@@ -315,13 +318,37 @@
             $('#uploadModal').modal('show'); // 파일 선택 시 모달 열기
         });
 
-        const dropAreas = document.querySelectorAll(".drag-file");
+        function handleFileInputChange(event, dropAreaId) {
+            // 수정된 부분: 이미지를 감싸는 <div> 요소를 찾아서 dropArea에 할당
+            // const dropArea = event.target.closest(".drag-file");
+            const dropArea = document.getElementById(dropAreaId);
+
+            console.log(`dropArea(${dropAreaId}):`, dropArea); // 디버깅용 로그
+            console.log("dropAreaId:", dropAreaId); //결과가 올바른지 확인
+            console.log("Element found:", dropArea);
+            console.log("Element found:", document.getElementById(dropAreaId));
+
+            // FormData 객체를 각 함수 내에서 정의
+            const formData = new FormData();
+
+            // 이미지를 감싸는 <div> 요소가 존재할 때만 handleFiles 호출
+            if (dropArea instanceof HTMLElement) {
+                // 추가: FormData에 파일 데이터 추가
+                const files = event.target.files;
+                for (let i = 0; i < files.length; i++) {
+                    formData.append(`file${i + 1}`, files[i]);
+                }
+                handleFiles(files, dropArea);
+            }
+        }
 
         dropAreas.forEach(dropArea => {
             dropArea.addEventListener("dragenter", highlight, false);
             dropArea.addEventListener("dragover", highlight, false);
             dropArea.addEventListener("dragleave", unhighlight, false);
             dropArea.addEventListener("drop", handleDrop, false);
+        });
+
         });
 
         function handleDrop(e) {
@@ -335,7 +362,6 @@
 
             // 파일 처리를 담당하는 공통 함수 호출
             handleFiles(files, e.currentTarget);
-
 
             // 모달을 열도록 변경
             $('#uploadModal').modal('show');
@@ -356,77 +382,48 @@
             e.stopPropagation();
         }
 
-        // 파일 처리 및 이미지 표시를 담당하는 공통 함수
+
+        // handleFiles 함수에서 dropArea 확인
         function handleFiles(files, dropArea) {
-            // 수정된 부분: dropArea 초기화
-            if (!(dropArea instanceof HTMLElement)) {
-                console.error('dropArea is not an HTML element.');
-                return;
-            }
-
-            dropArea.innerHTML = "";
-
-            // 파일을 이미지로 표시하는 예시
-            for (let i = 0; i < files.length; i++) {
-                let file = files[i];
-                let reader = new FileReader();
-
-                reader.onload = function (e) {
-                    // 파일을 이미지로 표시
-                    let img = document.createElement("img");
-                    img.src = e.target.result;
-                    img.className = "thumbnail";
-
-                    // 수정된 부분: dropArea가 HTML 요소일 때만 appendChild 호출
-                    if (dropArea instanceof HTMLElement) {
-                        dropArea.appendChild(img);
-                    }
-                };
-
-                reader.readAsDataURL(file);
-            }
-        }
-
-        // 파일 입력 변경 이벤트 처리 함수
-        function handleFileInputChange(event, dropAreaId) {
-            // 수정된 부분: 이미지를 감싸는 <div> 요소를 찾아서 dropArea에 할당
-            const dropArea = document.getElementById(dropAreaId);
-
-            console.log('dropArea:', dropArea); // 디버깅용 로그
-
-            // 이미지를 감싸는 <div> 요소가 존재할 때만 handleFiles 호출
             if (dropArea instanceof HTMLElement) {
-                handleFiles(event.target.files, dropArea);
+                for (let i = 0; i < files.length; i++) {
+                    let file = files[i];
+                    let reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        let img = document.createElement("img");
+                        img.src = e.target.result;
+                        img.className = "thumbnail";
+
+                        dropArea.appendChild(img);
+                    };
+
+                    reader.readAsDataURL(file);
+                }
             }
         }
-
-
-        // "Submit" 버튼 클릭 시
-        $('#submitModalButton').click(function () {
-            // 모달 열기
-            $('#submitModal').modal('show');
-        });
-
+        // 변경된 부분: 사진 업로드 확인 처리
         function confirmUpload() {
-            // 변경된 부분: 사진 업로드 확인 처리
-            var uploadMessage = document.getElementById("uploadModalMessage");
-            uploadMessage.innerHTML = "사진이 업로드되었습니다.";
 
-            // FormData 객체 생성
-            var formData = new FormData(document.forms[0]);
+
+            // "Submit" 버튼 클릭 시
+            $('#submitModalButton').click(function () {
+                // 모달 열기
+                $('#submitModal').modal('show');
+            });
 
             // 변경된 부분: 이미지를 S3에 업로드하기 위해 Ajax 요청
             $.ajax({
-                url: "/upload",
+                url: "/boards/register/uploadFile",
                 type: "POST",
                 data: formData,
                 processData: false,
                 contentType: false,
-                success: function(response) {
+                success: function (response) {
                     console.log("업로드 성공:", response);
                     // 업로드 성공 시 필요한 처리 추가
                 },
-                error: function(error) {
+                error: function (error) {
                     console.error("업로드 실패:", error);
                     // 업로드 실패 시 필요한 처리 추가
                 }
@@ -434,6 +431,25 @@
 
             // 모달 닫기
             $('#uploadModal').modal('hide');
+
+            // 파일 입력 변경 이벤트에 대한 리스너 등록 함수
+            function addFileInputListener(inputId, dropAreaId) {
+                document.getElementById(inputId).addEventListener("change", function (e) {
+                    const dropArea = document.getElementById(dropAreaId);
+                    console.log('dropArea:', dropArea); // 디버깅용 로그
+                    if (dropArea instanceof HTMLElement) {
+                        handleFileInputChange(e, dropAreaId);
+                        $('#uploadModal').modal('show');
+                    } else {
+                        console.error(`Drop area not found for ID: ${dropAreaId}`);
+                    }
+                });
+            }
+
+            // addFileInputListener 함수 호출
+            addFileInputListener("chooseFile1", "drop-file1");
+            addFileInputListener("chooseFile2", "drop-file2");
+            addFileInputListener("chooseFile3", "drop-file3");
         }
     </script>
 </th:block>
