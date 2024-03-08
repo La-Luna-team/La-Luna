@@ -24,7 +24,6 @@ public class RegisterMemberService {
 
     }
 
-
     private void validateDuplicateMember(Member member) {
         repository.findBymemberid(member.getMemberid())
                 .ifPresent(m -> {
