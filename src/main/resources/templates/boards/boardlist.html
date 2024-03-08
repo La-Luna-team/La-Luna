@@ -129,24 +129,54 @@
                 </div>
             </div><!-- /.col-lg-4 -->
         </div>
+        <div class="row">
+            <div class="col-lg-4" th:each="categoryPage : ${categoryPage}">
+                <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
+                <h2 class="fw-normal" th:text="${categoryPage.title}">Heading</h2>
+                <p th:text="${categoryPage.content}">Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
+                <p><a class="btn btn-secondary" href="#" th:href="@{/boards/read/{categoryPage}(boardno=${categoryPage.boardno})}">View details &raquo;</a></p>
+            </div><!-- /.col-lg-4 -->
+        </div>
 <!--페이지네이션-->
-        <nav aria-label="Page navigation example" class="d-flex">
-            <ul class="pagination pt-5 mx-auto">
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
+        <td colspan="6">
+            <ul class="pagination" th:if="${boards != null}">
+                <li class="page-item" th:classappend="${boards.number > 0 && nowPage > 10} ? '' : 'disabled'">
+                    <a class="page-link" th:if="${nowPage > 10}" th:href="@{|?page=${boards.number-10}|}" onclick="movePage(${boards.number-10})">
+                        <span><이전</span>
                     </a>
                 </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
+                <li th:each="page : ${#numbers.sequence(startPage, endPage)}">
+                    <a th:if="${page != nowPage}"
+                       th:href="@{/boards/list(page=${page - 1})}"
+                       th:text="${page}" class="page-link"></a>
+                    <strong th:if="${page == nowPage}" th:text="${page}" class="page-link"></strong>
+                </li>
+                <li class="page-item" th:classappend="${!boards.hasNext || endPage >= boards.totalPages} ? 'disabled' : ''">
+                    <a class="page-link" th:if="${boards.hasNext && endPage < boards.totalPages}" th:href="@{|?page=${boards.number+10 < boards.totalPages ? boards.number+10 : boards.totalPages-1}|}" onclick="movePage(${boards.number+10 < boards.totalPages ? boards.number+10 : boards.totalPages-1})">
+                        <span>다음></span>
                     </a>
                 </li>
             </ul>
-        </nav>
+        </td>
+        <td colspan="6">
+            <ul class="pagination" th:if="${categoryPage != null}">
+                <li class="page-item" th:classappend="${categoryPage.number > 0 && nowPage > 10} ? '' : 'disabled'">
+                    <a class="page-link" th:if="${nowPage > 10}" th:href="@{|/boards/category/${category}?page=${categoryPage.number-10}|}" onclick="movePage(${categoryPage.number-10})">
+                        <span><이전</span>
+                    </a>
+                </li>
+                <li th:each="page : ${#numbers.sequence(startPage, endPage)}">
+                    <a th:if="${page != nowPage}" th:href="@{|/boards/category/${category}?page=${page - 1}|}" th:text="${page}" class="page-link"></a>
+                    <strong th:if="${page == nowPage}" th:text="${page}" class="page-link"></strong>
+                </li>
+                <li class="page-item" th:classappend="${!categoryPage.hasNext || endPage >= categoryPage.totalPages} ? 'disabled' : ''">
+                    <a class="page-link" th:if="${categoryPage.hasNext && endPage < categoryPage.totalPages}" th:href="@{|/boards/category/${category}?page=${categoryPage.number+1}|}" onclick="movePage(${categoryPage.number+1})">
+                        <span>다음></span>
+                    </a>
+                </li>
+            </ul>
+        </td>
+
     </main>
 <!--    위로가기 버튼-->
     <p class="fixed_top">
@@ -219,6 +249,68 @@
         background: url("/images/img_arr_top.png") no-repeat;
         text-indent: -99999999px;
         overflow: hidden;
+    }
+
+    .postpaging ul.pagination {
+        display: flex;
+        justify-content: center;
+        list-style: none;
+        padding: 0;
+    }
+
+    .postpaging ul.pagination li {
+        margin: 0 5px;
+    }
+
+    .postpaging ul.pagination li a,
+    .postpaging ul.pagination li span {
+        padding: 8px;
+        border: 1px solid #ddd;
+        text-decoration: none;
+        color: #333;
+        border-radius: 5px;
+    }
+
+    .postpaging ul.pagination li.active a,
+    .postpaging ul.pagination li.active span {
+        background-color: #007bff;
+        color: #fff;
+        border: 1px solid #007bff;
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .pagination li {
+        list-style: none;
+        margin: 0 5px;
+    }
+
+    .pagination a {
+        text-decoration: none;
+        padding: 10px 15px;
+        border: 1px solid #ddd;
+        background-color: #f1f1f1;
+        color: #333;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .pagination strong {
+        color: white;
+        background-color: #0f4b43;
+        padding: 10px 15px;
+        border: 1px solid #0f4b43;
+        border-radius: 5px;
+    }
+
+    .pagination a:active,
+    .pagination a:focus {
+        background-color: #0f4b43;
+        color: white;
     }
 
 </style>
