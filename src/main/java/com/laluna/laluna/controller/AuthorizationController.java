@@ -6,6 +6,7 @@ import com.laluna.laluna.domain.dto.pet.UpdatePetRequest;
 import com.laluna.laluna.domain.entity.Pets;
 import com.laluna.laluna.service.PetsService;
 import com.laluna.laluna.service.RegisterMemberService;
+import groovy.util.logging.Log4j;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,14 +39,20 @@ public class AuthorizationController {
     Logger logger = LoggerFactory.getLogger(PetsService.class);
 
     @PostMapping("/update_pet_info")
-    public String update_pet_info(@AuthenticationPrincipal MyUserDetails userDetails, UpdatePetRequest dto) {
+    public ResponseEntity<String> update_pet_info(@AuthenticationPrincipal MyUserDetails userDetails, UpdatePetRequest dto) {
         try {
             Long petnum = userDetails.getMemberno();
             petsService.petUpdate(petnum, dto);
-            return "redirect:/view/mypage";
+            return ResponseEntity.ok("펫 정보 업데이트 성공");
         } catch (Exception e) {
-            return String.valueOf(ResponseEntity.badRequest().body(e.getMessage()));
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    @DeleteMapping("/pets/{petno}")
+    public ResponseEntity<Void> deletePet(@PathVariable Long petno) {
+        petsService.deletePet(petno);
+        return ResponseEntity.noContent().build();
     }
 
 }
