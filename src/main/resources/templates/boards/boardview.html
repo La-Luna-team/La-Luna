@@ -3,17 +3,25 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/basic.html}">
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
     <meta charset="UTF-8">
     <th:block layout:fragment="head">
         <title>일상게시판</title>
     </th:block>
 </head>
-<body style="background: url('/images/img_3.png')">
+<body class="print">
 <th:block layout:fragment="content">
+    <button class="custom-btn btn-12" id="register" onclick="location.href='/boards/list'"><span>메인으로!!</span><span>메인으로</span></button>
     <div class="card" style="width: 65rem; margin: 0 auto;">
         <div class="card-body">
-            <h1 class="card-title" th:text="${board.category}">일상 게시판</h1>
-            <h3 class="card-subtitle mb-2 text-body-secondary" th:text="${board.title}">귀여운 나의 강아지</h3>
+<!--            <div style="display: flex; justify-content: center;  margin-bottom: 50px;" >/-->
+<!--            </div>-->
+            <h6 class="card-title" th:text="${board.category}"></h6>
+            <h1 class="card-subtitle mb-2 text-body-secondary text-color" th:text="${board.title}"></h1>
     </div>
     <hr class="line1" />
                 <div class="Content">
@@ -34,13 +42,13 @@
                             </div>
                                 </p>
                                 <div th:each="petResponse : ${board.pets}">
-                                    <span th:text="'|이름: ' + ${petResponse.petname}"></span>
-                                    <span th:text="'|나이: ' + ${petResponse.petage}"></span>
-                                    <span th:text="'|종류: ' + ${petResponse.petkind}"></span>
-                                    <span th:text="'|특징: ' + ${petResponse.petfeature}"></span>
-                                    <span th:text="'|예방접종: ' + ${petResponse.petvac}"></span>
-                                    <span th:text="'|상태: ' + ${petResponse.petcondition}"></span>
-                                    <span th:text="${petResponse.petsex ? '|성별: 수컷' : '성별: 암컷'}"></span>
+                                    <span th:text="'이름: ' + ${petResponse.petname}"></span>
+                                    <span th:text="'나이: ' + ${petResponse.petage}"></span>
+                                    <span th:text="'종류: ' + ${petResponse.petkind}"></span>
+                                    <span th:text="'특징: ' + ${petResponse.petfeature}"></span>
+                                    <span th:text="'예방접종: ' + ${petResponse.petvac}"></span>
+                                    <span th:text="'상태: ' + ${petResponse.petcondition}"></span>
+                                    <span th:text="${petResponse.petsex ? '성별: 수컷' : '성별: 암컷'}"></span>
                                 </div>
                                 <div class="modal" tabindex="-1" role="dialog" id="myModal">
                                     <div class="modal-dialog" role="document">
@@ -74,11 +82,11 @@
             </div>
         </div>
         <hr class="line2" />
-        <form action="/boards/boardview" method="post">
+        <form action="/boards/boardview" method="post" th:if="${#authorization.expression('isAuthenticated()')}">
             <input type="hidden" name="boardno" th:value="${board.boardno}">
-            <input type="hidden" name="replyer" th:value="${loginId}">
-            <input type="text" id="replyContent" name="replytext" style="width: 900px;" placeholder="댓글을 입력해주세요.">
-            <button type="submit" class="btn btn-primary">댓글 등록</button>
+            <input type="hidden" name="replyer" th:data-loginId="${loginId}" th:value="${loginId}">
+            <input type="text" id="replyContent" name="replytext" style="width: 930px;" placeholder="댓글을 입력해주세요.">
+            <button id="submit" class="custom-btn btn-2">등록하기</button>
         </form>
         <table>
             <thead>
@@ -116,7 +124,6 @@
 
 <th:block layout:fragment="script">
     <script>
-
         // 댓글 삭제 스크립트
         document.addEventListener("DOMContentLoaded", function() {
             // 삭제 버튼에 이벤트 리스너 추가
@@ -193,17 +200,9 @@
         flex-direction: column;
     }
 
-    .userid {
-        margin: 0;
-    }
-
-    .petid {
-        margin: 0;
-    }
-
-    .profilename {
-        margin-left: 5px;
-    }
+   .print {
+       background-color: #ffffff;
+   }
 
     .line1 {
         width: 100%;
@@ -295,6 +294,139 @@
     .modal-dialog {
         margin-top: 0; /* 모달의 상단 여백을 0으로 설정 */
     }
+/*멋있는 버튼*/
+    .btn-12{
+        position: relative;
+        right: 20px;
+        bottom: 20px;
+        border:none;
+        box-shadow: none;
+        width: 130px;
+        height: 40px;
+        line-height: 42px;
+        -webkit-perspective: 230px;
+        perspective: 230px;
+    }
+    .btn-12 span {
+        background: rgb(0,172,238);
+        background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
+        display: block;
+        position: absolute;
+        width: 130px;
+        height: 40px;
+        box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+        7px 7px 20px 0px rgba(0,0,0,.1),
+        4px 4px 5px 0px rgba(0,0,0,.1);
+        border-radius: 5px;
+        margin:0;
+        text-align: center;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        -webkit-transition: all .3s;
+        transition: all .3s;
+    }
+    .btn-12 span:nth-child(1) {
+        box-shadow:
+                -7px -7px 20px 0px #fff9,
+                -4px -4px 5px 0px #fff9,
+                7px 7px 20px 0px #0002,
+                4px 4px 5px 0px #0001;
+        -webkit-transform: rotateX(90deg);
+        -moz-transform: rotateX(90deg);
+        transform: rotateX(90deg);
+        -webkit-transform-origin: 50% 50% -20px;
+        -moz-transform-origin: 50% 50% -20px;
+        transform-origin: 50% 50% -20px;
+    }
+    .btn-12 span:nth-child(2) {
+        -webkit-transform: rotateX(0deg);
+        -moz-transform: rotateX(0deg);
+        transform: rotateX(0deg);
+        -webkit-transform-origin: 50% 50% -20px;
+        -moz-transform-origin: 50% 50% -20px;
+        transform-origin: 50% 50% -20px;
+    }
+    .btn-12:hover span:nth-child(1) {
+        box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+        7px 7px 20px 0px rgba(0,0,0,.1),
+        4px 4px 5px 0px rgba(0,0,0,.1);
+        -webkit-transform: rotateX(0deg);
+        -moz-transform: rotateX(0deg);
+        transform: rotateX(0deg);
+    }
+    .btn-12:hover span:nth-child(2) {
+        box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+        7px 7px 20px 0px rgba(0,0,0,.1),
+        4px 4px 5px 0px rgba(0,0,0,.1);
+        color: transparent;
+        -webkit-transform: rotateX(-90deg);
+        -moz-transform: rotateX(-90deg);
+        transform: rotateX(-90deg);
+    }
+    /*배경 스타일*/
+    .print{
+        /* 배경 이미지를 설정합니다 */
+        background-image: url('/images/music-1813100_640.png');
+        /* 배경 이미지를 반복하지 않도록 설정합니다 */
+        background-repeat: no-repeat;
+        /* 배경 이미지를 오른쪽 상단에 위치시키도록 설정합니다 */
+        background-position: right;
+        /*배경 화면 색깔을 설정합니다.*/
+        background-color: #ffffff;
+    }
+    /*카테고리 폰트*/
+    .card-title {
+        font-family: "Gowun Dodum", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+    }
+     .card-subtitle{
+         font-family: "Noto Sans KR", sans-serif;
+         font-optical-sizing: auto;
+         font-weight: <weight>;
+         font-style: normal;
+     }
+
+     /*댓글 표로 표현*/
+     table{ border-collapse : collapse; }  /*이중선 제거*/
+    th,td{
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        border: 1px #146c43;
+
+        vertical-align: top;	/* 위 */
+        vertical-align: bottom;   /* 아래 */
+        vertical-align: middle;   /* 가운데 */
+    }
+
+    /*등록하기 버튼*/
+    .btn-2 {
+        background: rgb(9, 186, 240);
+        background: linear-gradient(0deg, rgb(9, 232, 240) 0%, rgb(5, 220, 240) 100%);
+        border: none;
+
+    }
+    .btn-2:before {
+        height: 0%;
+        width: 2px;
+    }
+    .btn-2:hover {
+        box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
+        -4px -4px 6px 0 rgba(116, 125, 136, .5),
+        inset -4px -4px 6px 0 rgba(255,255,255,.2),
+        inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
+    }
+    .custom-btn{
+        font-family: "Noto Sans KR", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: <weight>;
+        font-style: normal;
+    }
+
+</style>
+
 
 
 
