@@ -70,9 +70,14 @@
                 </div>
             </div>
         </div>
+        <script>
+            document.getElementById('logout_btn').addEventListener('click', function() {
+                var result = confirm("로그아웃 하시겠습니까?");
+                if (result) {
+                    document.getElementById('logoutForm').submit();
+                }
+            });
+        </script>
     </nav>
-    <script>
-
-    </script>
 </th:block>
 </html>
