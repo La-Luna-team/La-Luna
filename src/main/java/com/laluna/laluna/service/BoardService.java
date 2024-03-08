@@ -163,10 +163,10 @@ public class BoardService {
 
 
 
-//    public List<Board> getBoardsByTitle(String title) {
-//        return boardRepository.findByTitle(title);
-//    }
-//
+    public List<Board> getBoardsByTitle(String title) {
+        return boardRepository.findByTitle(title);
+    }
+
 //    public Page<Board> getBoardsListByCategory(String category, Pageable pageable){
 //        return boardRepository.findByCategory(category, pageable);
 //    }
