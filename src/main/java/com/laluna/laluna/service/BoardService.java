@@ -160,4 +160,14 @@ public class BoardService {
                     petResponses); // 펫 정보 리스트 전달
         }).collect(Collectors.toList());
     }
+
+
+
+//    public List<Board> getBoardsByTitle(String title) {
+//        return boardRepository.findByTitle(title);
+//    }
+//
+//    public Page<Board> getBoardsListByCategory(String category, Pageable pageable){
+//        return boardRepository.findByCategory(category, pageable);
+//    }
 }

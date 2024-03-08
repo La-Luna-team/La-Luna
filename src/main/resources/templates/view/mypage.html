@@ -114,12 +114,6 @@
                                     <p th:text="${pet.petname}"></p>
                                 </div>
                             </div>
-                            <div class="field" th:each="pet : ${pets}">
-                                <label class="label">이름</label>
-                                <div class="control">
-                                    <p th:text="${pet.petno}"></p>
-                                </div>
-                            </div>
 
                             <div class="field" th:each="pet : ${pets}">
                                 <label class="label">품종</label>
@@ -185,7 +179,23 @@
     </div>
 
 
-
+    <div class="modal" tabindex="-1" role="dialog" id="secessionModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content rounded-4 shadow">
+                <div class="modal-header border-bottom-0">
+                    <h1 class="modal-title fs-5">탈퇴하기</h1>
+                    <button id="close2" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body py-0">
+                    <p3>탈퇴를 하시겠습니까?</p3>
+                </div>
+                <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
+                    <button type="button" class="btn btn-lg btn-primary">탈퇴하기</button>
+                    <button id="close3" type="button" class="btn btn-lg btn-secondary" data-bs-dismiss="modal">취소하기</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </th:block>
 
 <th:block layout:fragment="script">
@@ -226,22 +236,6 @@
                 document.getElementById('secessionModal').style.display = 'none';
             }
         });
-
-        $(document).ready(function() {
-            $('.deletePetButton').click(function() {
-                var petno = $(this).data('petno');
-
-                $.ajax({
-                    url: '/auth/pets/' + petno,
-                    type: 'DELETE',
-                    success: function(result) {
-                        alert('펫이 성공적으로 삭제되었습니다.');
-                        location.reload();
-                    }
-                });
-            });
-        });
-
     </script>
 
 </th:block>

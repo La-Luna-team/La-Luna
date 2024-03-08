@@ -1,11 +1,13 @@
 package com.laluna.laluna.service;
 
+//import com.laluna.laluna.domain.dto.member.UpdateMemberResponse;
+//import com.laluna.laluna.domain.dto.member.UpdateMemberRequest;
 import com.laluna.laluna.domain.entity.Member;
 import com.laluna.laluna.repository.MemberRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
