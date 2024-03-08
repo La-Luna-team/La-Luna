@@ -116,8 +116,8 @@ public class BoardController {
 
     @GetMapping("/category/{category}")
     public String getBoardsByCategory(@PathVariable String category, @RequestParam(defaultValue = "0") int page, Model model) {
-        Pageable pageable = PageRequest.of(page, 9,Sort.by("boardno").descending());
-        Page<Board> pagedBoards = boardService.getBoardsListByCategory(category, pageable);
+        Pageable pageable = PageRequest.of(page, 9, Sort.by("boardno").descending());
+        Page<ReadBoardResponse> pagedBoards = boardService.getBoardsListByCategory(category, pageable);
 
         int nowPage = pagedBoards.getNumber() + 1;
         int totalPages = pagedBoards.getTotalPages();

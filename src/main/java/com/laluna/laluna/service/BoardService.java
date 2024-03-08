@@ -135,10 +135,42 @@ public class BoardService {
                     petResponses); // 펫 정보 리스트 전달
         });
     }
-    public List<ReadBoardResponse> getBoardsByCategory(String category) {
-        List<Board> boards = boardRepository.findByCategory(category);
+//    public List<ReadBoardResponse> getBoardsByCategory(String category) {
+//        List<Board> boards = boardRepository.findByCategory(category);
+//
+//        return boards.stream().map(board -> {
+//            String memberid = board.getMember().getMemberid(); // 작성자 아이디 가져오기
+//
+//            List<PetResponse> petResponses = new ArrayList<>();
+//            if (board.getMember().getPets() != null) {
+//                petResponses = board.getMember().getPets().stream()
+//                        .map(PetResponse::new) // PetResponse 변환
+//                        .collect(Collectors.toList());
+//            }
+//
+//            return new ReadBoardResponse(
+//                    board.getBoardno(),
+//                    board.getPhotos(),
+//                    board.getTitle(),
+//                    board.getContent(),
+//                    board.getCategory(),
+//                    board.getRegdate(),
+//                    board.getModdate(),
+//                    memberid, // 작성자 아이디 전달
+//                    petResponses); // 펫 정보 리스트 전달
+//        }).collect(Collectors.toList());
+//    }
 
-        return boards.stream().map(board -> {
+
+
+    public List<Board> getBoardsByTitle(String title) {
+        return boardRepository.findByTitle(title);
+    }
+
+    public Page<ReadBoardResponse> getBoardsListByCategory(String category, Pageable pageable) {
+        Page<Board> boards = boardRepository.findByCategory(category, pageable);
+
+        return boards.map(board -> {
             String memberid = board.getMember().getMemberid(); // 작성자 아이디 가져오기
 
             List<PetResponse> petResponses = new ArrayList<>();
@@ -157,17 +189,8 @@ public class BoardService {
                     board.getRegdate(),
                     board.getModdate(),
                     memberid, // 작성자 아이디 전달
-                    petResponses); // 펫 정보 리스트 전달
-        }).collect(Collectors.toList());
+                    petResponses // 펫 정보 리스트 전달
+            );
+        });
     }
-
-
-
-    public List<Board> getBoardsByTitle(String title) {
-        return boardRepository.findByTitle(title);
-    }
-
-//    public Page<Board> getBoardsListByCategory(String category, Pageable pageable){
-//        return boardRepository.findByCategory(category, pageable);
-//    }
 }
