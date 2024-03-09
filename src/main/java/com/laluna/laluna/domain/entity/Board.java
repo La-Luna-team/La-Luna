@@ -38,6 +38,9 @@ public class Board extends Date{
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     private List<Photo> photos;
 
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reply> replies;
+
     public void update(List<Photo> photos, String title, String content, String category) {
         System.out.println("Received values: " + photos + ", " + title + ", " + content + ", " + category);
         System.out.println("Before update: " + this.photos + ", " + this.title + ", " + this.content + ", " + this.category);

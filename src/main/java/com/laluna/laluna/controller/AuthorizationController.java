@@ -10,8 +10,10 @@ import groovy.util.logging.Log4j;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +29,6 @@ public class AuthorizationController {
 
     @PostMapping("/join")
     public ResponseEntity<String> join(@RequestBody MemberAndPetDto dto) {
-        System.out.println(dto.toString());  // 로깅
         try {
             registerMemberService.join(dto.getMemberid(), dto.getMemberpassword(), dto.getPhone(), dto.getAddress(), dto.getEmail(), dto.getMemberno());
             petsService.savePet(dto, dto.getMemberid());
@@ -36,7 +37,22 @@ public class AuthorizationController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-    Logger logger = LoggerFactory.getLogger(PetsService.class);
+
+    @PostMapping("/addPet")
+    public ResponseEntity<String> addPet(@ModelAttribute MemberAndPetDto dto) {
+        try {
+            // 현재 로그인한 사용자의 username을 가져온다
+            String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+            // 현재 로그인한 사용자에게 펫 정보를 추가한다
+            petsService.addPet(dto, username);
+
+            return ResponseEntity.ok("펫 추가 성공");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("펫 추가 실패: " + e.getMessage());
+        }
+    }
+
 
     @PostMapping("/update_pet_info")
     public ResponseEntity<String> update_pet_info(@AuthenticationPrincipal MyUserDetails userDetails, UpdatePetRequest dto) {

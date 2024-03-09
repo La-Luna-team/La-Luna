@@ -15,6 +15,7 @@
     </div>
 
     <div id="card_all" class="card-group" style="height: 75vh; text-align: center; justify-content: center; align-items: center;">
+        <!-- 수정하기 모달창 -->
         <div class="modal" tabindex="-1" role="dialog" id="myModal">
             <div class="modal-dialog" role="document">
                 <div class="modal-content rounded-4 shadow">
@@ -28,6 +29,24 @@
                     <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
                         <button type="button" onclick="window.location.href='/mypagect'" class="btn btn-lg btn-primary">수정하기</button>
                         <button id="close1" type="button" class="btn btn-lg btn-secondary" data-bs-dismiss="modal">취소하기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 추가하기 모달창 -->
+        <div class="modal" tabindex="-1" role="dialog" id="myModal1">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content rounded-4 shadow">
+                    <div class="modal-header border-bottom-0">
+                        <h1 class="modal-title fs-5">추가하기</h1>
+                        <button id="close4" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body py-0">
+                        <p3>추가 하시겠습니까?</p3>
+                    </div>
+                    <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
+                        <button type="button" onclick="window.location.href='/petadd'" class="btn btn-lg btn-primary">추가하기</button>
+                        <button id="close5" type="button" class="btn btn-lg btn-secondary" data-bs-dismiss="modal">취소하기</button>
                     </div>
                 </div>
             </div>
@@ -152,6 +171,7 @@
                 </div>
                 <div>
                     <button id="correction1" class="custom-btn btn-2">수정하기</button>
+                    <button id="addPet" class="custom-btn btn-2 ms-2">추가하기</button>
                 </div>
             </div>
         </div>
@@ -190,8 +210,8 @@
         document.getElementById('correction1').addEventListener('click', function() {
             document.getElementById('myModal').style.display = 'block';
         });
-        document.getElementById('correction1').addEventListener('click', function() {
-            document.getElementById('myModal').style.display = 'block';
+        document.getElementById('addPet').addEventListener('click', function() {
+            document.getElementById('myModal1').style.display = 'block';
         });
 
         document.getElementById('close').addEventListener('click', function() {
@@ -206,6 +226,12 @@
         document.getElementById('close3').addEventListener('click', function() {
             document.getElementById('secessionModal').style.display = 'none';
         });
+        document.getElementById('close4').addEventListener('click', function() {
+            document.getElementById('myModal1').style.display = 'none';
+        });
+        document.getElementById('close5').addEventListener('click', function() {
+            document.getElementById('myModal1').style.display = 'none';
+        });
 
         window.addEventListener('click', function(event) {
             if (event.target == document.getElementById('myModal')) {
@@ -215,6 +241,11 @@
         window.addEventListener('click', function(event) {
             if (event.target == document.getElementById('secessionModal')) {
                 document.getElementById('secessionModal').style.display = 'none';
+            }
+        });
+        window.addEventListener('click', function(event) {
+            if (event.target == document.getElementById('myModal1')) {
+                document.getElementById('myModal1').style.display = 'none';
             }
         });
 
