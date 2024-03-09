@@ -29,7 +29,7 @@ public class SpringSecurityConfig {
                 .authorizeHttpRequests(request -> request
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
                         .requestMatchers("/css/**", "/images/**", "/js/**").permitAll() // static resources
-                        .requestMatchers("/view/join","/auth/join", "/test","/boards/list","/boards/read/**", "/boards/category/**").permitAll()
+                        .requestMatchers("/view/join","/auth/join", "/home","/boards/list","/boards/read/**", "/boards/category/**").permitAll()
                         .anyRequest().authenticated() // 어떠한 요청이라도 인증필요
                 )
                 .formLogin(login -> login	// form 방식 로그인 사용
@@ -37,12 +37,12 @@ public class SpringSecurityConfig {
                         .loginProcessingUrl("/login-process") //submit 받을 url .html파일에 action으로 설정
                         .usernameParameter("memberid")     //submit 할 아이디 .html파일에 name으로 설정
                         .passwordParameter("memberpassword") //submit 할  비밀번호 .html파일에 name으로 설정
-                        .defaultSuccessUrl("/test" )	// 성공 시 dashboard로
+                        .defaultSuccessUrl("/home" )	// 성공 시 dashboard로
                         .permitAll()	// 대시보드 이동이 막히면 안되므로 얘는 허용
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/test"));	// 로그아웃은 기본설정으로 (/logout으로 인증해제)
+                        .logoutSuccessUrl("/home"));	// 로그아웃은 기본설정으로 (/logout으로 인증해제)
 
         return http.build();
     }
