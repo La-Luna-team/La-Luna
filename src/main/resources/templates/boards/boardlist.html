@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
       layout:decorate="~{layout/basic.html}">
 <head>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,7 +22,7 @@
         <header class="border-bottom lh-1 py-3">
             <div class="row flex-nowrap justify-content-between align-items-center">
                 <div class="col-4 pt-1">
-                    <a class="link-secondary" href="/test">Home</a>
+                    <a class="link-secondary" href="/home">Home</a>
                 </div>
                 <div class="col-4 text-center">
                     <a class="blog-header-logo text-body-emphasis text-decoration-none" href="#" id="font">La-Luna Board</a>
@@ -34,7 +34,9 @@
                             <svg xmlns="http://www.w3.org/2000/svg" onclick="submitForm()" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24"><title>Search</title><circle cx="10.5" cy="10.5" r="7.5"/><path d="M21 21l-5.2-5.2"/></svg>
                         </form>
                     </a>
+                    <div sec:authorize="isAuthenticated()" class="mt-2">
                     <a class="btn btn-sm btn-outline-secondary" href="/boards/register">추억 공유하기</a>
+                    </div>
                 </div>
             </div>
         </header>
