@@ -19,49 +19,49 @@
 <body>
 <th:block layout:fragment="content">
     <div class="container">
-    <header class="border-bottom lh-1 py-3">
-        <div class="row flex-nowrap justify-content-between align-items-center">
-            <div class="col-4 pt-1">
-                <a class="link-secondary" href="/test">Home</a>
+        <header class="border-bottom lh-1 py-3">
+            <div class="row flex-nowrap justify-content-between align-items-center">
+                <div class="col-4 pt-1">
+                    <a class="link-secondary" href="/test">Home</a>
+                </div>
+                <div class="col-4 text-center">
+                    <a class="blog-header-logo text-body-emphasis text-decoration-none" href="#" id="font">La-Luna Board</a>
+                </div>
+                <div class="col-4 d-flex justify-content-end align-items-center">
+                    <a class="link-secondary" href="#" aria-label="Search">
+                        <form id="searchForm" th:action="@{'/boards/board/'}" method="get">
+                            <input type="text" id="title" name="title">
+                            <svg xmlns="http://www.w3.org/2000/svg" onclick="submitForm()" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24"><title>Search</title><circle cx="10.5" cy="10.5" r="7.5"/><path d="M21 21l-5.2-5.2"/></svg>
+                        </form>
+                    </a>
+                    <a class="btn btn-sm btn-outline-secondary" href="/boards/register">추억 공유하기</a>
+                </div>
             </div>
-            <div class="col-4 text-center">
-                <a class="blog-header-logo text-body-emphasis text-decoration-none" href="#" id="font">La-Luna Board</a>
-            </div>
-            <div class="col-4 d-flex justify-content-end align-items-center">
-                <a class="link-secondary" href="#" aria-label="Search">
-                    <form id="searchForm" th:action="@{'/boards/board/'}" method="get">
-                        <input type="text" id="title" name="title">
-                        <svg xmlns="http://www.w3.org/2000/svg" onclick="submitForm()" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24"><title>Search</title><circle cx="10.5" cy="10.5" r="7.5"/><path d="M21 21l-5.2-5.2"/></svg>
-                    </form>
-                </a>
-                <a class="btn btn-sm btn-outline-secondary" href="/boards/register">추억 공유하기</a>
-            </div>
+        </header>
+        <!--게시판 링크-->
+        <div class="nav-scroller py-1 mb-3 border-bottom">
+            <nav class="nav nav-underline justify-content-between">
+                <a class="nav-item nav-link link-body-emphasis" th:href="@{/boards/list}">Board All</a>
+                <a class="nav-item nav-link link-body-emphasis" th:href="@{/boards/category/{category}(category='일상게시판')}">Daily board</a>
+                <a class="nav-item nav-link link-body-emphasis" th:href="@{/boards/category/{category}(category='꿀팁게시판')}">Honey Tip board</a>
+                <a class="nav-item nav-link link-body-emphasis" th:href="@{/boards/category/{category}(category='건강게시판')}">Health board</a>
+            </nav>
         </div>
-    </header>
-<!--게시판 링크-->
-    <div class="nav-scroller py-1 mb-3 border-bottom">
-        <nav class="nav nav-underline justify-content-between">
-            <a class="nav-item nav-link link-body-emphasis" th:href="@{/boards/list}">Board All</a>
-            <a class="nav-item nav-link link-body-emphasis" th:href="@{/boards/category/{category}(category='일상게시판')}">Daily board</a>
-            <a class="nav-item nav-link link-body-emphasis" th:href="@{/boards/category/{category}(category='꿀팁게시판')}">Honey Tip board</a>
-            <a class="nav-item nav-link link-body-emphasis" th:href="@{/boards/category/{category}(category='건강게시판')}">Health board</a>
-        </nav>
     </div>
-    </div>
-<!--게시판 소개-->
+    <!--게시판 소개-->
     <main class="container">
-    <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
-        <div class="col-lg-6 px-0">
-            <h1 class="display-4 fst-italic">Happy La-Luna Board</h1>
-            <p class="lead my-3">환영합니다! 우리 반려동물과의 일상을 공유하는 공간, La-Luna Board 에 오신 것을 환영합니다!
+        <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
+            <div class="col-lg-6 px-0">
+                <h1 class="display-4 fst-italic">Happy La-Luna Board</h1>
+                <p class="lead my-3">환영합니다! 우리 반려동물과의 일상을 공유하는 공간, La-Luna Board 에 오신 것을 환영합니다!
 
-            <p class="lead">여기는 우리 반려동물들의 일상을 함께 나누고 소통할 수 있는 공간입니다. 우리 반려동물들의 귀여운 사진이나 재미있는 일화, 그리고 함께 보내는 특별한 순간들을 공유해주세요.
+                <p class="lead">여기는 우리 반려동물들의 일상을 함께 나누고 소통할 수 있는 공간입니다. 우리 반려동물들의 귀여운 사진이나 재미있는 일화, 그리고 함께 보내는 특별한 순간들을 공유해주세요.
 
-                우리는 이 공간을 통해 반려동물과 함께하는 특별한 순간들을 기록하고 함께 나누며, 서로의 반려동물에 대한 사랑과 관심을 공유할 수 있습니다.</p>
-<!--            <p class="lead mb-0"><a href="#" class="text-body-emphasis fw-bold">Continue reading...</a></p>-->
+                    우리는 이 공간을 통해 반려동물과 함께하는 특별한 순간들을 기록하고 함께 나누며, 서로의 반려동물에 대한 사랑과 관심을 공유할 수 있습니다.</p>
+                <!--            <p class="lead mb-0"><a href="#" class="text-body-emphasis fw-bold">Continue reading...</a></p>-->
+            </div>
         </div>
-    </div>
-<!--건강게시판 의사소개-->
+        <!--건강게시판 의사소개-->
         <div class="row mb-2">
             <div class="col-md-6">
                 <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
@@ -103,7 +103,8 @@
                 </div>
             </div>
         </div>
-<!--게시물 리스트 (반복문 처리)-->
+        <!--게시물 리스트 (반복문 처리)-->
+        <!--        메인 전체글 보기 리스트-->
         <div class="row">
             <div class="col-lg-4  pt-5" th:each="board : ${boards}">
                 <div class="mb-3" style="display: flex; align-items: flex-start;">
@@ -129,15 +130,33 @@
                 </div>
             </div><!-- /.col-lg-4 -->
         </div>
+        <!--        카테고리별 리스트 보여주기-->
         <div class="row">
-            <div class="col-lg-4" th:each="categoryPage : ${categoryPage}">
-                <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
-                <h2 class="fw-normal" th:text="${categoryPage.title}">Heading</h2>
-                <p th:text="${categoryPage.content}">Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
-                <p><a class="btn btn-secondary" href="#" th:href="@{/boards/read/{categoryPage}(boardno=${categoryPage.boardno})}">View details &raquo;</a></p>
+            <div class="col-lg-4  pt-5" th:each="categoryPage : ${categoryPage}">
+                <div class="mb-3" style="display: flex; align-items: flex-start;">
+                    <img class="me-3" th:src="@{/images/userImage.png}" width="50" height="50" alt="프로필" />
+                    <div style="margin-left: 10px;">
+                        <div style="height: 20px;"><strong class="d-inline-block mb-2 text-success-emphasis" th:text="${categoryPage.mid}"></strong></div>
+                        <div style="height: 20px;"><strong class="d-inline-block mb-2 text-body-secondary" th:text="${#temporals.format(categoryPage.getRegdate, 'YYYY-MM-dd')}"></strong></div>
+                    </div>
+                </div>
+                <div>
+                    <svg class="bd-placeholder-img card-img-top" width="90%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="90%" height="100%" fill="#55595c"/><text x="35%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                </div>
+                <h2 class="fw-normal mt-2" th:text="${categoryPage.title}">Heading</h2>
+                <p>카테고리: <span th:text="${categoryPage.category}"></span>
+                <div class="row">
+                    <p class="col-lg-8">
+                        <a class="btn btn-secondary" href="#" th:href="@{/boards/read/{categoryPage}(categoryPage=${categoryPage.boardno})}">View details &raquo;</a>
+                    </p>
+                    <div class="col-lg-4 text-right" >
+                        <img th:src="@{/images/like.png}" width="25" height="25" alt="좋아요"/>
+                        <img class="ms-3" th:src="@{/images/reply.png}" width="25" height="25" alt="댓글"/>
+                    </div>
+                </div>
             </div><!-- /.col-lg-4 -->
         </div>
-<!--페이지네이션-->
+        <!--페이지네이션-->
         <td colspan="6">
             <ul class="pagination" th:if="${boards != null}">
                 <li class="page-item" th:classappend="${boards.number > 0 && nowPage > 10} ? '' : 'disabled'">
@@ -178,7 +197,7 @@
         </td>
 
     </main>
-<!--    위로가기 버튼-->
+    <!--    위로가기 버튼-->
     <p class="fixed_top">
         <a href="#">위로</a>
     </p>
@@ -216,7 +235,7 @@
         font-family: "Playfair Display", serif;
         font-weight: 500;
         font-size: 50px;
-        }
+    }
     .nav-item{
         font-family: "Playfair Display", serif;
         font-weight: 400;
