@@ -27,58 +27,48 @@
                         <p3>수정을 하시겠습니까?</p3>
                     </div>
                     <form id="editForm" th:action="@{/auth/update_pet_info}" method="post">
-                        <div class="field">
+                        <div class="field" th:each="pet : ${pets}">
                             <label class="label">이름</label>
                             <div class="control">
-                                <input class="input" name="petname" style="text-align: center;" type="text" placeholder="Name">
+                                <input class="input" name="petname" style="text-align: center;" type="text" th:placeholder="${pet.petname}">
                             </div>
-                        </div>
 
-                        <div class="field">
                             <label class="label">품종</label>
                             <div class="control">
-                                <input class="input" name="petkind" style="text-align: center;" type="text" placeholder="Kind">
+                                <input class="input" name="petkind" style="text-align: center;" type="text" th:placeholder="${pet.petkind}">
                             </div>
-                        </div>
 
-                        <div class="field">
                             <label class="label">나이</label>
                             <div class="control">
-                                <input class="input" name="petage" style="text-align: center;" type="number" placeholder="Age">
+                                <input class="input" name="petage" style="text-align: center;" type="number" th:placeholder="${pet.petage}">
                             </div>
-                        </div>
 
-                        <div class="form-check">
+                            <div class="field">성별</div>
                             <input class="form-check-input" type="radio" name="petsex"   value="true"  id="petSexMale">
                             <label class="form-check-label" for="petSexMale">
                                 Male
                             </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="petsex" value="false"  id="petSexFemale" checked>
+
+                            <input class="form-check-input" type="radio" name="petsex" value="false"  id="petSexFemale" >
                             <label class="form-check-label" for="petSexFemale">
                                 Female
                             </label>
-                        </div>
 
-                        <div class="field">
+                            <div class="field">
                             <label class="label">펫 정보</label>
                             <div class="control">
-                                <input class="input" name="petfeature" style="text-align: center;" type="text" placeholder="Post">
+                                <input class="input" name="petfeature" style="text-align: center;" type="text" th:placeholder="${pet.petfeature}">
                             </div>
-                        </div>
+                            </div>
 
-                        <div class="field">
                             <label class="label">건강 상태</label>
                             <div class="control">
-                                <input class="input" name="petcondition" style="text-align: center;" type="text" placeholder="Condition">
+                                <input class="input" name="petcondition" style="text-align: center;" type="text" th:placeholder="${pet.petcondition}">
                             </div>
-                        </div>
 
-                        <div class="field">
                             <label class="label">예방 접종</label>
                             <div class="control">
-                                <input class="input" name="petvac" style="text-align: center;" type="text" placeholder="Vac">
+                                <input class="input" name="petvac" style="text-align: center;" type="text" th:placeholder="${pet.petvac}">
                             </div>
                         </div>
                     </form>
@@ -90,7 +80,6 @@
                 </div>
             </div>
         </div>
-
 
         <!-- 추가하기 모달창 -->
         <div class="modal" tabindex="-1" role="dialog" id="myModal1">
@@ -109,50 +98,41 @@
                             <div class="control">
                                 <input class="input" name="petname" style="text-align: center;" type="text" placeholder="Name">
                             </div>
-                        </div>
 
-                        <div class="field">
                             <label class="label">품종</label>
                             <div class="control">
                                 <input class="input" name="petkind" style="text-align: center;" type="text" placeholder="Kind">
                             </div>
-                        </div>
 
-                        <div class="field">
                             <label class="label">나이</label>
                             <div class="control">
                                 <input class="input" name="petage" style="text-align: center;" type="number" placeholder="Age">
                             </div>
-                        </div>
 
-                        <div class="form-check">
+
+                            <div class="field">성별</div>
                             <input class="form-check-input" type="radio" name="petsex"   value="true"  id="petSexMale1">
                             <label class="form-check-label" for="petSexMale">
                                 Male
                             </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="petsex" value="false"  id="petSexFemale1" checked>
+
+                            <input class="form-check-input" type="radio" name="petsex" value="false"  id="petSexFemale1">
                             <label class="form-check-label" for="petSexFemale">
                                 Female
                             </label>
-                        </div>
 
-                        <div class="field">
+                            <div class="field">
                             <label class="label">펫 정보</label>
+                            </div>
                             <div class="control">
                                 <input class="input" name="petfeature" style="text-align: center;" type="text" placeholder="Post">
                             </div>
-                        </div>
 
-                        <div class="field">
                             <label class="label">건강 상태</label>
                             <div class="control">
                                 <input class="input" name="petcondition" style="text-align: center;" type="text" placeholder="Condition">
                             </div>
-                        </div>
 
-                        <div class="field">
                             <label class="label">예방 접종</label>
                             <div class="control">
                                 <input class="input" name="petvac" style="text-align: center;" type="text" placeholder="Vac">
@@ -257,64 +237,47 @@
                                 <div class="control">
                                     <p th:text="${pet.petno}"></p>
                                 </div>
-                            </div>
 
-                            <div class="field" th:each="pet : ${pets}">
                                 <label class="label">이름</label>
                                 <div class="control">
                                     <p th:text="${pet.petname}"></p>
                                 </div>
-                            </div>
 
-                            <div class="field" th:each="pet : ${pets}">
                                 <label class="label">품종</label>
                                 <div class="control">
                                     <p th:text="${pet.petkind}"></p>
                                 </div>
-                            </div>
 
-                            <div class="field" th:each="pet : ${pets}">
                                 <label class="label">나이</label>
                                 <div class="control">
                                     <p th:text="${pet.petage}"></p>
                                 </div>
-                            </div>
 
-                            <div class="field" th:each="pet : ${pets}">
                                 <label class="label">성별</label>
                                 <div class="control">
-                                    <p th:text="${pet.petsex}"></p>
+                                    <p th:text="${pet.petsex ? 'Male' : 'Female'}"></p>
                                 </div>
-                            </div>
 
-                            <div class="field" th:each="pet : ${pets}">
                                 <label class="label">현재 상태</label>
                                 <div class="control">
                                     <p th:text="${pet.petfeature}"></p>
                                 </div>
-                            </div>
 
-                            <div class="field" th:each="pet : ${pets}">
                                 <label class="label">건강 상태</label>
                                 <div class="control">
                                     <p th:text="${pet.petcondition}"></p>
                                 </div>
-                            </div>
 
-                            <div class="field" th:each="pet : ${pets}">
                                 <label class="label">예방 접종</label>
                                 <div class="control">
                                     <p th:text="${pet.petvac}"></p>
                                 </div>
-                            </div>
 
-                            <div class="field" th:each="pet : ${pets}">
                                 <label class="label">사진</label>
                                 <div class="control">
                                     <p th:text="${pet.petfeature}"></p>
                                 </div>
                             </div>
-
                         </form>
                     </div>
                 </div>
