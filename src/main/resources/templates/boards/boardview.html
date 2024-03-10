@@ -17,7 +17,7 @@
 <th:block layout:fragment="content">
     <div class="card" style="width: 65rem; margin: 0 auto;">
         <div class="card-body">
-            <button id="backButton" style="background:none;border:none;padding:0;cursor:pointer;" onclick="history.back()">&#127769;</button>
+            <button id="backButton" style="background:none;border:none;padding:0;cursor:pointer;" onclick="home()">&#127769;</button>
             <div th:if="${#authorization.expression('isAuthenticated()')}">
                 <div th:if="${board.mid == loginId}">
                     <a class="update1" href="#" th:href="@{/boards/update/{boardno}(boardno=${board.boardno})}">
@@ -184,6 +184,10 @@
                 console.error('Network error: ' + error);
             });
         });
+        // 리스트 가는 함수
+        function home(){
+            window.location.href="/boards/list"
+        }
     </script>
 </th:block>
 </body>
