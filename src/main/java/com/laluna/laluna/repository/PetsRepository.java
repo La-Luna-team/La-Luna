@@ -9,4 +9,6 @@ import java.util.Optional;
 
 public interface PetsRepository extends JpaRepository<Pets, Long> {
     List<Pets> findByMember_memberno(Long memberno);
+
+    Optional<Pets> findByMemberAndPetno(Member member, Long petno);
 }

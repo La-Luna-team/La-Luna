@@ -66,9 +66,14 @@ public class AuthorizationController {
     }
 
     @DeleteMapping("/pets/{petno}")
-    public ResponseEntity<Void> deletePet(@PathVariable Long petno) {
-        petsService.deletePet(petno);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Void> deletePet(@AuthenticationPrincipal MyUserDetails userDetails, @PathVariable Long petno) {
+        try {
+            String username = userDetails.getUsername();
+            petsService.deletePet(username, petno);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
 }

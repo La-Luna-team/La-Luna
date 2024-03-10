@@ -95,9 +95,13 @@ public class PetsService {
     }
 
     @Transactional
-    public void deletePet(Long petno) {
-        Pets pet = petsRepository.findById(petno)
-                .orElseThrow(() -> new IllegalArgumentException("해당 번호의 펫이 존재하지 않습니다."));
+    public void deletePet(String memberid, Long petno) {
+        Member member = memberRepository.findBymemberid(memberid)
+                .orElseThrow(() -> new IllegalArgumentException("해당 아이디의 회원이 존재하지 않습니다."));
+
+        Pets pet = petsRepository.findByMemberAndPetno(member, petno)
+                .orElseThrow(() -> new IllegalArgumentException("해당 아이디의 회원에게 해당하는 펫이 존재하지 않습니다."));
+
         petsRepository.delete(pet);
     }
 }
