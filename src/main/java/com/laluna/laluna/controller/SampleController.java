@@ -18,9 +18,9 @@ public class SampleController {
     public String showTest3() {
         return "view/mypagect";
     }
-    @GetMapping("/test4")
+    @GetMapping("/petadd")
     public String showTest4() {
-        return "home/register";
+        return "view/petadd";
     }
 
 }

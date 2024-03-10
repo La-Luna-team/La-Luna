@@ -1,5 +1,6 @@
 package com.laluna.laluna.service;
 
+import com.laluna.laluna.config.MyUserDetails;
 import com.laluna.laluna.domain.dto.join.MemberAndPetDto;
 import com.laluna.laluna.domain.dto.pet.UpdatePetRequest;
 import com.laluna.laluna.domain.dto.pet.UpdatePetResponse;
@@ -12,6 +13,7 @@ import groovy.util.logging.Slf4j;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,6 +46,27 @@ public class PetsService {
         return petsRepository.save(pets);
     }
 
+    public Pets addPet(MemberAndPetDto dto, String username) {
+        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        Member member = memberRepository.findBymemberid(userDetails.getUsername())
+                .orElseThrow(() -> new IllegalStateException("해당 유저의 회원 정보가 존재하지 않습니다."));
+
+        Pets pets = Pets.builder()
+                .member(member)
+                .petname(dto.getPetname())
+                .petage(dto.getPetage())
+                .petsex(dto.getPetsex())
+                .petkind(dto.getPetkind())
+                .petfeature(dto.getPetfeature())
+                .petvac(dto.getPetvac())
+                .petcondition(dto.getPetcondition())
+                .build();
+
+        return petsRepository.save(pets);
+    }
+
+
     public List<Pets> findByMember(Long memberno){
         return petsRepository.findByMember_memberno(memberno);
     }
@@ -72,9 +95,13 @@ public class PetsService {
     }
 
     @Transactional
-    public void deletePet(Long petno) {
-        Pets pet = petsRepository.findById(petno)
-                .orElseThrow(() -> new IllegalArgumentException("해당 번호의 펫이 존재하지 않습니다."));
+    public void deletePet(String memberid, Long petno) {
+        Member member = memberRepository.findBymemberid(memberid)
+                .orElseThrow(() -> new IllegalArgumentException("해당 아이디의 회원이 존재하지 않습니다."));
+
+        Pets pet = petsRepository.findByMemberAndPetno(member, petno)
+                .orElseThrow(() -> new IllegalArgumentException("해당 아이디의 회원에게 해당하는 펫이 존재하지 않습니다."));
+
         petsRepository.delete(pet);
     }
 }

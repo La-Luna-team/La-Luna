@@ -15,6 +15,7 @@
     </div>
 
     <div id="card_all" class="card-group" style="height: 75vh; text-align: center; justify-content: center; align-items: center;">
+        <!-- 수정하기 모달창 -->
         <div class="modal" tabindex="-1" role="dialog" id="myModal">
             <div class="modal-dialog" role="document">
                 <div class="modal-content rounded-4 shadow">
@@ -25,9 +26,169 @@
                     <div class="modal-body py-0">
                         <p3>수정을 하시겠습니까?</p3>
                     </div>
+                    <form id="editForm" th:action="@{/auth/update_pet_info}" method="post">
+                        <div class="field">
+                            <label class="label">이름</label>
+                            <div class="control">
+                                <input class="input" name="petname" style="text-align: center;" type="text" placeholder="Name">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">품종</label>
+                            <div class="control">
+                                <input class="input" name="petkind" style="text-align: center;" type="text" placeholder="Kind">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">나이</label>
+                            <div class="control">
+                                <input class="input" name="petage" style="text-align: center;" type="number" placeholder="Age">
+                            </div>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="petsex"   value="true"  id="petSexMale">
+                            <label class="form-check-label" for="petSexMale">
+                                Male
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="petsex" value="false"  id="petSexFemale" checked>
+                            <label class="form-check-label" for="petSexFemale">
+                                Female
+                            </label>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">펫 정보</label>
+                            <div class="control">
+                                <input class="input" name="petfeature" style="text-align: center;" type="text" placeholder="Post">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">건강 상태</label>
+                            <div class="control">
+                                <input class="input" name="petcondition" style="text-align: center;" type="text" placeholder="Condition">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">예방 접종</label>
+                            <div class="control">
+                                <input class="input" name="petvac" style="text-align: center;" type="text" placeholder="Vac">
+                            </div>
+                        </div>
+                    </form>
+                        <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
+                            <!-- 수정하기 버튼 -->
+                            <button type="button" onclick="submitForm()" class="btn btn-lg btn-primary">수정하기</button>
+                            <button id="close1" type="button" class="btn btn-lg btn-secondary" data-bs-dismiss="modal">취소하기</button>
+                        </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- 추가하기 모달창 -->
+        <div class="modal" tabindex="-1" role="dialog" id="myModal1">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content rounded-4 shadow">
+                    <div class="modal-header border-bottom-0">
+                        <h1 class="modal-title fs-5">추가하기</h1>
+                        <button id="close4" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body py-0">
+                        <p3>펫 정보를 추가 하시겠습니까?</p3>
+                    </div>
+                    <form id="addPetForm" th:action="@{/auth/addPet}" method="post">
+                        <div class="field">
+                            <label class="label">이름</label>
+                            <div class="control">
+                                <input class="input" name="petname" style="text-align: center;" type="text" placeholder="Name">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">품종</label>
+                            <div class="control">
+                                <input class="input" name="petkind" style="text-align: center;" type="text" placeholder="Kind">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">나이</label>
+                            <div class="control">
+                                <input class="input" name="petage" style="text-align: center;" type="number" placeholder="Age">
+                            </div>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="petsex"   value="true"  id="petSexMale1">
+                            <label class="form-check-label" for="petSexMale">
+                                Male
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="petsex" value="false"  id="petSexFemale1" checked>
+                            <label class="form-check-label" for="petSexFemale">
+                                Female
+                            </label>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">펫 정보</label>
+                            <div class="control">
+                                <input class="input" name="petfeature" style="text-align: center;" type="text" placeholder="Post">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">건강 상태</label>
+                            <div class="control">
+                                <input class="input" name="petcondition" style="text-align: center;" type="text" placeholder="Condition">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">예방 접종</label>
+                            <div class="control">
+                                <input class="input" name="petvac" style="text-align: center;" type="text" placeholder="Vac">
+                            </div>
+                        </div>
+                    </form>
                     <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
-                        <button type="button" onclick="window.location.href='/mypagect'" class="btn btn-lg btn-primary">수정하기</button>
-                        <button id="close1" type="button" class="btn btn-lg btn-secondary" data-bs-dismiss="modal">취소하기</button>
+                        <!-- 추가하기 버튼 -->
+                        <button id="submitAddPet" type="button" class="btn btn-lg btn-primary">추가하기</button>
+                        <button id="close5" type="button" class="btn btn-lg btn-secondary" data-bs-dismiss="modal">취소하기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 삭제하기 모달창 -->
+        <div class="modal" tabindex="-1" role="dialog" id="myModal2">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content rounded-4 shadow">
+                    <div class="modal-header border-bottom-0">
+                        <h1 class="modal-title fs-5">삭제하기</h1>
+                        <button id="close6" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body py-0">
+                        <p3>펫 정보를 삭제 하시겠습니까?</p3>
+                        <!-- 삭제 폼 -->
+                        <form id="deleteForm" th:action="@{/auth/pets/{petno}}" th:method="delete" style="display: none;">
+                            <label for="petNoInput">펫 등록번호: </label>
+                            <input type="number" id="petNoInput" name="petno">
+                            <button type="button" onclick="deletePet()">삭제하기</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
+                        <!-- 삭제하기 버튼 클릭시 삭제 폼 토글 -->
+                        <button type="button" onclick="toggleDeleteForm()" class="btn btn-lg btn-primary">삭제하기</button>
+                        <button id="close7" type="button" class="btn btn-lg btn-secondary" data-bs-dismiss="modal">취소하기</button>
                     </div>
                 </div>
             </div>
@@ -82,7 +243,7 @@
             </div>
         </div>
 
-
+        <!-- 펫정보 출력 -->
         <div style="display: flex; align-items: center;">
             <div id="pet" class="card pet-border-style" style="max-width: 400px; border: 2px solid #000000;border-radius: 20px;background-color: #C5BA9E;margin-left: 20px; width: 30rem;">
                 <div class="card-header">
@@ -91,6 +252,13 @@
                 <div class="card-body">
                     <div class="column">
                         <form class="box">
+                            <div class="field" th:each="pet : ${pets}">
+                                <label class="label">펫 등록번호</label>
+                                <div class="control">
+                                    <p th:text="${pet.petno}"></p>
+                                </div>
+                            </div>
+
                             <div class="field" th:each="pet : ${pets}">
                                 <label class="label">이름</label>
                                 <div class="control">
@@ -152,10 +320,13 @@
                 </div>
                 <div>
                     <button id="correction1" class="custom-btn btn-2">수정하기</button>
+                    <button id="addPet" class="custom-btn btn-2 ms-2">추가하기</button>
+                    <button id="deletePet" class="custom-btn btn-2 ms-2">삭제하기</button>
                 </div>
             </div>
         </div>
     </div>
+
     <div style="display: flex; justify-content: flex-end; margin-right: 100px; margin-bottom: 75px">
        <button class="custom-btn btn-12" type="button" onclick="home()"><span>홈 화면으로!!</span><span>홈 화면으로</span></button>
     </div>
@@ -177,6 +348,60 @@
             </div>
         </div>
     </div>
+
+    <div class="modal" tabindex="-1" role="dialog" id="deleteSuccessModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content rounded-4 shadow">
+                <div class="modal-header border-bottom-0">
+                    <h1 class="modal-title fs-5">삭제 완료</h1>
+                    <button id="close8" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body py-0">
+                    <p>삭제가 완료되었습니다.</p>
+                </div>
+                <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
+                    <button id="close9" type="button" class="btn btn-lg btn-primary" data-bs-dismiss="modal">확인</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal" tabindex="-1" role="dialog" id="editSuccessModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content rounded-4 shadow">
+                <div class="modal-header border-bottom-0">
+                    <h1 class="modal-title fs-5">수정 완료</h1>
+                    <button id="close10" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body py-0">
+                    <p3>수정이 완료되었습니다.</p3>
+                </div>
+                <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
+                    <button id="close11" type="button" class="btn btn-lg btn-primary" data-bs-dismiss="modal">확인</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal" tabindex="-1" role="dialog" id="addSuccessModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content rounded-4 shadow">
+                <div class="modal-header border-bottom-0">
+                    <h1 class="modal-title fs-5">추가 완료</h1>
+                    <button id="close12" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body py-0">
+                    <p>펫 정보가 성공적으로 추가되었습니다.</p>
+                </div>
+                <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
+                    <button id="close13" type="button" class="btn btn-lg btn-primary" data-bs-dismiss="modal">확인</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </th:block>
 
 <th:block layout:fragment="script">
@@ -190,9 +415,14 @@
         document.getElementById('correction1').addEventListener('click', function() {
             document.getElementById('myModal').style.display = 'block';
         });
-        document.getElementById('correction1').addEventListener('click', function() {
-            document.getElementById('myModal').style.display = 'block';
+        document.getElementById('addPet').addEventListener('click', function() {
+            document.getElementById('myModal1').style.display = 'block';
         });
+        document.getElementById('deletePet').addEventListener('click', function() {
+            document.getElementById('myModal2').style.display = 'block';
+        });
+          <!-- 클릭시(id 입력) 어떤 모달창이 뜨게할지 지정 -->
+
 
         document.getElementById('close').addEventListener('click', function() {
             document.getElementById('myModal').style.display = 'none';
@@ -206,6 +436,49 @@
         document.getElementById('close3').addEventListener('click', function() {
             document.getElementById('secessionModal').style.display = 'none';
         });
+        document.getElementById('close4').addEventListener('click', function() {
+            document.getElementById('myModal1').style.display = 'none';
+        });
+        document.getElementById('close5').addEventListener('click', function() {
+            document.getElementById('myModal1').style.display = 'none';
+        });
+        document.getElementById('close6').addEventListener('click', function() {
+            document.getElementById('myModal2').style.display = 'none';
+        });
+        document.getElementById('close7').addEventListener('click', function() {
+            document.getElementById('myModal2').style.display = 'none';
+        });
+        document.getElementById('close8').addEventListener('click', function() {
+            document.getElementById('deleteSuccessModal').style.display = 'none';
+            location.reload(); // 현재 페이지 새로고침
+        });
+
+        document.getElementById('close9').addEventListener('click', function() {
+            document.getElementById('deleteSuccessModal').style.display = 'none';
+            location.reload(); // 현재 페이지 새로고침
+        });
+
+        document.getElementById('close10').addEventListener('click', function() {
+            document.getElementById('editSuccessModal').style.display = 'none';
+            location.reload(); // 현재 페이지 새로고침
+        });
+
+        document.getElementById('close11').addEventListener('click', function() {
+            document.getElementById('editSuccessModal').style.display = 'none';
+            location.reload(); // 현재 페이지 새로고침
+        });
+        document.getElementById('close12').addEventListener('click', function() {
+            document.getElementById('addSuccessModal').style.display = 'none';
+            location.reload(); // 현재 페이지 새로고침
+        });
+
+        document.getElementById('close13').addEventListener('click', function() {
+            document.getElementById('addSuccessModal').style.display = 'none';
+            location.reload(); // 현재 페이지 새로고침
+        });
+          <!-- 버튼을 눌렀을때 어떤 모달창이 닫히게할지 지정 -->
+
+
 
         window.addEventListener('click', function(event) {
             if (event.target == document.getElementById('myModal')) {
@@ -217,10 +490,116 @@
                 document.getElementById('secessionModal').style.display = 'none';
             }
         });
+        window.addEventListener('click', function(event) {
+            if (event.target == document.getElementById('myModal1')) {
+                document.getElementById('myModal1').style.display = 'none';
+            }
+        });
+        window.addEventListener('click', function(event) {
+            if (event.target == document.getElementById('myModal2')) {
+                document.getElementById('myModal2').style.display = 'none';
+            }
+        });
 
         function home() {
             window.location.href = '/home';
         }
+
+        function deletePet() {
+            var petNo = document.getElementById("petNoInput").value;
+            var url = '/auth/pets/' + petNo;
+
+            fetch(url, {
+                method: 'DELETE'
+            })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Pet deleted successfully');
+                        // 성공적으로 삭제되면 모달 닫기
+                        document.getElementById('myModal2').style.display = 'none';
+                        // 삭제 완료 알림 모달창 표시
+                        document.getElementById('deleteSuccessModal').style.display = 'block';
+                    } else {
+                        console.error('Failed to delete pet');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error deleting pet:', error);
+                });
+        }
+
+        function toggleDeleteForm() {
+            // 삭제 폼 토글
+            var deleteForm = document.getElementById('deleteForm');
+            if (deleteForm.style.display === 'none') {
+                deleteForm.style.display = 'block';
+            } else {
+                deleteForm.style.display = 'none';
+            }
+        }
+
+
+        // 수정하기 버튼을 클릭했을 때 실행되는 함수
+        function submitForm() {
+            var formData = new FormData(document.getElementById('editForm'));
+
+            fetch('/auth/update_pet_info', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Pet info updated successfully');
+                        // 수정 완료 모달 창을 보여줌
+                        var editModal = document.getElementById('myModal');
+                        var successModal = document.getElementById('editSuccessModal');
+
+                        // 현재 모달 창 닫기
+                        editModal.classList.remove('show');
+                        editModal.style.display = 'none';
+
+                        // 수정 완료 모달 창 표시
+                        successModal.classList.add('show');
+                        successModal.style.display = 'block';
+                    } else {
+                        console.error('Failed to update pet info');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error updating pet info:', error);
+                });
+        }
+
+
+        document.getElementById('submitAddPet').addEventListener('click', function() {
+            var formData = new FormData(document.getElementById('addPetForm'));
+
+            fetch('/auth/addPet', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Pet added successfully');
+                        // 추가 완료 모달 창을 보여줌
+                        var addModal = document.getElementById('myModal1');
+                        var successModal = document.getElementById('addSuccessModal');
+
+                        // 현재 모달 창 닫기
+                        addModal.classList.remove('show');
+                        addModal.style.display = 'none';
+
+                        // 추가 완료 모달 창 표시
+                        successModal.classList.add('show');
+                        successModal.style.display = 'block';
+                    } else {
+                        console.error('Failed to add pet');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error adding pet:', error);
+                });
+        });
     </script>
 
 </th:block>
