@@ -7,6 +7,7 @@ import com.laluna.laluna.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -41,6 +42,7 @@ public class RegisterMemberService {
         repository.delete(member);
     }
 
+    @Transactional
     public MemberUpdateResponseDto memberUpdate(String memberid, MemberUpdateRequestDto requestDto) {
         Member member = repository.findBymemberid(memberid)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원을 찾을 수 없습니다."));

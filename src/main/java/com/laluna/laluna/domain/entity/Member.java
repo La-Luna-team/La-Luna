@@ -57,10 +57,12 @@ public class Member {
     }
 
     public void memberUpdate(String memberid, String memberpassword, String phone, String address, String email) {
+
         this.memberid = memberid;
         this.memberpassword = memberpassword; // 암호화된 비밀번호를 직접 할당
         this.phone = phone;
         this.address = address;
         this.email = email;
+
     }
 }
