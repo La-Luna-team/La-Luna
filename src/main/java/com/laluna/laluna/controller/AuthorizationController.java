@@ -2,6 +2,8 @@ package com.laluna.laluna.controller;
 
 import com.laluna.laluna.config.MyUserDetails;
 import com.laluna.laluna.domain.dto.join.MemberAndPetDto;
+import com.laluna.laluna.domain.dto.member.MemberUpdateRequestDto;
+import com.laluna.laluna.domain.dto.member.MemberUpdateResponseDto;
 import com.laluna.laluna.domain.dto.pet.UpdatePetRequest;
 import com.laluna.laluna.domain.entity.Pets;
 import com.laluna.laluna.service.PetsService;
@@ -34,6 +36,21 @@ public class AuthorizationController {
             petsService.savePet(dto, dto.getMemberid());
             return ResponseEntity.ok("join success");
         } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+
+    @PostMapping("/update_member")
+    public ResponseEntity<String> updateMember(@AuthenticationPrincipal MyUserDetails userDetails, MemberUpdateRequestDto requestDto) {
+        try {
+
+            String memberid = userDetails.getUsername();
+            registerMemberService.memberUpdate(memberid, requestDto);
+            // 성공 응답 메시지
+            return ResponseEntity.ok("회원 정보 업데이트 성공");
+        } catch (Exception e) {
+            // 예외 발생 시, 클라이언트에게 에러 메시지 반환
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }

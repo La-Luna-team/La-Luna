@@ -107,12 +107,6 @@ public class BoardController {
 
         return "/boards/boardlist";
     }
-//    @GetMapping("/category/{category}")
-//    public String getPostsByCategory(@PathVariable String category, Model model) {
-//        List<ReadBoardResponse> boards = boardService.getBoardsByCategory(category);
-//        model.addAttribute("boards", boards);
-//        return "/boards/boardlist";
-//    }
 
     @GetMapping("/category/{category}")
     public String getBoardsByCategory(@PathVariable String category, @RequestParam(defaultValue = "0") int page, Model model) {
@@ -135,10 +129,26 @@ public class BoardController {
         return "/boards/boardlist";
     }
 
-@GetMapping("/board/{title}")
-public String getBoardsByTitle(@PathVariable String title, Model model) {
-    List<Board> boards = boardService.getBoardsByTitle(title);
-    model.addAttribute("boards", boards);
-    return "/boards/boardlist";
-}
+    @GetMapping("/board/{title}")
+    public String getBoardsByTitle(@PathVariable String title,
+                                   @RequestParam(defaultValue = "0") int page,
+                                   Model model) {
+        Pageable pageable = PageRequest.of(page, 9, Sort.by("boardno").descending());
+        Page<ReadBoardResponse> boardPage = boardService.getBoardsByTitle(title, pageable);
+
+        int nowPage = boardPage.getNumber() + 1;
+        int totalPages = boardPage.getTotalPages();
+        int pageSize = 10;
+
+        int groupNumber = (nowPage - 1) / pageSize;
+
+        int startPage = groupNumber * pageSize + 1;
+        int endPage = Math.min(startPage + pageSize - 1, totalPages);
+
+        model.addAttribute("categoryPage", boardPage);
+        model.addAttribute("nowPage", nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+        return "/boards/boardlist";
+    }
 }
