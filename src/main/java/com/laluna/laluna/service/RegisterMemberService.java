@@ -1,5 +1,7 @@
 package com.laluna.laluna.service;
 
+import com.laluna.laluna.domain.dto.member.MemberUpdateRequestDto;
+import com.laluna.laluna.domain.dto.member.MemberUpdateResponseDto;
 import com.laluna.laluna.domain.entity.Member;
 import com.laluna.laluna.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -38,4 +40,28 @@ public class RegisterMemberService {
 
         repository.delete(member);
     }
+
+    public MemberUpdateResponseDto memberUpdate(String memberid, MemberUpdateRequestDto requestDto) {
+        Member member = repository.findBymemberid(memberid)
+                .orElseThrow(() -> new IllegalArgumentException("해당 회원을 찾을 수 없습니다."));
+
+        // PasswordEncoder를 사용하여 비밀번호를 암호화하여 업데이트
+        String encodedPassword = passwordEncoder.encode(requestDto.getMemberpassword());
+
+        member.memberUpdate(
+                requestDto.getMemberid(),
+                encodedPassword, // 이미 암호화된 비밀번호 사용
+                requestDto.getPhone(),
+                requestDto.getAddress(),
+                requestDto.getEmail());
+
+        return new MemberUpdateResponseDto(
+                member.getMemberno(),
+                member.getMemberid(),
+                member.getPhone(),
+                member.getAddress(),
+                member.getEmail());
+    }
+
+
 }
