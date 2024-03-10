@@ -36,10 +36,10 @@ public class Member {
     @Column(length = 100)
     private String email;
 
-   @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-   private List<Pets> pets = new ArrayList<>();
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Pets> pets = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Board> board = new ArrayList<>();
 
     public static Member createUser(String memberid, String memberpassword, PasswordEncoder passwordEncoder, String phone, String address,
