@@ -30,4 +30,12 @@ public class RegisterMemberService {
                     throw new IllegalStateException("이미 존재하는 회원입니다.");
                 });
     }
+
+
+    public void deleteMember(String memberid) {
+        Member member = repository.findBymemberid(memberid)
+                .orElseThrow(() -> new IllegalArgumentException("해당 회원을 찾을 수 없습니다."));
+
+        repository.delete(member);
+    }
 }

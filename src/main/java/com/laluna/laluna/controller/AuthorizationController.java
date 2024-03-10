@@ -38,6 +38,18 @@ public class AuthorizationController {
         }
     }
 
+
+    @DeleteMapping("/delete/{memberid}")
+    public ResponseEntity<String> deleteMember(@PathVariable String memberid) {
+        try {
+            registerMemberService.deleteMember(memberid);
+            return ResponseEntity.ok("Member deleted successfully");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+
     @PostMapping("/addPet")
     public ResponseEntity<String> addPet(@ModelAttribute MemberAndPetDto dto) {
         try {

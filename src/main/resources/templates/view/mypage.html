@@ -27,58 +27,48 @@
                         <p3>수정을 하시겠습니까?</p3>
                     </div>
                     <form id="editForm" th:action="@{/auth/update_pet_info}" method="post">
-                        <div class="field">
+                        <div class="field" th:each="pet : ${pets}">
                             <label class="label">이름</label>
                             <div class="control">
-                                <input class="input" name="petname" style="text-align: center;" type="text" placeholder="Name">
+                                <input class="input" name="petname" style="text-align: center;" type="text" th:value="${pet.petname}">
                             </div>
-                        </div>
 
-                        <div class="field">
                             <label class="label">품종</label>
                             <div class="control">
-                                <input class="input" name="petkind" style="text-align: center;" type="text" placeholder="Kind">
+                                <input class="input" name="petkind" style="text-align: center;" type="text" th:value="${pet.petkind}">
                             </div>
-                        </div>
 
-                        <div class="field">
                             <label class="label">나이</label>
                             <div class="control">
-                                <input class="input" name="petage" style="text-align: center;" type="number" placeholder="Age">
+                                <input class="input" name="petage" style="text-align: center;" type="number" th:value="${pet.petage}">
                             </div>
-                        </div>
 
-                        <div class="form-check">
+                            <div class="field">성별</div>
                             <input class="form-check-input" type="radio" name="petsex"   value="true"  id="petSexMale">
                             <label class="form-check-label" for="petSexMale">
                                 Male
                             </label>
-                        </div>
-                        <div class="form-check">
+
                             <input class="form-check-input" type="radio" name="petsex" value="false"  id="petSexFemale" checked>
                             <label class="form-check-label" for="petSexFemale">
                                 Female
                             </label>
-                        </div>
 
-                        <div class="field">
+                            <div class="field">
                             <label class="label">펫 정보</label>
                             <div class="control">
-                                <input class="input" name="petfeature" style="text-align: center;" type="text" placeholder="Post">
+                                <input class="input" name="petfeature" style="text-align: center;" type="text" th:value="${pet.petfeature}">
                             </div>
-                        </div>
+                            </div>
 
-                        <div class="field">
                             <label class="label">건강 상태</label>
                             <div class="control">
-                                <input class="input" name="petcondition" style="text-align: center;" type="text" placeholder="Condition">
+                                <input class="input" name="petcondition" style="text-align: center;" type="text" th:value="${pet.petcondition}">
                             </div>
-                        </div>
 
-                        <div class="field">
                             <label class="label">예방 접종</label>
                             <div class="control">
-                                <input class="input" name="petvac" style="text-align: center;" type="text" placeholder="Vac">
+                                <input class="input" name="petvac" style="text-align: center;" type="text" th:value="${pet.petvac}">
                             </div>
                         </div>
                     </form>
@@ -90,7 +80,6 @@
                 </div>
             </div>
         </div>
-
 
         <!-- 추가하기 모달창 -->
         <div class="modal" tabindex="-1" role="dialog" id="myModal1">
@@ -109,50 +98,41 @@
                             <div class="control">
                                 <input class="input" name="petname" style="text-align: center;" type="text" placeholder="Name">
                             </div>
-                        </div>
 
-                        <div class="field">
                             <label class="label">품종</label>
                             <div class="control">
                                 <input class="input" name="petkind" style="text-align: center;" type="text" placeholder="Kind">
                             </div>
-                        </div>
 
-                        <div class="field">
                             <label class="label">나이</label>
                             <div class="control">
                                 <input class="input" name="petage" style="text-align: center;" type="number" placeholder="Age">
                             </div>
-                        </div>
 
-                        <div class="form-check">
+
+                            <div class="field">성별</div>
                             <input class="form-check-input" type="radio" name="petsex"   value="true"  id="petSexMale1">
                             <label class="form-check-label" for="petSexMale">
                                 Male
                             </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="petsex" value="false"  id="petSexFemale1" checked>
+
+                            <input class="form-check-input" type="radio" name="petsex" value="false"  id="petSexFemale1">
                             <label class="form-check-label" for="petSexFemale">
                                 Female
                             </label>
-                        </div>
 
-                        <div class="field">
+                            <div class="field">
                             <label class="label">펫 정보</label>
+                            </div>
                             <div class="control">
                                 <input class="input" name="petfeature" style="text-align: center;" type="text" placeholder="Post">
                             </div>
-                        </div>
 
-                        <div class="field">
                             <label class="label">건강 상태</label>
                             <div class="control">
                                 <input class="input" name="petcondition" style="text-align: center;" type="text" placeholder="Condition">
                             </div>
-                        </div>
 
-                        <div class="field">
                             <label class="label">예방 접종</label>
                             <div class="control">
                                 <input class="input" name="petvac" style="text-align: center;" type="text" placeholder="Vac">
@@ -197,6 +177,9 @@
             <div class="card-header">
                 <h4>Master</h4>
             </div>
+            <!-- 스크립트로 로그인중인 아이디를 전달 -->
+            <div id="userInfo" th:data-memberid="${loginId}"></div>
+
             <div class="card-body">
                 <div class="column">
                     <form class="box">
@@ -257,64 +240,47 @@
                                 <div class="control">
                                     <p th:text="${pet.petno}"></p>
                                 </div>
-                            </div>
 
-                            <div class="field" th:each="pet : ${pets}">
                                 <label class="label">이름</label>
                                 <div class="control">
                                     <p th:text="${pet.petname}"></p>
                                 </div>
-                            </div>
 
-                            <div class="field" th:each="pet : ${pets}">
                                 <label class="label">품종</label>
                                 <div class="control">
                                     <p th:text="${pet.petkind}"></p>
                                 </div>
-                            </div>
 
-                            <div class="field" th:each="pet : ${pets}">
                                 <label class="label">나이</label>
                                 <div class="control">
                                     <p th:text="${pet.petage}"></p>
                                 </div>
-                            </div>
 
-                            <div class="field" th:each="pet : ${pets}">
                                 <label class="label">성별</label>
                                 <div class="control">
-                                    <p th:text="${pet.petsex}"></p>
+                                    <p th:text="${pet.petsex ? 'Male' : 'Female'}"></p>
                                 </div>
-                            </div>
 
-                            <div class="field" th:each="pet : ${pets}">
                                 <label class="label">현재 상태</label>
                                 <div class="control">
                                     <p th:text="${pet.petfeature}"></p>
                                 </div>
-                            </div>
 
-                            <div class="field" th:each="pet : ${pets}">
                                 <label class="label">건강 상태</label>
                                 <div class="control">
                                     <p th:text="${pet.petcondition}"></p>
                                 </div>
-                            </div>
 
-                            <div class="field" th:each="pet : ${pets}">
                                 <label class="label">예방 접종</label>
                                 <div class="control">
                                     <p th:text="${pet.petvac}"></p>
                                 </div>
-                            </div>
 
-                            <div class="field" th:each="pet : ${pets}">
                                 <label class="label">사진</label>
                                 <div class="control">
                                     <p th:text="${pet.petfeature}"></p>
                                 </div>
                             </div>
-
                         </form>
                     </div>
                 </div>
@@ -342,7 +308,7 @@
                     <p3>탈퇴를 하시겠습니까?</p3>
                 </div>
                 <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
-                    <button type="button" class="btn btn-lg btn-primary">탈퇴하기</button>
+                    <button id="secessionBtn" type="button" class="btn btn-lg btn-primary">탈퇴하기</button>
                     <button id="close3" type="button" class="btn btn-lg btn-secondary" data-bs-dismiss="modal">취소하기</button>
                 </div>
             </div>
@@ -357,7 +323,7 @@
                     <button id="close8" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body py-0">
-                    <p>삭제가 완료되었습니다.</p>
+                    <p>펫 정보 삭제가 완료되었습니다.</p>
                 </div>
                 <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
                     <button id="close9" type="button" class="btn btn-lg btn-primary" data-bs-dismiss="modal">확인</button>
@@ -375,7 +341,7 @@
                     <button id="close10" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body py-0">
-                    <p3>수정이 완료되었습니다.</p3>
+                    <p3>펫 정보 수정이 완료되었습니다.</p3>
                 </div>
                 <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
                     <button id="close11" type="button" class="btn btn-lg btn-primary" data-bs-dismiss="modal">확인</button>
@@ -598,6 +564,34 @@
                 })
                 .catch(error => {
                     console.error('Error adding pet:', error);
+                });
+        });
+
+
+        // 삭제 버튼 클릭 시 실행될 함수
+        document.getElementById('secessionBtn').addEventListener('click', function() {
+            var memberid = document.getElementById('userInfo').getAttribute('data-memberid');
+            // 백틱(`)과 ${}를 사용하여 URL 구성
+            var url = `/auth/delete/${memberid}`;
+
+            fetch(url, {
+                method: 'DELETE',
+            })
+                .then(response => {
+                    if(response.ok) {
+                        return response.text();
+                    }
+                    throw new Error('Something went wrong');
+                })
+                .then(data => {
+                    alert('삭제가 성공적으로 완료되었습니다.'); // 성공 메시지 처리
+                    // 여기서 추가적인 성공 처리 로직을 넣을 수 있습니다.
+                    // 예: 사용자를 홈페이지로 리다이렉트하기
+                    window.location.href = '/home';
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    alert('오류가 발생했습니다. 다시 시도해 주세요.'); // 에러 처리
                 });
         });
     </script>
