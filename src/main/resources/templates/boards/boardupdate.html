@@ -3,157 +3,95 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/basic.html}">
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
     <meta charset="UTF-8">
     <th:block layout:fragment="head">
         <title>일상게시판</title>
     </th:block>
 </head>
-<body style="background: url('/images/img_3.png')">
+<body class="print">
 <th:block layout:fragment="content">
     <div class="card" style="width: 65rem; margin: 0 auto;">
-
-        <form th:action="@{/boards/update/{boardno}(boardno=${board.boardno})}" method="post">
-            <input type="hidden" name="_method" value="put" />
-            <input type="text" name="title" th:value="${board.title}">
-            <input type="text" name="content" th:value="${board.content}">
-            <input type="text" name="category" th:value="${board.category}">
-            <button type="submit">수정완료</button>
-        </form>
+        <div class="card-body">
+            <form th:action="@{/boards/update/{boardno}(boardno=${board.boardno})}" method="post">
+                <input type="hidden" name="_method" value="put" />
+                <input type="text" name="category" th:value="${board.category}" readonly style="border-radius: 5px"><hr>
+            <input type="text" name="title" th:value="${board.title}" style="border-radius: 5px">
+        <hr class="line1" />
+<!--        유저 정보-->
+        <div class="Content">
+            <div class="user-body">
+                <div class="user-body">
+                    <p style="margin-left: 10px;" class="작성자">작성자: <span th:text="${board.mid}"></span>
+                        <span style="float: right;">
+                                        등록일: <span th:text="${#temporals.format(board.regdate, 'MM-dd HH:mm')}"></span><br>
+                                        수정일: <span th:text="${#temporals.format(board.moddate, 'MM-dd HH:mm')}"></span></span>
+                    </p>
+                    <div th:each="petResponse : ${board.pets}" class="pet-info">
+                        <span class="pet-detail" style="margin-left: 10px">이름: <span th:text="${petResponse.petname}"></span></span>
+                        <span class="pet-detail">나이: <span th:text="${petResponse.petage}"></span></span>
+                        <span class="pet-detail">종류: <span th:text="${petResponse.petkind}"></span></span>
+                        <span class="pet-detail">특징: <span th:text="${petResponse.petfeature}"></span></span>
+                        <span class="pet-detail">예방접종: <span th:text="${petResponse.petvac}"></span></span>
+                        <span class="pet-detail">상태: <span th:text="${petResponse.petcondition}"></span></span>
+                        <span class="pet-detail">성별: <span th:text="${petResponse.petsex ? '수컷' : '암컷'}"></span></span>
+                    </div>
+<!--                    모달-->
+                    <div class="modal" tabindex="-1" role="dialog" id="myModal">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content rounded-4 shadow">
+                                <div class="modal-header border-bottom-0">
+                                    <h1 class="modal-title fs-5">수정하기</h1>
+                                    <button id="close" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body py-0">
+                                    <p3>삭제 하시겠습니까?</p3>
+                                </div>
+                                <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
+                                    <button type="button" class="btn btn-lg btn-primary" id="remove">삭제하기</button>
+                                    <button id="close1" type="button" class="btn btn-lg btn-secondary" data-bs-dismiss="modal">취소하기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <hr class="line2" />
-        <form action="/reply/boardview" method="post">
-            <input type="hidden" name="boardno" th:value="${board.boardno}">
-            <input type="hidden" name="replyer" th:value="${loginId}">
-            <input type="text" id="replyContent" name="replytext" style="width: 900px;" placeholder="댓글을 입력해주세요.">
-            <button type="submit" class="btn btn-primary">댓글 등록</button>
-        </form>
-        <table>
-            <thead>
-            <tr>
-                <th>댓글번호</th>
-                <th>아이디</th>
-                <th>댓글</th>
-                <th>작성일</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="reply : ${replies}">
-                <td th:text="${reply.replyno}"></td>
-                <td th:text="${reply.replyer}"></td>
-                <td th:text="${reply.replytext}"></td>
-                <td th:text="${reply.regdate}"></td>
-                <td>
-                    <button class="delete-btn" th:data-replyno="${reply.replyno}">삭제</button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <p class="fixed_top">
-            <a href="#">위로</a>
-        </p>
-        <div id="modalContainer" class="hidden">
-            <div class="btn-container" id="modalContent">
-                <button id="modalCloseButton" class="btn-close"></button>
-                <p>등록 하시겠습니까?</p>
-                <button id="modalRegisterButton" class="btn-register">등록하기</button>
+    <div>
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="Content">
+                    <form th:action="@{/boards/update/{boardno}(boardno=${board.boardno})}" method="post">
+                        <input type="hidden" name="_method" value="put" />
+                        <textarea name="content" placeholder="내용을 입력하세요" rows="20" cols="120" th:text="${board.content}" style="border-radius: 5px"></textarea>
+                        <button class="update-btn" type="submit">수정완료</button>
+                        <button class="cancel-btn" type="button" onclick="history.back()">취소하기</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
+    </div>
+    </div>
+        <hr class="line2" />
+        <p class="fixed_top">
+            <a href="#">위로</a>
+        </p>
 </th:block>
 
 <th:block layout:fragment="script">
     <script>
 
-        document.querySelectorAll('.delete-btn').forEach(function(btn) {
-            btn.addEventListener('click', function(e) {
-                var replyno = e.target.getAttribute('data-replyno');
-                fetch('/deleteReply/' + replyno, { method: 'DELETE' })
-                    .then(function(response) {
-                        if (response.ok) {
-                            alert('댓글이 삭제되었습니다.');
-                            location.reload();  // 페이지를 새로 고침하여 댓글 목록을 업데이트합니다.
-                        } else {
-                            alert('댓글 삭제에 실패하였습니다.');
-                        }
-                    });
-            });
-        });
-        document.addEventListener('DOMContentLoaded', function(){
-            var btn = document.getElementById('boardremove');
-            var modal = new bootstrap.Modal(document.getElementById('myModal'));
-
-            btn.addEventListener('click', function(){
-                modal.show();
-            });
-        });
-
-        document.getElementById('remove').addEventListener('click', function() {
-            // 현재 페이지의 URL에서 게시글 ID 추출
-            var boardno = window.location.pathname.split('/')[3];
-
-            // 삭제 요청 보내기
-            fetch('/boards/delete/' + boardno, {
-                method: 'DELETE',
-            }).then(function(response) {
-                // 요청이 성공적으로 완료되었는지와 상관없이 게시글 목록 페이지로 이동
-                window.location.href = '/boards/list';
-            }).catch(function(error) {
-                // 네트워크 에러 처리
-                console.error('Network error: ' + error);
-            });
-        });
     </script>
 </th:block>
 </body>
 </html>
 <style>
-    .card-title {
-        text-align: center;
-    }
-
-    .card-subtitle {
-        text-align: center;
-    }
-
-    .user-body {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .userid {
-        margin: 0;
-    }
-
-    .petid {
-        margin: 0;
-    }
-
-    .profilename {
-        margin-left: 5px;
-    }
-
-    .line1 {
-        width: 100%;
-        margin-right: unset;
-    }
-
-    .line2 {
-        width: 100%;
-        margin: 0;
-    }
-
-    .btn-outline-danger{
-        position: absolute;
-        right: 10px;
-    }
-    .btn-outline-success{
-        position: absolute;
-        right: 130px;
-    }
-    .vertical-line {
-        border-left: 2px solid #b7bed5; /* 세로줄의 스타일을 지정합니다. */
-        height: 50px; /* 세로줄의 높이를 조정할 수 있습니다. */
-        margin: 0 10px; /* 세로줄의 좌우 간격을 조정할 수 있습니다. */
-    }
     /*위로 가기 버튼*/
     .fixed_top{
         position: fixed;
@@ -172,57 +110,58 @@
         text-indent: -99999999px;
         overflow: hidden;
     }
-    /*댓글*/
-    .reply_write_box{
-        padding: 12px 12px 12px;
-        background: #fafafa;
-        border-top: 2px solid #5c64ad;
+    /*배경*/
+    .print{
+        /* 배경 이미지를 설정합니다 */
+        background-image: url('/images/music-1813100_640.png');
+        /* 배경 이미지를 반복하지 않도록 설정합니다 */
+        background-repeat: no-repeat;
+        /* 배경 이미지를 오른쪽 상단에 위치시키도록 설정합니다 */
+        background-position: left;
+        /*배경 화면 색깔을 설정합니다.*/
+        background-color: #ffffff;
     }
-    /* 모달 */
-    #modalOpenButton, #modalCloseButton {
-        cursor: pointer;
+    /*수정하기 버튼 스타일*/
+    .update-btn {
+        background-color: #3662f4; /* 빨간색 배경 */
+        color: white; /* 흰색 글씨 */
+        border: 2px solid transparent; /* 투명 테두리 추가 */
+        padding: 5px 10px; /* 상하 10px, 좌우 20px 패딩 */
+        text-align: center; /* 글자 가운데 정렬 */
+        text-decoration: none; /* 밑줄 없앰 */
+        display: inline-block; /* 인라인 블록으로 표시 */
+        font-size: 16px; /* 글자 크기 */
+        margin: 4px 2px; /* 마진 */
+        transition-duration: 0.4s; /* 호버 효과 시간 */
+        cursor: pointer; /* 커서 모양을 손가락 모양으로 */
+        box-sizing: border-box; /* 테두리를 포함한 박스 크기 유지 */
+        border-radius: 3px
     }
-
-    #modalContainer.hidden {
-        display: none;
-    }
-    #modalContainer {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 9999;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    #modalContent {
-        width: 230px;
-        height: 130px;
+    .update-btn:hover {
         background-color: white;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-        text-align: center;
+        color: #000000;
+        border: 2px solid #3662f4;
     }
-    .btn-register {
-        background-color: #28a745;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-    .btn-close {
-        float: right;
-    }
-    .modal-dialog {
-        margin-top: 0; /* 모달의 상단 여백을 0으로 설정 */
+    /*취소하기 버튼 스타일*/
+    .cancel-btn {
+        background-color: #f44336; /* 빨간색 배경 */
+        color: white; /* 흰색 글씨 */
+        border: 2px solid transparent; /* 투명 테두리 추가 */
+        padding: 5px 10px; /* 상하 10px, 좌우 20px 패딩 */
+        text-align: center; /* 글자 가운데 정렬 */
+        text-decoration: none; /* 밑줄 없앰 */
+        display: inline-block; /* 인라인 블록으로 표시 */
+        font-size: 16px; /* 글자 크기 */
+        margin: 4px 2px; /* 마진 */
+        transition-duration: 0.4s; /* 호버 효과 시간 */
+        cursor: pointer; /* 커서 모양을 손가락 모양으로 */
+        box-sizing: border-box; /* 테두리를 포함한 박스 크기 유지 */
+        border-radius: 3px
     }
 
-
-
-
+    .cancel-btn:hover {
+        background-color: white; /* 배경을 흰색으로 */
+        color: #f44336; /* 글자를 빨간색으로 */
+        border: 2px solid #f44336; /* 빨간색 테두리로 변경 */
+    }
 </style>
