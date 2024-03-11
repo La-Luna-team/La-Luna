@@ -31,42 +31,41 @@
                 </select>
             </div>
         </div>
+            <div class="modal uploadModal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Upload File</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="input-group mb-3">
+                                <input type="file" name="files" class="form-control" multiple>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary uploadBtn">Upload</button>
+                            <button type="button" class="btn btn-outline-dark closeUploadBtn">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         <!-- 이미지 업로드 드래그 영역 -->
         <div class="upload-box ps-5">
             <!-- Drag and drop area 1 -->
             <div class="upload-box1">
+                <div class="thumbnail-container" id="thumbnailContainer">
                 <div class="drag-file" id="drop-file1">
                     <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="image">
                     <p class="message">Drag files to upload</p>
                 </div>
-                <div class="upload-buttons">
-                    <label class="file-label" for="chooseFile1">사진 1</label>
-                    <input class="file" id="chooseFile1" type="file" multiple>
                 </div>
-            </div>
-
-            <!-- Drag and drop area 2 -->
-            <div class="upload-box1">
-                <div class="drag-file" id="drop-file2">
-                    <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="image">
-                    <p class="message">Drag files to upload</p>
-                </div>
-                <div class="upload-buttons">
-                    <label class="file-label" for="chooseFile2">사진 2</label>
-                    <input class="file" id="chooseFile2" type="file" multiple>
-                </div>
-            </div>
-
-            <!-- Drag and drop area 3 -->
-            <div class="upload-box1">
-                <div class="drag-file" id="drop-file3">
-                    <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="image">
-                    <p class="message">Drag files to upload</p>
-                </div>
-                <div class="upload-buttons">
-                    <label class="file-label" for="chooseFile3">사진 3</label>
-                    <input class="file" id="chooseFile3" type="file" multiple>
+                <div class="upload-container">
+                    <div class="upload-buttons">
+                        <label class="file-label" for="chooseFile1">사진 1</label>
+                        <input class="file" id="chooseFile1" type="file" multiple>
+                    </div>
                 </div>
             </div>
         </div>
@@ -119,6 +118,7 @@
             <br>
             <input type="text" id="hexInput" value="#47627b" oninput="changeColorByHex()">
         </div>
+
     </div>
 
     <!-- 등록 모달 -->
@@ -275,14 +275,15 @@
             document.getElementById("customContainer").style.backgroundColor = hexColor;
         }
 
-        const dropAreas = document.querySelectorAll(".drag-file");
+        const uploadContainer = document.querySelector('.upload-container');
+        const fileInput = document.getElementById('chooseFile1');
+        const thumbnailContainer = document.getElementById('thumbnailContainer');
 
-        dropAreas.forEach(dropArea => {
-            dropArea.addEventListener("dragenter", highlight, false);
-            dropArea.addEventListener("dragover", highlight, false);
-            dropArea.addEventListener("dragleave", unhighlight, false);
-            dropArea.addEventListener("drop", handleDrop, false);
-        });
+        uploadContainer.addEventListener('dragenter', highlight, false);
+        uploadContainer.addEventListener('dragover', highlight, false);
+        uploadContainer.addEventListener('dragleave', unhighlight, false);
+        uploadContainer.addEventListener('drop', handleDrop, false);
+        fileInput.addEventListener('change', handleFileInput, false);
 
         function handleDrop(e) {
             e.preventDefault();
@@ -291,14 +292,29 @@
             let dt = e.dataTransfer;
             let files = dt.files;
 
+            // 파일들을 배열로 변환
             files = [...files];
             files.forEach((file, index) => {
                 let fileElement = renderFile(file);
 
-                // 드롭된 사진을 드래그 영역에 추가
-                displayThumbnail(fileElement, e.currentTarget, index);
+                // 드롭된 사진을 특정 컨테이너에 추가
+                displayThumbnail(fileElement, thumbnailContainer, index);
             });
         }
+
+        function handleFileInput(e) {
+            let files = e.target.files;
+
+            // 파일들을 배열로 변환
+            files = [...files];
+            files.forEach((file, index) => {
+                let fileElement = renderFile(file);
+
+                // 선택된 사진을 특정 컨테이너에 추가
+                displayThumbnail(fileElement, thumbnailContainer, index);
+            });
+        }
+
 
         function displayThumbnail(fileElement, dropArea, index) {
             // 드롭된 사진을 드래그 영역에 추가

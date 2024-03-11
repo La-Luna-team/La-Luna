@@ -20,4 +20,10 @@ public class PhotoDTO {
 
     private Board board;
 
+    public void Insert(Long photono, Member member, String link, Board board) {
+        this.photono = photono;
+        this.member = member;
+        this.link = link;
+        this.board = board;
+    }
 }
