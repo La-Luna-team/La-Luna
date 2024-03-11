@@ -14,10 +14,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.List;
 
@@ -44,9 +47,12 @@ public class AuthorizationController {
     @PostMapping("/update_member")
     public ResponseEntity<String> updateMember(@AuthenticationPrincipal MyUserDetails userDetails, MemberUpdateRequestDto requestDto) {
         try {
-
             String memberid = userDetails.getUsername();
             registerMemberService.memberUpdate(memberid, requestDto);
+
+            // 세션 새로고침
+            refreshSession();
+
             // 성공 응답 메시지
             return ResponseEntity.ok("회원 정보 업데이트 성공");
         } catch (Exception e) {
@@ -55,17 +61,29 @@ public class AuthorizationController {
         }
     }
 
-
     @DeleteMapping("/delete/{memberid}")
     public ResponseEntity<String> deleteMember(@PathVariable String memberid) {
         try {
             registerMemberService.deleteMember(memberid);
+
+            // 세션 새로고침
+            refreshSession();
+
             return ResponseEntity.ok("Member deleted successfully");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
+    private void refreshSession() {
+        // 현재 인증된 사용자의 Authentication 객체 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        // 인증 객체가 있고, 그 객체가 인증된 사용자라면
+        if (authentication != null && authentication.isAuthenticated()) {
+            // 현재 사용자의 세션 무효화
+            ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest().getSession().invalidate();
+        }
+    }
 
     @PostMapping("/addPet")
     public ResponseEntity<String> addPet(@ModelAttribute MemberAndPetDto dto) {

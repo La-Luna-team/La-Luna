@@ -4,7 +4,9 @@ import com.laluna.laluna.domain.dto.member.MemberUpdateRequestDto;
 import com.laluna.laluna.domain.dto.member.MemberUpdateResponseDto;
 import com.laluna.laluna.domain.entity.Member;
 import com.laluna.laluna.repository.MemberRepository;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class RegisterMemberService {
+
+    @Autowired
+    private HttpSession httpSession;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -57,6 +62,8 @@ public class RegisterMemberService {
                 requestDto.getAddress(),
                 requestDto.getEmail());
 
+        refreshSession();
+
         return new MemberUpdateResponseDto(
                 member.getMemberno(),
                 member.getMemberid(),
@@ -65,5 +72,8 @@ public class RegisterMemberService {
                 member.getEmail());
     }
 
-
+    private void refreshSession() {
+        // 세션을 무효화하여 로그인 정보를 갱신합니다.
+        httpSession.invalidate();
+    }
 }
