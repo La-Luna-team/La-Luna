@@ -32,10 +32,10 @@ public class ReplyController {
     }
 
     @PutMapping("/updateReply/{replyno}")
-    public String updateReply(@PathVariable Long replyno,@ModelAttribute UpdateReplyRequest requestDTO, RedirectAttributes redirectAttributes){
+    @ResponseBody
+    public ResponseEntity<UpdateReplyResponse> updateReply(@PathVariable Long replyno, @RequestBody UpdateReplyRequest requestDTO){
         UpdateReplyResponse response = replyService.replyUpdate(replyno, requestDTO);
-        redirectAttributes.addFlashAttribute("replyUpdate", response);
-        return "redirect:/boards/boardview";
+        return ResponseEntity.ok().body(response);
     }
 
     @DeleteMapping("/deleteReply/{replyno}")

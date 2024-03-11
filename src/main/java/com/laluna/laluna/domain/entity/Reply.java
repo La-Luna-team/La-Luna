@@ -3,11 +3,9 @@ package com.laluna.laluna.domain.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.security.core.userdetails.User;
 
 import java.time.LocalDateTime;
 
@@ -40,7 +38,7 @@ public class Reply {
     @JsonFormat(pattern = "yyy-MM-dd HH:mm:ss")
     private LocalDateTime moddate;
 
-    public void update(String replytext,String replyer){
+    public void update(String replytext){
         this.replytext = replytext;
         this.replyer = replyer;
     }

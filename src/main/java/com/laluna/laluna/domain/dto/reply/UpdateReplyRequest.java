@@ -11,5 +11,4 @@ public class UpdateReplyRequest {
 
     private String replytext;
 
-    private String replyer;
 }

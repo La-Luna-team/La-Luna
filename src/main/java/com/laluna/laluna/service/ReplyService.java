@@ -62,7 +62,7 @@ public class ReplyService {
         Reply findReply = replyRepository.findById(replyno)
                 .orElseThrow(() -> new EntityNotFoundException("해당 id로 조회된 댓글이 없습니다"));
 
-        findReply.update(requestDTO.getReplytext(),requestDTO.getReplyer());
+        findReply.update(requestDTO.getReplytext());
 
         return new UpdateReplyResponse(
                 findReply.getReplyno(),

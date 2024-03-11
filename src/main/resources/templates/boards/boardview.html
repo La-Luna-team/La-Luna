@@ -96,6 +96,7 @@
                 <th>아이디</th>
                 <th>댓글</th>
                 <th>작성일</th>
+                <th>수정일</th>
             </tr>
             </thead>
             <tbody>
@@ -104,6 +105,7 @@
                 <td th:text="${reply.replyer}"></td>
                 <td class="reply-content" th:text="${reply.replytext}"></td>
                 <td th:text="${#temporals.format(reply.regdate, 'MM-dd HH:mm')}"></td>
+                <td th:text="${#temporals.format(reply.moddate, 'MM-dd HH:mm')}"></td>
                 <td>
                     <button class="update-btn" th:data-replyno="${reply.replyno}" th:data-replyer="${reply.replyer}" th:data-loginid="${loginId}" style="float: unset">수정</button>
                     <button class="delete-btn" th:data-replyno="${reply.replyno}" th:data-replyer="${reply.replyer}" th:data-loginid="${loginId}" style="float: unset">삭제</button>
@@ -122,7 +124,7 @@
                     <div class="modal-body">
                         <form id="updateForm">
                             <input type="hidden" id="replynoInput" name="replyno">
-                            <input type="text" id="replyerInput" name="replyer" readonly style="border-radius: 5px">
+                            <input type="hidden" id="replyerInput" name="replyer" readonly style="border-radius: 5px">
                             <textarea id="replyContent2" name="replytext" rows="4" cols="50"></textarea>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="closeModal()">취소하기</button>
@@ -179,19 +181,18 @@
             // 수정하기 버튼 클릭 시
             document.getElementById("reply-btn").addEventListener("click", function () {
                 var updateForm = document.getElementById("updateForm");
-                var replyno = updateForm.querySelector("#replynoInput").value; // 댓글 번호 가져오기
-                var replytext = updateForm.querySelector("#replyContent2").value; // 수정된 댓글 내용 가져오기
-                var replyer = updateForm.querySelector("#replyerInput").value; // 댓글 작성자 가져오기
+                var formData = new FormData(updateForm);
+                var replyno = formData.get("replyno");
+                var replytext = formData.get("replytext")
 
                 // 수정 요청 보내기
                 fetch(`/boards/updateReply/${replyno}`, {
                     method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json"
+                    headers:{
+                        'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        replytext: replytext,
-                        replyer: replyer
+                        replytext: replytext
                     })
                 })
                     .then(response => {
@@ -206,10 +207,10 @@
                         console.error("댓글 수정 중 오류가 발생:", error);
                     });
             });
+        });
 
 
-
-            // 댓글 삭제 스크립트
+        // 댓글 삭제 스크립트
         document.addEventListener("DOMContentLoaded", function() {
             // 삭제 버튼에 이벤트 리스너 추가
             document.querySelectorAll(".delete-btn").forEach(function(button) {
