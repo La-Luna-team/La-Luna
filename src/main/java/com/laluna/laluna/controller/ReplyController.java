@@ -31,11 +31,11 @@ public class ReplyController {
         return "redirect:/boards/read/"+ request.getBoardno();
     }
 
-    @PutMapping("/updateReply")
-    public String updateReply(@PathVariable Long replyno,@ModelAttribute UpdateReplyRequest requestDTO, RedirectAttributes redirectAttributes){
-        replyService.replyUpdate(replyno, requestDTO);
-        redirectAttributes.addFlashAttribute("message","댓글이 성공적으로 수정되었습니다.");
-        return "redirect:/view/boardview";
+    @PutMapping("/updateReply/{replyno}")
+    @ResponseBody
+    public ResponseEntity<UpdateReplyResponse> updateReply(@PathVariable Long replyno, @RequestBody UpdateReplyRequest requestDTO){
+        UpdateReplyResponse response = replyService.replyUpdate(replyno, requestDTO);
+        return ResponseEntity.ok().body(response);
     }
 
     @DeleteMapping("/deleteReply/{replyno}")

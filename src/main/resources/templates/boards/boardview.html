@@ -32,44 +32,44 @@
             </div>
             <h6 class="card-title" th:text="${board.category}"></h6>
             <h1 class="card-subtitle mb-2 text-body-secondary" th:text="${board.title}"></h1>
-    </div>
-    <hr class="line1" />
-                <div class="Content">
-                        <div class="user-body">
-                            <div class="user-body">
-                                <p style="margin-left: 10px;" class="작성자">작성자: <span th:text="${board.mid}"></span>
-                                    <span style="float: right;">
+        </div>
+        <hr class="line1" />
+        <div class="Content">
+            <div class="user-body">
+                <div class="user-body">
+                    <p style="margin-left: 10px;" class="작성자">작성자: <span th:text="${board.mid}"></span>
+                        <span style="float: right;">
                                         등록일: <span th:text="${#temporals.format(board.regdate, 'MM-dd HH:mm')}"></span><br>
                                         수정일: <span th:text="${#temporals.format(board.moddate, 'MM-dd HH:mm')}"></span></span>
-                                </p>
-                                <div th:each="petResponse : ${board.pets}" class="pet-info">
-                                    <span class="pet-detail" style="margin-left: 10px">이름: <span th:text="${petResponse.petname}"></span></span>
-                                    <span class="pet-detail">나이: <span th:text="${petResponse.petage}"></span></span>
-                                    <span class="pet-detail">종류: <span th:text="${petResponse.petkind}"></span></span>
-                                    <span class="pet-detail">특징: <span th:text="${petResponse.petfeature}"></span></span>
-                                    <span class="pet-detail">예방접종: <span th:text="${petResponse.petvac}"></span></span>
-                                    <span class="pet-detail">상태: <span th:text="${petResponse.petcondition}"></span></span>
-                                    <span class="pet-detail">성별: <span th:text="${petResponse.petsex ? '수컷' : '암컷'}"></span></span>
+                    </p>
+                    <div th:each="petResponse : ${board.pets}" class="pet-info">
+                        <span class="pet-detail" style="margin-left: 10px">이름: <span th:text="${petResponse.petname}"></span></span>
+                        <span class="pet-detail">나이: <span th:text="${petResponse.petage}"></span></span>
+                        <span class="pet-detail">종류: <span th:text="${petResponse.petkind}"></span></span>
+                        <span class="pet-detail">특징: <span th:text="${petResponse.petfeature}"></span></span>
+                        <span class="pet-detail">예방접종: <span th:text="${petResponse.petvac}"></span></span>
+                        <span class="pet-detail">상태: <span th:text="${petResponse.petcondition}"></span></span>
+                        <span class="pet-detail">성별: <span th:text="${petResponse.petsex ? '수컷' : '암컷'}"></span></span>
+                    </div>
+                    <div class="modal" tabindex="-1" role="dialog" id="myModal">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content rounded-4 shadow">
+                                <div class="modal-header border-bottom-0">
+                                    <h1 class="modal-title fs-5">수정하기</h1>
+                                    <button id="close" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div class="modal" tabindex="-1" role="dialog" id="myModal">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content rounded-4 shadow">
-                                            <div class="modal-header border-bottom-0">
-                                                <h1 class="modal-title fs-5">수정하기</h1>
-                                                <button id="close" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body py-0">
-                                                <p3>삭제 하시겠습니까?</p3>
-                                            </div>
-                                            <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
-                                                <button type="button" class="btn btn-lg btn-primary" id="remove">삭제하기</button>
-                                                <button id="close1" type="button" class="btn btn-lg btn-secondary" data-bs-dismiss="modal">취소하기</button>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="modal-body py-0">
+                                    <p3>삭제 하시겠습니까?</p3>
+                                </div>
+                                <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
+                                    <button type="button" class="btn btn-lg btn-primary" id="remove">삭제하기</button>
+                                    <button id="close1" type="button" class="btn btn-lg btn-secondary" data-bs-dismiss="modal">취소하기</button>
                                 </div>
                             </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
         </div>
         <hr class="line2" />
         <div>
@@ -96,14 +96,16 @@
                 <th>아이디</th>
                 <th>댓글</th>
                 <th>작성일</th>
+                <th>수정일</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="reply : ${replies}">
                 <td th:text="${reply.replyno}"></td>
                 <td th:text="${reply.replyer}"></td>
-                <td th:text="${reply.replytext}"></td>
+                <td class="reply-content" th:text="${reply.replytext}"></td>
                 <td th:text="${#temporals.format(reply.regdate, 'MM-dd HH:mm')}"></td>
+                <td th:text="${#temporals.format(reply.moddate, 'MM-dd HH:mm')}"></td>
                 <td>
                     <button class="update-btn" th:data-replyno="${reply.replyno}" th:data-replyer="${reply.replyer}" th:data-loginid="${loginId}" style="float: unset">수정</button>
                     <button class="delete-btn" th:data-replyno="${reply.replyno}" th:data-replyer="${reply.replyer}" th:data-loginid="${loginId}" style="float: unset">삭제</button>
@@ -111,6 +113,30 @@
             </tr>
             </tbody>
         </table>
+<!--        댓글 수정 모달-->
+        <div class="modal" tabindex="-1" id="myModal2">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">댓글 수정</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="closeModal()"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="updateForm">
+                            <input type="hidden" id="replynoInput" name="replyno">
+                            <input type="text" id="replyerInput" name="replyer" readonly style="border-radius: 5px">
+                            <textarea id="replyContent2" name="replytext" rows="4" cols="50"></textarea>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="closeModal()">취소하기</button>
+                                <button type="submit" class="btn btn-primary" id="reply-btn">수정하기</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--        위로가기 버튼-->
         <p class="fixed_top">
             <a href="#">위로</a>
         </p>
@@ -126,6 +152,65 @@
 
 <th:block layout:fragment="script">
     <script>
+        // 댓글 삭제 스크립트
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".update-btn").forEach(function (button) {
+                button.addEventListener("click", function () {
+                    // 댓글 정보 가져오기
+                    var replyno = this.getAttribute("data-replyno");
+                    var replyer = this.getAttribute("data-replyer");
+                    var currentUser = this.getAttribute("data-loginid");
+
+                    // 현재 유저가 작성자인지 확인
+                    if (currentUser == replyer) {
+                        // 댓글 내용 가져와서 모달 폼에 설정
+                        var replytext = this.parentElement.parentElement.querySelector(".reply-content").textContent;
+                        var modalForm = document.getElementById("updateForm");
+                        modalForm.querySelector("#replynoInput").value = replyno;
+                        modalForm.querySelector("#replyerInput").value = replyer;
+                        modalForm.querySelector("#replyContent2").value = replytext;
+
+                        // 모달 열기
+                        var myModal = new bootstrap.Modal(document.getElementById('myModal2'));
+                        myModal.show();
+                    } else {
+                        alert("댓글 작성자만 수정할 수 있습니다.");
+                    }
+                });
+            });
+
+            // 수정하기 버튼 클릭 시
+            document.getElementById("reply-btn").addEventListener("click", function () {
+                var updateForm = document.getElementById("updateForm");
+                var formData = new FormData(updateForm);
+                var replyno = formData.get("replyno");
+                var replytext = formData.get("replytext")
+
+                // 수정 요청 보내기
+                fetch(`/boards/updateReply/${replyno}`, {
+                    method: "PUT",
+                    headers:{
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        replytext: replytext
+                    })
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            alert("댓글이 수정되었습니다.");
+                            location.reload();
+                        } else {
+                            alert("댓글 수정에 실패했습니다.");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("댓글 수정 중 오류가 발생:", error);
+                    });
+            });
+        });
+
+
         // 댓글 삭제 스크립트
         document.addEventListener("DOMContentLoaded", function() {
             // 삭제 버튼에 이벤트 리스너 추가
@@ -168,7 +253,7 @@
             });
         });
 
-        //댓글 삭제하기 스크립트
+        //게시글 삭제하기 스크립트
         document.getElementById('remove').addEventListener('click', function() {
             // 현재 페이지의 URL에서 게시글 ID 추출
             var boardno = window.location.pathname.split('/')[3];
@@ -187,6 +272,17 @@
         // 리스트 가는 함수
         function home(){
             window.location.href="/boards/list"
+        }
+
+        // 댓글수정 모달 오픈
+        function openModal() {
+            var modal = document.getElementById('myModal2');
+            modal.style.display = 'block';
+        }
+        // 모달 닫기
+        function closeModal() {
+            var modal = document.getElementById('myModal2');
+            modal.style.display = 'none';
         }
     </script>
 </th:block>

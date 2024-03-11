@@ -1,10 +1,7 @@
 package com.laluna.laluna.domain.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,13 +22,16 @@ public class Photo {
     private Member member;
 
     @Column(length = 200, nullable = true)
-    private String link;
+    private String url;
 
+    @Setter
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "boardno")
     private Board board;
 
-    public void updateUrl(String link) {
-        this.link = link;
+
+
+    public void updateUrl(String url) {
+        this.url = url;
     }
 }

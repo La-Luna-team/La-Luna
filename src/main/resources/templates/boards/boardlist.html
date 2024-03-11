@@ -151,7 +151,7 @@
                     <p class="col-lg-8">
                         <a class="btn btn-secondary" href="#" th:href="@{/boards/read/{categoryPage}(categoryPage=${categoryPage.boardno})}">View details &raquo;</a>
                     </p>
-                    <div class="col-lg-4 text-right" >
+                    <div class="col-lg-4 text-right">
                         <img th:src="@{/images/like.png}" width="25" height="25" alt="좋아요"/>
                         <img class="ms-3" th:src="@{/images/reply.png}" width="25" height="25" alt="댓글"/>
                     </div>
@@ -229,6 +229,11 @@
 </body>
 </html>
 <style>
+    /*.bg-body-secondary {*/
+    /*    background-image:  url('/images/dog_cat.png');*/
+    /*    background-size: cover; !* 이미지가 구역을 완전히 덮도록 설정 *!*/
+    /*    background-position: center; !* 이미지가 중앙에 오도록 설정 *!*/
+    /*}*/
     .col-lg-4 {
         border-bottom: solid 1px #eeeeee;
     }
