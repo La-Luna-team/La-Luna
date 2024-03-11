@@ -87,21 +87,22 @@ public class ReplyControllerTest {
 
     @Test
     public void testUpdateReply() throws Exception {
-        // Given
-        Long replynum = 1L;
+        Long replyno = 1L;
         UpdateReplyRequest requestDTO = new UpdateReplyRequest("수정된 댓글 내용", "작성자");
+        UpdateReplyResponse response = new UpdateReplyResponse(null, null, "수정된 댓글 내용", "작성자", null, null);
 
-        // When & Then
-        mockMvc.perform(put("/api/replies/{replynum}", replynum)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(new ObjectMapper().writeValueAsString(requestDTO)))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(flash().attribute("message", "ㅁ댓글이 성공적으로 수정되었습니다."))
-                .andExpect(redirectedUrl("/view/boardview"))
-                .andExpect(model().hasNoErrors());
+        // Mocking service method
+        when(replyService.replyUpdate(replyno, requestDTO)).thenReturn(response);
 
+        mockMvc.perform(MockMvcRequestBuilders.put("/updateReply/{replyno}", replyno)
+                        .param("replytext", requestDTO.getReplytext())
+                        .param("replyer", requestDTO.getReplyer()))
+                .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
+                .andExpect(MockMvcResultMatchers.flash().attribute("replyUpdate", response))
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/boards/boardview"));
     }
 }
+
 
 //    @Test
 //    public void testdeleteReply() throws Exception{

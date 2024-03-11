@@ -19,7 +19,7 @@ public class UpdateReplyResponse {
 
     private String replyer;
 
-    private LocalDateTime regfate;
+    private LocalDateTime regdate;
 
-    private LocalDateTime modfate;
+    private LocalDateTime moddate;
 }
