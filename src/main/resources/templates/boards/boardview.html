@@ -32,44 +32,44 @@
             </div>
             <h6 class="card-title" th:text="${board.category}"></h6>
             <h1 class="card-subtitle mb-2 text-body-secondary" th:text="${board.title}"></h1>
-    </div>
-    <hr class="line1" />
-                <div class="Content">
-                        <div class="user-body">
-                            <div class="user-body">
-                                <p style="margin-left: 10px;" class="작성자">작성자: <span th:text="${board.mid}"></span>
-                                    <span style="float: right;">
+        </div>
+        <hr class="line1" />
+        <div class="Content">
+            <div class="user-body">
+                <div class="user-body">
+                    <p style="margin-left: 10px;" class="작성자">작성자: <span th:text="${board.mid}"></span>
+                        <span style="float: right;">
                                         등록일: <span th:text="${#temporals.format(board.regdate, 'MM-dd HH:mm')}"></span><br>
                                         수정일: <span th:text="${#temporals.format(board.moddate, 'MM-dd HH:mm')}"></span></span>
-                                </p>
-                                <div th:each="petResponse : ${board.pets}" class="pet-info">
-                                    <span class="pet-detail" style="margin-left: 10px">이름: <span th:text="${petResponse.petname}"></span></span>
-                                    <span class="pet-detail">나이: <span th:text="${petResponse.petage}"></span></span>
-                                    <span class="pet-detail">종류: <span th:text="${petResponse.petkind}"></span></span>
-                                    <span class="pet-detail">특징: <span th:text="${petResponse.petfeature}"></span></span>
-                                    <span class="pet-detail">예방접종: <span th:text="${petResponse.petvac}"></span></span>
-                                    <span class="pet-detail">상태: <span th:text="${petResponse.petcondition}"></span></span>
-                                    <span class="pet-detail">성별: <span th:text="${petResponse.petsex ? '수컷' : '암컷'}"></span></span>
+                    </p>
+                    <div th:each="petResponse : ${board.pets}" class="pet-info">
+                        <span class="pet-detail" style="margin-left: 10px">이름: <span th:text="${petResponse.petname}"></span></span>
+                        <span class="pet-detail">나이: <span th:text="${petResponse.petage}"></span></span>
+                        <span class="pet-detail">종류: <span th:text="${petResponse.petkind}"></span></span>
+                        <span class="pet-detail">특징: <span th:text="${petResponse.petfeature}"></span></span>
+                        <span class="pet-detail">예방접종: <span th:text="${petResponse.petvac}"></span></span>
+                        <span class="pet-detail">상태: <span th:text="${petResponse.petcondition}"></span></span>
+                        <span class="pet-detail">성별: <span th:text="${petResponse.petsex ? '수컷' : '암컷'}"></span></span>
+                    </div>
+                    <div class="modal" tabindex="-1" role="dialog" id="myModal">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content rounded-4 shadow">
+                                <div class="modal-header border-bottom-0">
+                                    <h1 class="modal-title fs-5">수정하기</h1>
+                                    <button id="close" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div class="modal" tabindex="-1" role="dialog" id="myModal">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content rounded-4 shadow">
-                                            <div class="modal-header border-bottom-0">
-                                                <h1 class="modal-title fs-5">수정하기</h1>
-                                                <button id="close" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body py-0">
-                                                <p3>삭제 하시겠습니까?</p3>
-                                            </div>
-                                            <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
-                                                <button type="button" class="btn btn-lg btn-primary" id="remove">삭제하기</button>
-                                                <button id="close1" type="button" class="btn btn-lg btn-secondary" data-bs-dismiss="modal">취소하기</button>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="modal-body py-0">
+                                    <p3>삭제 하시겠습니까?</p3>
+                                </div>
+                                <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
+                                    <button type="button" class="btn btn-lg btn-primary" id="remove">삭제하기</button>
+                                    <button id="close1" type="button" class="btn btn-lg btn-secondary" data-bs-dismiss="modal">취소하기</button>
                                 </div>
                             </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
         </div>
         <hr class="line2" />
         <div>
@@ -124,7 +124,7 @@
                     <div class="modal-body">
                         <form id="updateForm">
                             <input type="hidden" id="replynoInput" name="replyno">
-                            <input type="hidden" id="replyerInput" name="replyer" readonly style="border-radius: 5px">
+                            <input type="text" id="replyerInput" name="replyer" readonly style="border-radius: 5px">
                             <textarea id="replyContent2" name="replytext" rows="4" cols="50"></textarea>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="closeModal()">취소하기</button>
@@ -152,6 +152,7 @@
 
 <th:block layout:fragment="script">
     <script>
+        // 댓글 삭제 스크립트
         document.addEventListener("DOMContentLoaded", function () {
             document.querySelectorAll(".update-btn").forEach(function (button) {
                 button.addEventListener("click", function () {
@@ -268,7 +269,7 @@
                 console.error('Network error: ' + error);
             });
         });
-        // 리스트 가는 스크립트
+        // 리스트 가는 함수
         function home(){
             window.location.href="/boards/list"
         }

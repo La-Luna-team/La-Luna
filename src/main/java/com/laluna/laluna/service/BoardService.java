@@ -5,19 +5,27 @@ import com.laluna.laluna.domain.dto.board.*;
 import com.laluna.laluna.domain.dto.pet.PetResponse;
 import com.laluna.laluna.domain.entity.Board;
 import com.laluna.laluna.domain.entity.Member;
+import com.laluna.laluna.domain.entity.Photo;
+import com.laluna.laluna.repository.BoardImageRepository;
 import com.laluna.laluna.repository.BoardRepository;
 import com.laluna.laluna.repository.MemberRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service

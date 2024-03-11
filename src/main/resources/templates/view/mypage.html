@@ -28,19 +28,19 @@
                         <!-- 수정 입력 폼 -->
                         <form id="updateForm" th:action="@{/auth/update_member}" method="post">
                             <label for="memberid">아이디:</label>
-                            <input type="text" id="memberid" name="memberid"><br><br>
+                            <input type="text" id="memberid" name="memberid" th:value="${loginId}"><br><br>
 
                             <label for="memberpassword">비밀번호:</label>
-                            <input type="password" id="memberpassword" name="memberpassword"><br><br>
+                            <input type="password" id="memberpassword" name="memberpassword" ><br><br>
 
                             <label for="phone">전화번호:</label>
-                            <input type="text" id="phone" name="phone"><br><br>
+                            <input type="text" id="phone" name="phone" th:value="${loginPhone}"><br><br>
 
                             <label for="address">주소:</label>
-                            <input type="text" id="address" name="address"><br><br>
+                            <input type="text" id="address" name="address" th:value="${loginAddress}"><br><br>
 
                             <label for="email">이메일:</label>
-                            <input type="email" id="email" name="email"><br><br>
+                            <input type="email" id="email" name="email" th:value="${loginEmail}"><br><br>
 
                         </form>
                     </div>
@@ -232,13 +232,6 @@
                             <label class="label">핸드폰 번호</label>
                             <div class="control">
                                 <p th:text="${loginPhone}"></p>
-                            </div>
-                        </div>
-
-                        <div class="field">
-                            <label class="label">성별</label>
-                            <div class="control">
-                                <p th:text="${loginId}"></p>
                             </div>
                         </div>
 
