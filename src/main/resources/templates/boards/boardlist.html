@@ -52,14 +52,12 @@
     </div>
     <!--게시판 소개-->
     <main class="container">
-        <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
+        <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary" style="background-image: url('/images/background.png'); background-size: cover; background-position: center;">
             <div class="col-lg-6 px-0">
                 <h1 class="display-4 fst-italic">Happy La-Luna Board</h1>
-                <p class="lead my-3">환영합니다! 우리 반려동물과의 일상을 공유하는 공간, La-Luna Board 에 오신 것을 환영합니다!
-
-                <p class="lead">여기는 우리 반려동물들의 일상을 함께 나누고 소통할 수 있는 공간입니다. 우리 반려동물들의 귀여운 사진이나 재미있는 일화, 그리고 함께 보내는 특별한 순간들을 공유해주세요.
-
-                    우리는 이 공간을 통해 반려동물과 함께하는 특별한 순간들을 기록하고 함께 나누며, 서로의 반려동물에 대한 사랑과 관심을 공유할 수 있습니다.</p>
+                <p class="lead my-3">환영합니다! 우리 반려동물과의 일상을 공유하는 공간, La-Luna Board 에 오신 것을 환영합니다!</p>
+                <p class="lead">여기는 우리 반려동물들의 일상을 함께 나누고 소통할 수 있는 공간입니다. 우리 반려동물들의 귀여운 사진이나 재미있는 일화, 그리고 함께 보내는 특별한 순간들을 공유해주세요.</p>
+                <p class="lead">우리는 이 공간을 통해 반려동물과 함께하는 특별한 순간들을 기록하고 함께 나누며, 서로의 반려동물에 대한 사랑과 관심을 공유할 수 있습니다.</p>
                 <!--            <p class="lead mb-0"><a href="#" class="text-body-emphasis fw-bold">Continue reading...</a></p>-->
             </div>
         </div>
@@ -123,7 +121,7 @@
                 <p>카테고리: <span th:text="${board.category}"></span>
                 <div class="row">
                     <p class="col-lg-8">
-                        <a class="btn btn-secondary" href="#" th:href="@{/boards/read/{boardno}(boardno=${board.boardno})}">View details &raquo;</a>
+                        <a class="btn btn-secondary" href="#" th:href="@{/boards/read/{boardno}(boardno=${board.boardno})}">View boards &raquo;</a>
                     </p>
                     <div class="col-lg-4 text-right" >
                         <img th:src="@{/images/like.png}" width="25" height="25" alt="좋아요"/>
@@ -161,8 +159,8 @@
         <!--페이지네이션-->
         <td colspan="6">
             <ul class="pagination" th:if="${boards != null}">
-                <li class="page-item" th:classappend="${boards.number > 0 && nowPage > 10} ? '' : 'disabled'">
-                    <a class="page-link" th:if="${nowPage > 10}" th:href="@{|?page=${boards.number-10}|}" onclick="movePage(${boards.number-10})">
+                <li class="page-item" th:classappend="${boards.number > 0 && nowPage > 5} ? '' : 'disabled'">
+                    <a class="page-link" th:if="${nowPage > 5}" th:href="@{|?page=${boards.number-5}|}" onclick="movePage(${boards.number-10})">
                         <span><이전</span>
                     </a>
                 </li>
@@ -181,8 +179,8 @@
         </td>
         <td colspan="6">
             <ul class="pagination" th:if="${categoryPage != null}">
-                <li class="page-item" th:classappend="${categoryPage.number > 0 && nowPage > 10} ? '' : 'disabled'">
-                    <a class="page-link" th:if="${nowPage > 10}" th:href="@{|/boards/category/${category}?page=${categoryPage.number-10}|}" onclick="movePage(${categoryPage.number-10})">
+                <li class="page-item" th:classappend="${categoryPage.number > 0 && nowPage > 5} ? '' : 'disabled'">
+                    <a class="page-link" th:if="${nowPage > 5}" th:href="@{|/boards/category/${category}?page=${categoryPage.number-5}|}" onclick="movePage(${categoryPage.number-10})">
                         <span><이전</span>
                     </a>
                 </li>
@@ -206,12 +204,6 @@
 </th:block>
 <th:block layout:fragment="script">
     <script>
-
-        // //무엇을 검색하면 제목이나 사용자가 다 같이 나오는 것
-        // if(Search = "${title}"){
-        //     //검색한 제목이 꿀팁 페이지. 일상, 건강페이지들에 해당하는 게시글이 나옴
-        //
-        // }
         function submitForm() {
             var titleValue = document.getElementById('title').value;
             var form = document.getElementById('searchForm');
@@ -229,11 +221,6 @@
 </body>
 </html>
 <style>
-    /*.bg-body-secondary {*/
-    /*    background-image:  url('/images/dog_cat.png');*/
-    /*    background-size: cover; !* 이미지가 구역을 완전히 덮도록 설정 *!*/
-    /*    background-position: center; !* 이미지가 중앙에 오도록 설정 *!*/
-    /*}*/
     .col-lg-4 {
         border-bottom: solid 1px #eeeeee;
     }
@@ -254,9 +241,10 @@
         font-style: normal;
     }
     .link-secondary{
-        font-family: "Madimi One", sans-serif;
-        font-weight: 400;
+        font-family: "Playfair Display", serif;
+        font-weight: 500;
         font-style: normal;
+        text-decoration: none;
     }
     /*위로가기 버튼 스타일*/
     .fixed_top{

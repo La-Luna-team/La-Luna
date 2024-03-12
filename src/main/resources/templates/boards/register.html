@@ -11,7 +11,7 @@
     </th:block>
 </head>
 
-<body>
+<body class="board">
 <th:block layout:fragment="content">
     <div class="container" id="customContainer">
         <form action = "/boards/register" method="post">
@@ -119,7 +119,7 @@
             <br>
             <input type="text" id="hexInput" value="#47627b" oninput="changeColorByHex()">
         </div>
-    </div>
+
 
     <!-- 등록 모달 -->
     <div class="modal" tabindex="-1" id="myModal">
@@ -257,6 +257,7 @@
         }
 
     </style>
+    </div>
 </th:block>
 
 <th:block layout:fragment="script">
