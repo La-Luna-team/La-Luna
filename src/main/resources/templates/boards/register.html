@@ -1,457 +1,510 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/basic.html}">
-<head>
-    <meta charset="UTF-8">
-    <th:block layout:fragment="head">
-        <title>Title</title>
-        <!-- jQuery 로드 스크립트 -->
-        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org"
+          xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+          layout:decorate="~{layout/basic.html}">
+    <head>
+        <meta charset="UTF-8">
+        <th:block layout:fragment="head">
+            <!-- jQuery 로드 스크립트 -->
+            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+            <style>
+                .col-md-4 {
+                    margin-left: 500px;
+                }
+
+                .col-md-8 {
+                    margin-left: 65px;
+                }
+
+                .col-md-3 {
+                    margin-left: 35px
+                }
+                .container {
+                    padding: 20px;
+                    transition: background-color 0.5s ease;
+                }
+
+                .file-label {
+                    background-color: #beb4b4;
+                    color: #fff;
+                    text-align: center;
+                    padding: 0 0;
+                    width: 300px;
+                    height: 50px;
+                    margin: 0 0;
+                    border-radius: 6px;
+                    cursor: pointer;
+                    line-height: 50px;
+                }
+
+                .file {
+                    display: none;
+                }
+
+                .upload-box {
+                    display: flex;
+                    flex-direction: row;
+
+                }
+                .upload-box1 {
+                    display: flex;
+                    flex-direction: column;
+                    margin-right: 75px;
+                }
+
+                .upload-buttons {
+                    display: flex;
+                    flex-direction: column;
+                    margin-right: 75px;
+                }
+
+                .drag-file {
+                    width: 300px;
+                    height: 300px;
+                    margin: 10px 0;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    border: 6px dashed #dbdbdb;
+                    border-radius: 20px;
+                }
+
+                .drag-file .highlight {
+                    border: 3px dashed red;
+                    border-radius: 20px;
+                }
+
+                .drag-file img {
+                    width: 300px;
+                    height: auto;
+                    border-radius: 6px;
+                }
+
+                .drag-file .image {
+                    width: 60px;
+                    height: auto;
+                }
+
+                .drag-file .message {
+                    margin-bottom: 0;
+
+                }
+
+                /* .thumbnail 및 .image 스타일 수정 */
+                .thumbnail-container .thumbnail {
+                    width: 100%;
+                    height: auto;
+                    border-radius: 20px;
+                    color: inherit; /* 부모 요소의 텍스트 색상을 상속받도록 설정 */
+                    /* 추가: 원하는 색상으로 텍스트 색상 지정 */
+                    color: #000000; /* 예시로 검은색으로 지정 */
+                }
+
+                .thumbnail-container .image {
+                    width: 100%;
+                    height: auto;
+                    border-radius: 20px;
+                    color: inherit; /* 부모 요소의 텍스트 색상을 상속받도록 설정 */
+                    /* 추가: 원하는 색상으로 텍스트 색상 지정 */
+                    color: #FFFF00; /* 예시로 노란색으로 지정 */
+                }
+
+                .category-button {
+                    margin-top: 10px;
+                }
+
+                #categorySelect {
+                    margin-top: 10px;
+                    width: 100%;
+                    padding: 10px;
+                    border-radius: 6px;
+                    cursor: pointer;
+                }
+
+                /* "등록" 버튼 스타일 추가 */
+                button.btn-primary {
+                    background-color: #719fa1; /* 녹색으로 변경 */
+                    font-size: 20px; /* 폰트 크기를 20px로 변경 */
+                    padding: 10px 20px; /* 내부 여백을 조절하여 크기를 조절 */
+                    color: #ffffff;
+                    border: none;
+                }
+
+                /* "등록" 버튼 호버 시 스타일 추가 */
+                button.btn-primary:hover {
+                    background-color: #262d27; /* 호버 시의 색상 */
+                }
+
+                label[for="colorPicker"] {
+                    color: #ffffff; /* 원하는 색상으로 변경 */
+                    font-family: 'Nanum Pen Script', sans-serif; /* 원하는 폰트로 변경 (여기서는 Arial) */
+                }
+
+                #hexInput {
+                    width: 11%;
+                    padding: 5px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    background-color: transparent; /* 배경을 투명하게 설정 */
+                    color: #fff;
+                }
+
+            </style>
+        </th:block>
+    </head>
+
+    <body>
+    <th:block layout:fragment="content">
+        <div class="container" id="customContainer">
+            <form action = "/boards/register/uploadFile" method="post" enctype="multipart/form-data">
+            <!-- 게시판 카테고리 -->
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="category-button ps-lg-5">
+                        <button type="button" class="btn btn-outline-light w-50">카테고리</button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <select id="categorySelect" class="form-select" name="category">
+                        <option selected>게시판 카테고리를 선택해 주세요</option>
+                        <option value="일상게시판">일상게시판</option>
+                        <option value="꿀팁게시판">꿀팁게시판</option>
+                        <option value="건강게시판">건강게시판</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- 이미지 업로드 드래그 영역 -->
+            <div class="upload-box ps-5">
+                <!-- Drop area 1 -->
+                <div class="upload-box1">
+                    <div class="drag-file" id="dragFile1" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 'dragFile1')">
+                        <img class="image" th:src="@{/images/imageicon.png}" alt="파일 아이콘">
+                        <p class="message">Drag files to upload</p>
+                    </div>
+                    <div class="upload-buttons">
+                        <label class="file-label" for="chooseFile1">사진 1</label>
+                        <input class="file" id="chooseFile1" type="file" name="file1" multiple onchange="handleFileInputChange(event,'dragFile1', 'chooseFile1')">
+                    </div>
+                </div>
+
+                <!-- Drop area 2 -->
+                <div class="upload-box1">
+                    <div class="drag-file" id="dragFile2" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 'dragFile2')">
+                        <img class="image" th:src="@{/images/imageicon.png}" alt="파일 아이콘">
+                        <p class="message">Drag files to upload</p>
+                    </div>
+                    <div class="upload-buttons">
+                        <label class="file-label" for="chooseFile2">사진 2</label>
+                        <input class="file" id="chooseFile2" type="file" name="file2" multiple onchange="handleFileInputChange(event,'dragFile2', 'chooseFile2')">
+                    </div>
+                </div>
+
+                <!-- Drop area 3 -->
+                <div class="upload-box1">
+                    <div class="drag-file" id="dragFile3" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 'dragFile3')">
+                        <img class="image" th:src="@{/images/imageicon.png}" alt="파일 아이콘">
+                        <p class="message">Drag files to upload</p>
+                    </div>
+                    <div class="upload-buttons">
+                        <label class="file-label" for="chooseFile3">사진 3</label>
+                        <input class="file" id="chooseFile3" type="file" name="file3" multiple onchange="handleFileInputChange(event,'dragFile3', 'chooseFile3')">
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+
+            <!-- 제목 입력 -->
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="title-button ps-lg-5">
+                        <button type="button" class="btn btn-outline-light w-50">제목</button>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="input-group mb-3">
+                        <input type="text" name="title" class="form-control" aria-label="Sizing example input"
+                               aria-describedby="inputGroup-sizing-default" placeholder="제목을 입력하세요">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 내용 입력 -->
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="content-button ps-lg-5">
+                        <button type="button" class="btn btn-outline-light w-50">내용</button>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="input-group mb-3">
+                            <textarea class="form-control" aria-label="Sizing example input" name="content"
+                                      aria-describedby="inputGroup-sizing-default" placeholder="내용을 입력하세요"
+                                      style="resize: vertical; color: #000;"></textarea>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+
+            <!-- "등록" 버튼 -->
+            <div style="text-align: center;">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#submitModal">Submit</button>
+                <br>
+            </div>
+
+            <!-- "배경색상선택" 버튼 -->
+            <div>
+                <label for="colorPicker">Plz Choose<br>BG Color:</label>
+                <input type="color" id="colorPicker" value="#47627b" onchange="changeColor()">
+                <br>
+                <input type="text" id="hexInput" value="#47627b" oninput="changeColorByHex()">
+            </div>
+
+
+        <!-- 등록 모달 -->
+        <div class="modal" tabindex="-1" id="submitModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">게시판 카테고리</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="submitModalMessage">게시글을 등록하시겠습니까?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" onclick="confirmSubmit()">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 사진 업로드 모달 -->
+        <div class="modal" tabindex="-1" id="uploadModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">사진 업로드 확인</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="uploadModalMessage">사진을 업로드 하시겠습니까?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" onclick="confirmUpload()">Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    </div>
+
     </th:block>
-</head>
 
-<body>
-<th:block layout:fragment="content">
-    <div class="container" id="customContainer">
-        <form action = "/boards/register/uploadFile" method="post" enctype="multipart/form-data">
-        <!-- 게시판 카테고리 -->
-        <div class="row">
-            <div class="col-md-3">
-                <div class="category-button ps-lg-5">
-                    <button type="button" class="btn btn-outline-light w-50">카테고리</button>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <select id="categorySelect" class="form-select" name="category">
-                    <option selected>게시판 카테고리를 선택해 주세요</option>
-                    <option value="일상게시판">일상게시판</option>
-                    <option value="꿀팁게시판">꿀팁게시판</option>
-                    <option value="건강게시판">건강게시판</option>
-                </select>
-            </div>
-        </div>
+    <th:block layout:fragment="script">
+        <script>
+                // 변경된 부분: changeColor 함수가 호출되도록 수정
+                changeColor();
 
-        <!-- 이미지 업로드 드래그 영역 -->
-        <div class="upload-box ps-5">
-            <!-- Drag and drop area 1 -->
-            <div class="upload-box1">
-                <div class="drag-file" id="drop-file1">
-                    <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="image">
-                    <p class="message">Drag files to upload</p>
-                </div>
-                <div class="upload-buttons">
-                    <label class="file-label" for="chooseFile1">사진 1</label>
-                    <input class="file" id="chooseFile1" type="file" name="file1" multiple onchange="handleFileInputChange(event,'drop-file1')">
-                </div>
-            </div>
-
-            <!-- Drag and drop area 2 -->
-            <div class="upload-box1">
-                <div class="drag-file" id="drop-file2">
-                    <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="image">
-                    <p class="message">Drag files to upload</p>
-                </div>
-                <div class="upload-buttons">
-                    <label class="file-label" for="chooseFile2">사진 2</label>
-                    <input class="file" id="chooseFile2" type="file" name="file2" multiple onchange="handleFileInputChange(event,'drop-file2')">
-                </div>
-            </div>
-
-            <!-- Drag and drop area 3 -->
-            <div class="upload-box1">
-                <div class="drag-file" id="drop-file3">
-                    <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="image">
-                    <p class="message">Drag files to upload</p>
-                </div>
-                <div class="upload-buttons">
-                    <label class="file-label" for="chooseFile3">사진 3</label>
-                    <input class="file" id="chooseFile3" type="file" name="file3" multiple onchange="handleFileInputChange(event,'drop-file3')">
-                </div>
-            </div>
-        </div>
-        <br>
-        <br>
-
-        <!-- 제목 입력 -->
-        <div class="row">
-            <div class="col-md-3">
-                <div class="title-button ps-lg-5">
-                    <button type="button" class="btn btn-outline-light w-50">제목</button>
-                </div>
-            </div>
-            <div class="col-md-8">
-                <div class="input-group mb-3">
-                    <input type="text" name="title" class="form-control" aria-label="Sizing example input"
-                           aria-describedby="inputGroup-sizing-default" placeholder="제목을 입력하세요">
-                </div>
-            </div>
-        </div>
-
-        <!-- 내용 입력 -->
-        <div class="row">
-            <div class="col-md-3">
-                <div class="content-button ps-lg-5">
-                    <button type="button" class="btn btn-outline-light w-50">내용</button>
-                </div>
-            </div>
-            <div class="col-md-8">
-                <div class="input-group mb-3">
-                        <textarea class="form-control" aria-label="Sizing example input" name="content"
-                                  aria-describedby="inputGroup-sizing-default" placeholder="내용을 입력하세요"
-                                  style="resize: vertical; color: #000;"></textarea>
-                </div>
-            </div>
-        </div>
-        <br>
-        <br>
-
-        <!-- "등록" 버튼 -->
-        <div style="text-align: center;">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#submitModal">Submit</button>
-            <br>
-        </div>
-
-        <!-- "배경색상선택" 버튼 -->
-        <div>
-            <label for="colorPicker">Plz Choose<br>BG Color:</label>
-            <input type="color" id="colorPicker" value="#47627b" onchange="changeColor()">
-            <br>
-            <input type="text" id="hexInput" value="#47627b" oninput="changeColorByHex()">
-        </div>
-
-
-    <!-- 등록 모달 -->
-    <div class="modal" tabindex="-1" id="submitModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">게시판 카테고리</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p id="submitModalMessage">게시글을 등록하시겠습니까?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" onclick="confirmSubmit()">Submit</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- 사진 업로드 모달 -->
-    <div class="modal" tabindex="-1" id="uploadModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">사진 업로드 확인</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p id="uploadModalMessage">사진을 업로드 하시겠습니까?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" onclick="confirmUpload()">Confirm</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
-</div>
-
-    <style>
-        .col-md-4 {
-            margin-left: 500px;
-        }
-
-        .col-md-8 {
-            margin-left: 65px;
-        }
-
-        .col-md-3 {
-            margin-left: 35px
-        }
-        .container {
-            padding: 20px;
-            transition: background-color 0.5s ease;
-        }
-
-        .file-label {
-            background-color: #beb4b4;
-            color: #fff;
-            text-align: center;
-            padding: 0 0;
-            width: 300px;
-            height: 50px;
-            margin: 0 0;
-            border-radius: 6px;
-            cursor: pointer;
-            line-height: 50px;
-        }
-
-        .file {
-            display: none;
-        }
-
-        .upload-box {
-            display: flex;
-            flex-direction: row;
-
-        }
-        .upload-box1 {
-            display: flex;
-            flex-direction: column;
-            margin-right: 75px;
-        }
-
-        .thumbnail {
-            max-width: 100%; /* 이미지의 최대 너비를 100%로 설정 */
-            max-height: 100%; /* 이미지의 최대 높이를 100%로 설정 */
-        }
-
-        .upload-buttons {
-            display: flex;
-            flex-direction: column;
-            margin-right: 75px;
-        }
-
-        .drag-file {
-            width: 300px;
-            height: 300px;
-            margin: 10px 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            border: 6px dashed #dbdbdb;
-            border-radius: 20px;
-        }
-
-        .drag-file .highlight {
-            border: 3px dashed red;
-            border-radius: 20px;
-        }
-
-        .drag-file .image {
-            width: 40px;
-        }
-
-        .drag-file .message {
-            margin-bottom: 0;
-        }
-
-        .category-button {
-            margin-top: 10px;
-        }
-
-        #categorySelect {
-            margin-top: 10px;
-            width: 100%;
-            padding: 10px;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-
-        /* "등록" 버튼 스타일 추가 */
-        button.btn-primary {
-            background-color: #719fa1; /* 녹색으로 변경 */
-            font-size: 20px; /* 폰트 크기를 20px로 변경 */
-            padding: 10px 20px; /* 내부 여백을 조절하여 크기를 조절 */
-            color: #ffffff;
-            border: none;
-        }
-
-        /* "등록" 버튼 호버 시 스타일 추가 */
-        button.btn-primary:hover {
-            background-color: #262d27; /* 호버 시의 색상 */
-        }
-
-        label[for="colorPicker"] {
-            color: #ffffff; /* 원하는 색상으로 변경 */
-            font-family: 'Nanum Pen Script', sans-serif; /* 원하는 폰트로 변경 (여기서는 Arial) */
-        }
-
-        #hexInput {
-            width: 11%;
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: transparent; /* 배경을 투명하게 설정 */
-            color: #fff;
-        }
-
-    </style>
-</th:block>
-
-<th:block layout:fragment="script">
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-        changeColor();
-
-        function changeColor() {
-            var selectedColor = document.getElementById("colorPicker").value;
-            document.getElementById("customContainer").style.backgroundColor = selectedColor;
-            document.getElementById("hexInput").value = selectedColor;
-        }
-
-        function changeColorByHex() {
-            var hexColor = document.getElementById("hexInput").value;
-            document.getElementById("customContainer").style.backgroundColor = hexColor;
-        }
-
-        const dropAreas = document.querySelectorAll(".drag-file");
-
-        // 파일 입력 변경 이벤트에 대한 리스너 설정
-        document.getElementById("chooseFile1").addEventListener("change", function (e) {
-            handleFileInputChange(e, document.getElementById("drop-file1"));
-            $('#uploadModal').modal('show'); // 파일 선택 시 모달 열기
-        });
-
-        document.getElementById("chooseFile2").addEventListener("change", function (e) {
-            handleFileInputChange(e, document.getElementById("drop-file2"));
-            $('#uploadModal').modal('show'); // 파일 선택 시 모달 열기
-        });
-
-        document.getElementById("chooseFile3").addEventListener("change", function (e) {
-            handleFileInputChange(e, document.getElementById("drop-file3"));
-            $('#uploadModal').modal('show'); // 파일 선택 시 모달 열기
-        });
-
-        function handleFileInputChange(event, dropAreaId) {
-            // 수정된 부분: 이미지를 감싸는 <div> 요소를 찾아서 dropArea에 할당
-            // const dropArea = event.target.closest(".drag-file");
-            const dropArea = document.getElementById(dropAreaId);
-
-            console.log(`dropArea(${dropAreaId}):`, dropArea); // 디버깅용 로그
-            console.log("dropAreaId:", dropAreaId); //결과가 올바른지 확인
-            console.log("Element found:", dropArea);
-            console.log("Element found:", document.getElementById(dropAreaId));
-
-            // FormData 객체를 각 함수 내에서 정의
-            const formData = new FormData();
-
-            // 이미지를 감싸는 <div> 요소가 존재할 때만 handleFiles 호출
-            if (dropArea instanceof HTMLElement) {
-                // 추가: FormData에 파일 데이터 추가
-                const files = event.target.files;
-                for (let i = 0; i < files.length; i++) {
-                    formData.append(`file${i + 1}`, files[i]);
-                }
-                handleFiles(files, dropArea);
-            }
-        }
-
-        dropAreas.forEach(dropArea => {
-            dropArea.addEventListener("dragenter", highlight, false);
-            dropArea.addEventListener("dragover", highlight, false);
-            dropArea.addEventListener("dragleave", unhighlight, false);
-            dropArea.addEventListener("drop", handleDrop, false);
-        });
-
-        });
-
-        function handleDrop(e) {
-            console.log("Dropped"); // 디버깅용 로그 추가
-            unhighlight(e);
-            let dt = e.dataTransfer;
-            let files = dt.files;
-
-            // dropArea의 유형 및 값 로그로 출력
-            console.log(typeof e.currentTarget, e.currentTarget);
-
-            // 파일 처리를 담당하는 공통 함수 호출
-            handleFiles(files, e.currentTarget);
-
-            // 모달을 열도록 변경
-            $('#uploadModal').modal('show');
-        }
-
-        function highlight(e) {
-            preventDefaults(e);
-            e.currentTarget.classList.add("highlight");
-        }
-
-        function unhighlight(e) {
-            preventDefaults(e);
-            e.currentTarget.classList.remove("highlight");
-        }
-
-        function preventDefaults(e) {
-            e.preventDefault();
-            e.stopPropagation();
-        }
-
-
-        // handleFiles 함수에서 dropArea 확인
-        function handleFiles(files, dropArea) {
-            if (dropArea instanceof HTMLElement) {
-                for (let i = 0; i < files.length; i++) {
-                    let file = files[i];
-                    let reader = new FileReader();
-
-                    reader.onload = function (e) {
-                        let img = document.createElement("img");
-                        img.src = e.target.result;
-                        img.className = "thumbnail";
-
-                        dropArea.appendChild(img);
-                    };
-
-                    reader.readAsDataURL(file);
-                }
-            }
-        }
-        // 변경된 부분: 사진 업로드 확인 처리
-        function confirmUpload() {
-
-
-            // "Submit" 버튼 클릭 시
-            $('#submitModalButton').click(function () {
-                // 모달 열기
-                $('#submitModal').modal('show');
-            });
-
-            // 변경된 부분: 이미지를 S3에 업로드하기 위해 Ajax 요청
-            $.ajax({
-                url: "/boards/register/uploadFile",
-                type: "POST",
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function (response) {
-                    console.log("업로드 성공:", response);
-                    // 업로드 성공 시 필요한 처리 추가
-                },
-                error: function (error) {
-                    console.error("업로드 실패:", error);
-                    // 업로드 실패 시 필요한 처리 추가
-                }
-            });
-
-            // 모달 닫기
-            $('#uploadModal').modal('hide');
-
-            // 파일 입력 변경 이벤트에 대한 리스너 등록 함수
-            function addFileInputListener(inputId, dropAreaId) {
-                document.getElementById(inputId).addEventListener("change", function (e) {
-                    const dropArea = document.getElementById(dropAreaId);
-                    console.log('dropArea:', dropArea); // 디버깅용 로그
-                    if (dropArea instanceof HTMLElement) {
-                        handleFileInputChange(e, dropAreaId);
-                        $('#uploadModal').modal('show');
-                    } else {
-                        console.error(`Drop area not found for ID: ${dropAreaId}`);
-                    }
+                // 이미지 엘리먼트의 ID에 대한 데이터를 저장할 변수
+                var selectedDropAreaId = '';
+                document.getElementById("chooseFile1").addEventListener("change", function (e) {
+                    handleFileInputChange(e, 'dragFile1', 'chooseFile1');
                 });
-            }
 
-            // addFileInputListener 함수 호출
-            addFileInputListener("chooseFile1", "drop-file1");
-            addFileInputListener("chooseFile2", "drop-file2");
-            addFileInputListener("chooseFile3", "drop-file3");
-        }
-    </script>
-</th:block>
-</body>
-</html>
+                document.getElementById("chooseFile2").addEventListener("change", function (e) {
+                    handleFileInputChange(e, 'dragFile2', 'chooseFile2');
+                });
+
+                document.getElementById("chooseFile3").addEventListener("change", function (e) {
+                    handleFileInputChange(e, 'dragFile3', 'chooseFile3');
+                });
+
+                // 기능 1: 각 사진 버튼 클릭 시 해당 드롭 영역에 이미지 표시
+                function handleFileInputChange(event, dropAreaId, inputFileId) {
+                    if (event && event.target && event.target.files) {
+                        const files = event.target.files;
+
+                        // 기존 .thumbnail-container 제거
+                        const dropArea = document.getElementById(dropAreaId);
+
+                        if (dropArea instanceof HTMLElement) {
+
+                            // 기존 .thumbnail-container 제거
+                            const existingContainers = dropArea.querySelectorAll('.thumbnail-container');
+                            existingContainers.forEach(container => container.remove());
+
+                            for (let i = 0; i < files.length; i++) {
+                                // 새로운 .thumbnail-container 추가
+                                const thumbnailContainer = document.createElement('div');
+                                thumbnailContainer.classList.add('thumbnail-container');
+
+                                // 이미지 엘리먼트 생성
+                                const img = document.createElement('img');
+                                img.src = URL.createObjectURL(files[i]);
+                                img.classList.add('thumbnail');
+                                img.classList.add('image');
+
+                                // 새로운 .thumbnail-container 추가
+                                thumbnailContainer.appendChild(img);
+                                dropArea.appendChild(thumbnailContainer);
+                            }
+
+                            // 변경된 부분: 이미지 엘리먼트에 ID 설정
+                            const imageId = `image-${dropAreaId}`;
+                            const imageElement = dropArea.querySelector('.image');
+                            imageElement.setAttribute('id', imageId);
+                            console.log("Image element ID set:", imageId);
+
+                            // 이미지 아이콘과 텍스트 숨기기
+                            const iconAndText = dropArea.querySelector('.drag-file .image, .drag-file .message');
+                            if (iconAndText) {
+                                iconAndText.style.display = 'none';
+                            }
+
+                            // 변경된 부분: 모달 열기
+                            const modalId = `uploadModal-${dropAreaId}`;
+                            $(`#${modalId}`).modal('show');
+                        } else {
+                            console.error(`ID ${dropAreaId}에 대한 드롭 영역을 찾을 수 없습니다.`);
+                        }
+                    } else {
+                        console.error(`유효하지 않은 이벤트 또는 이벤트 대상 파일이 드롭 영역 ID ${dropAreaId}에 찾을 수 없습니다.`);
+                    }
+                }
+                // 기능 2: 드래그 앤 드롭으로 이미지 업로드
+                // 드래그 앤 드롭 시 각 드롭 영역에 이미지 표시하는 함수
+                function handleDragOver(event) {
+                    event.preventDefault();
+                    const dropArea = event.target;
+                    dropArea.classList.add('highlight');
+                }
+                function handleDragLeave(event) {
+                    const dropArea = event.target;
+                    dropArea.classList.remove('highlight');
+                }
+
+                function handleDrop(event, dropAreaId) {
+                    event.preventDefault();
+                    const dropArea = document.getElementById(dropAreaId);
+
+                    // 드롭 영역이 있는지 확인
+                    if (!dropArea) {
+                        console.error(`ID ${dropAreaId}에 대한 유효하지 않은 드롭 영역입니다.`);
+                        return;
+                    }
+
+                    dropArea.classList.remove('highlight');
+
+                    const imageElement = dropArea.querySelector('.drag-file .image');
+
+                    if (!imageElement) {
+                        console.error(`ID ${dropAreaId}에 대한 이미지 엘리먼트를 찾을 수 없습니다.`);
+                        return;
+                    }
+
+                    const file = event.dataTransfer.files[0];
+
+                    if (file) {
+                        const reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            imageElement.src = e.target.result;
+                        };
+
+                        reader.readAsDataURL(file);
+
+                        // 선택한 드롭 영역 ID 저장
+                        selectedDropAreaId = dropAreaId;
+
+                        // 업로드 모달 열기
+                        $('#uploadModal').modal('show');
+                    }
+                }
+
+                // 기능 3: Submit 버튼 클릭 시 submitModal 창 열리기
+                function confirmSubmit() {
+                    // 여기에 Submit 버튼 클릭 시 동작하는 코드 추가
+                    // 예: document.getElementById('submitModal').modal('show');
+                }
+
+                // 기능 3: 이미지 업로드 확인 후 S3에 업로드
+                function confirmUpload() {
+                    // 선택된 드롭 영역 ID에 대한 데이터 가져오기
+                    const dropAreaId = selectedDropAreaId;
+                    const dropArea = document.getElementById(dropAreaId);
+
+                    // FormData 객체를 각 함수 내에서 정의
+                    const formData = new FormData();
+
+                    // FormData에 파일 데이터 추가
+                    const files = dropArea.querySelector('input[type="file"]').files;
+                    for (let i = 0; i < files.length; i++) {
+                        formData.append(`file${i + 1}`, files[i]);
+                    }
+
+                    console.log("FormData:", formData);
+
+                    // AJAX를 사용한 서버로의 전송
+                    $.ajax({
+                        url: "/boards/register/uploadFile",
+                        type: "POST",
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        dataType: 'json',
+                        success: function (response) {
+                            console.log("업로드 성공:", response);
+                            // 업로드 성공 시 필요한 처리 추가
+
+                            // 기능 3: 서버 응답을 기반으로 DB에 URL 저장 (서버 로직에 따라 수정 필요)
+                            const imageUrl = response.url;  // 실제 응답에서 URL 추출
+                            saveImageUrlToDatabase(imageUrl);
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("업로드 실패:", xhr.responseText);
+                        }
+                    });
+                }
+
+                // 기능 3: DB에 URL 저장 함수 (서버 로직에 따라 수정 필요)
+                function saveImageUrlToDatabase(imageUrl) {
+                    // 여기에 DB에 URL을 저장하는 로직 추가
+                    // 예를 들어, AJAX를 사용하여 서버에 URL을 전송하고 서버에서 DB에 저장할 수 있습니다.
+
+                    // 실제로는 서버로의 요청이 필요하며, 이 부분을 서버 측 코드로 구현해야 합니다.
+                    // 아래는 예시로 실제 서버와의 통신을 처리하는 부분입니다.
+                    $.ajax({
+                        url: '/saveImageUrl',  // 실제 서버 URL로 변경
+                        type: 'POST',
+                        data: { imageUrl: imageUrl },  // 실제 서버로 전송할 데이터
+                        success: function(response) {
+                            // 서버로부터의 응답 처리
+                            console.log(response);
+                        },
+                        error: function(error) {
+                            console.error(error);
+                        },
+                    })}
+
+                // 기능 4: 배경색상 변경
+                function changeColor() {
+                    var selectedColor = document.getElementById("colorPicker").value;
+                    document.getElementById("customContainer").style.backgroundColor = selectedColor;
+                    document.getElementById("hexInput").value = selectedColor;
+                }
+
+                function changeColorByHex() {
+                    var hexColor = document.getElementById("hexInput").value;
+                    document.getElementById("customContainer").style.backgroundColor = hexColor;
+                }
+
+        </script>
+    </th:block>
+    </body>
+    </html>
