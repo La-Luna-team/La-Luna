@@ -63,4 +63,4 @@
 <br>
 <p>🏆 solved rank 🏆</p>
 	
-[![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=EuniceYou)](https://solved.ac/La-Luna)
+[![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=La-Luna)](https://solved.ac/La-Luna)
