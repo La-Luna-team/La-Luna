@@ -99,7 +99,7 @@ public class BoardController {
 
         int nowPage = boardPage.getNumber() + 1;
         int totalPages = boardPage.getTotalPages();
-        int pageSize = 10;
+        int pageSize = 5;
 
         int groupNumber = (nowPage - 1) / pageSize;
 
@@ -121,7 +121,7 @@ public class BoardController {
 
         int nowPage = pagedBoards.getNumber() + 1;
         int totalPages = pagedBoards.getTotalPages();
-        int pageSize = 10;
+        int pageSize = 5;
 
         int groupNumber = (nowPage - 1) / pageSize;
 
@@ -144,7 +144,7 @@ public class BoardController {
 
         int nowPage = boardPage.getNumber() + 1;
         int totalPages = boardPage.getTotalPages();
-        int pageSize = 10;
+        int pageSize = 5;
 
         int groupNumber = (nowPage - 1) / pageSize;
 
