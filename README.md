@@ -1,72 +1,20 @@
 <div align=center>
 	<img src="https://capsule-render.vercel.app/api?type=waving&color=auto&height=200&section=header&text=La-Luna-team!&fontSize=90" />	
 </div>
-<div align=center>
-	<h3>📚 Tech Stack 📚</h3>
-	<p>✨ Platforms & Languages ✨</p>
-</div>
-<div align="center">
-	<img src="https://img.shields.io/badge/Java-007396?style=flat&logo=Conda-Forge&logoColor=white" />
-	<img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=HTML5&logoColor=white" />
-	<img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=CSS3&logoColor=white" />
-	<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=JavaScript&logoColor=white" />
-	<img src="https://img.shields.io/badge/jQuery-0769AD?style=flat&logo=jQuery&logoColor=white" />
-	<br>
-	<img src="https://img.shields.io/badge/Spring-6DB33F?style=flat&logo=Spring&logoColor=white" />
-	<img src="https://img.shields.io/badge/Bootstrap-7952B3?style=flat&logo=Bootstrap&logoColor=white" />
-	<img src="https://img.shields.io/badge/Selenium-43B02A?style=flat&logo=Selenium&logoColor=white" />
-	<img src="https://img.shields.io/badge/Mybatis-000000?style=flat&logo=Fluentd&logoColor=white" />
-	<br>
-	<img src="https://img.shields.io/badge/Oracle%20SQL-F80000?style=flat&logo=Oracle&logoColor=white" />
-	<img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=MySQL&logoColor=white" />
-	<img src="https://img.shields.io/badge/MariaDB-003545?style=flat&logo=MariaDB&logoColor=white" />
-	<img src="https://img.shields.io/badge/Linux-FCC624?style=flat&logo=Linux&logoColor=white" />
-</div>
-<br>
-<div align=center>
-	<p>🛠 Tools 🛠</p>
-</div>
-<div align=center>
-	<img src="https://img.shields.io/badge/Eclipse%20IDE-2C2255?style=flat&logo=EclipseIDE&logoColor=white" />
-	<img src="https://img.shields.io/badge/Visual%20Studio%20Code-007ACC?style=flat&logo=VisualStudioCode&logoColor=white" />
-	<br>
-	<img src="https://img.shields.io/badge/Tomcat-F8DC75?style=flat&logo=ApacheTomcat&logoColor=white" />
-	<img src="https://img.shields.io/badge/NGINX-009639?style=flat&logo=NGINX&logoColor=white" />
-	<img src="https://img.shields.io/badge/AWS-232F3E?style=flat&logo=AmazonAWS&logoColor=white" />
-	<img src="https://img.shields.io/badge/SVN-809CC9?style=flat&logo=Subversion&logoColor=white" />
-	<img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white" />
-</div>
-<br>
-<div align=center>
-	<p>🎨 SNS & Portfolio 🎨</p>
-</div>
-<div align=center>
-	<a href=" ">
-		<img src="https://img.shields.io/badge/Portfolio-FF3633?style=flat&logo=Micro.blog&logoColor=white" />
-	</a>
-	<a href=" ">
-		<img src="https://img.shields.io/badge/Blog-FF9800?style=flat&logo=Blogger&logoColor=white" />
-	</a>
-	<a href=" ">
-		<img src="https://img.shields.io/badge/Mail-30B980?style=flat&logo=Gmail&logoColor=white" />
-	</a>
-	<a href=" ">
-		<img src="https://img.shields.io/badge/Notion-000000?style=flat&logo=Notion&logoColor=white" />
-	</a>
-	<br>
-</div>
-<div align=center>
-	<br>
-	
- ![Laluna's GitHub stats](https://github-readme-stats.vercel.app/api?username=La-Luna&show_icons=true&theme=radical)
-	
-<br>
-<p>🏆 solved rank 🏆</p>
-	
-[![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=La-Luna)](https://solved.ac/La-Luna)
 
-
-### 주제 : 반려동물을 키우는 사람들을 위한 커뮤니티
+# 반려동물을 키우는 사람들을 위한 커뮤니티
+---------------------------------------
+## 프로젝트 계획 이유
+> 반려동물 커뮤니티를 기획하게된 이유로는
+> 여러분도 가정에서 반려동물과 함께 생활 하시는 분들이 꽤 있을신텐데요 ? 가장 사랑 하는 반려견 이름이 무엇이였나요? 
+> 저희 팀은 반려동물과 생활 하면서 겪었던 부분을 생각해보면 
+> 가장 필요한 부분이 반려견이 아프거나 전혀 모르던 증상이 생겼을때 당황 했던 경험이 있었습니다 
+> 이럴때 갑자기 병원에 데려가지 못하고 빠른 조치가 필요한 순간이 있었을 텐데요 
+> 반려동물 커뮤니티를 통해 
+> 1. 반려견 건강 관련된 정확한 정보와 필요한 정보를 확인 할 수 있는 건강관리 게시글  
+> 2. 일상 생활을 기록 할 수 있는 일상 게시글 
+> 3. 반려견을 키우면서 전체 적인 팁을 얻을 수 있는 일상 게시글
+> 이렇게 세가지를 목적으로 프로젝트를 진행 하였습니다. 
 
 - 커뮤니티 안에서 가입자의 반려동물 상태를 공유
 - 반려동물 게시글 이용
@@ -78,7 +26,7 @@
 처치 방법등 정확한 정보 확인 및 공유  
 
  
-### 개요
+# 개요
 
 1.
 - 주제 정하기
@@ -99,7 +47,7 @@
 
 
 
-### 전략
+# 전략
 
 - github-flow 전략으로 메인 에서 각 기능들을 이슈 브런치로 만들어 만든 기능들을 PR로 코드리뷰와
   피드백으르 받고 테스트 후 마지 하여 새로운 기능 추가를 위해 테스트까지 완료된 최종마지에 브런치를 생성하여 작업한다.
@@ -108,7 +56,7 @@
 	
 
 
-### 부족한점
+# 부족한점
 
 
 - 프로젝트 초반에 이슈발행 및 브랜치 활용을 못해서 pull request 과정에서
