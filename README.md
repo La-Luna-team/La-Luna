@@ -1,5 +1,5 @@
 <div align=center>
-	<img src="https://capsule-render.vercel.app/api?type=waving&color=auto&height=200&section=header&text=EuniceYou%20Github!&fontSize=90" />	
+	<img src="https://capsule-render.vercel.app/api?type=waving&color=auto&height=200&section=header&text=La-Luna-team%20Github!&fontSize=90" />	
 </div>
 <div align=center>
 	<h3>📚 Tech Stack 📚</h3>
@@ -58,7 +58,7 @@
 <div align=center>
 	<br>
 	
- ![Eunice's GitHub stats](https://github-readme-stats.vercel.app/api?username=EuniceYou12&show_icons=true&theme=radical)
+ ![Laluna's GitHub stats](https://github-readme-stats.vercel.app/api?username=La-Luna&show_icons=true&theme=radical)
 	
 <br>
 <p>🏆 solved rank 🏆</p>
