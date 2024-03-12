@@ -126,7 +126,8 @@
                         <a class="btn btn-secondary" href="#" th:href="@{/boards/read/{boardno}(boardno=${board.boardno})}">View details &raquo;</a>
                     </p>
                     <div class="col-lg-4 text-right" >
-                        <img th:src="@{/images/like.png}" width="25" height="25" alt="좋아요"/>
+                            <img id="likeImage1" src="/images/like.png" width="25" height="25" alt="좋아요"/>
+                            <span id="likeCount1">0</span>
                         <img class="ms-3" th:src="@{/images/reply.png}" width="25" height="25" alt="댓글"/>
                     </div>
                 </div>
@@ -152,7 +153,8 @@
                         <a class="btn btn-secondary" href="#" th:href="@{/boards/read/{categoryPage}(categoryPage=${categoryPage.boardno})}">View details &raquo;</a>
                     </p>
                     <div class="col-lg-4 text-right" >
-                        <img th:src="@{/images/like.png}" width="25" height="25" alt="좋아요"/>
+                            <img id="likeImage" src="/images/like.png" width="25" height="25" alt="좋아요"/>
+                            <span id="likeCount">0</span>
                         <img class="ms-3" th:src="@{/images/reply.png}" width="25" height="25" alt="댓글"/>
                     </div>
                 </div>
@@ -213,10 +215,54 @@
             form.submit();
         }
 
-        replyPaging.addEventListener("click", function (e){
-            e.preventDefault()
-        })
+        var likeCount = 0; // 초기 카운트 값
 
+        document.getElementById('likeImage').addEventListener('click', function () {
+            likeCount++;
+            document.getElementById('likeCount').innerText = likeCount;
+
+            // 클라이언트 측에서 서버로 카운트를 전송
+            sendLikeCountToServer(likeCount);
+        });
+
+        var likeCount1 = 0; // 초기 카운트 값
+
+        document.getElementById('likeImage1').addEventListener('click', function () {
+            likeCount1++;
+            document.getElementById('likeCount1').innerText = likeCount1;
+
+            // 클라이언트 측에서 서버로 카운트를 전송
+            sendLikeCountToServer1(likeCount1);
+        });
+
+        function sendLikeCountToServer(count) {
+            // Ajax 요청
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/increaseLikeCount', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+
+            xhr.onload = function () {
+                if (xhr.status !== 200) {
+                    alert('서버에서 카운트 증가 중 오류가 발생했습니다.');
+                }
+            };
+
+            xhr.send(JSON.stringify({ count: count }));
+        }
+        function sendLikeCountToServer1(count1) {
+            // Ajax 요청
+            var xhr1 = new XMLHttpRequest();
+            xhr1.open('POST', '/increaseLikeCount1', true);
+            xhr1.setRequestHeader('Content-Type', 'application/json');
+
+            xhr1.onload = function () {
+                if (xhr1.status !== 200) {
+                    alert('서버에서 카운트 증가 중 오류가 발생했습니다.' + xhr1.responseText);
+                }
+            };
+
+            xhr1.send(JSON.stringify({ count1 : count1 }));
+        }
 
     </script>
 </th:block>

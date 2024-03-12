@@ -179,20 +179,13 @@
             // 수정하기 버튼 클릭 시
             document.getElementById("reply-btn").addEventListener("click", function () {
                 var updateForm = document.getElementById("updateForm");
-                var replyno = updateForm.querySelector("#replynoInput").value; // 댓글 번호 가져오기
-                var replytext = updateForm.querySelector("#replyContent2").value; // 수정된 댓글 내용 가져오기
-                var replyer = updateForm.querySelector("#replyerInput").value; // 댓글 작성자 가져오기
+                var formData = new FormData(updateForm);
+                var replyno = formData.get("replyno");
 
                 // 수정 요청 보내기
                 fetch(`/boards/updateReply/${replyno}`, {
                     method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        replytext: replytext,
-                        replyer: replyer
-                    })
+                    body: formData
                 })
                     .then(response => {
                         if (response.ok) {
@@ -206,6 +199,7 @@
                         console.error("댓글 수정 중 오류가 발생:", error);
                     });
             });
+        });
 
 
 
