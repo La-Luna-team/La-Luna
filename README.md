@@ -193,6 +193,7 @@
 ![댓글(등록,수정,삭제)](https://github.com/La-Luna-team/La-Luna/assets/159854114/a5feab7d-0ae0-4c21-b037-28a36802a0d6)
 ![작성자만(수정,삭제)](https://github.com/La-Luna-team/La-Luna/assets/159854114/41f9fa56-d67c-4f21-b684-4ad0b79c70f7)
 ![작성자만(수정,삭제)댓글](https://github.com/La-Luna-team/La-Luna/assets/159854114/1cb5bf76-14f4-4536-a048-b43ceabc5fe0)
+![회원탈퇴-min](https://github.com/La-Luna-team/La-Luna/assets/159854114/c55de273-9224-426c-bfb5-e3116b921a27)
 
 -----------
 
