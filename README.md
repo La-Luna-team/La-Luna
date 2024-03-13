@@ -66,7 +66,7 @@
 -------------------------------
 
 
-# 프로젝트 전략
+## 프로젝트 전략
 
 - github-flow 전략으로 메인 에서 각 기능들을 이슈 브런치로 만들어 만든 기능들을 PR로 코드리뷰와
   피드백으르 받고 테스트 후 마지 하여 새로운 기능 추가를 위해 테스트까지 완료된 최종마지에 브런치를 생성하여 작업한다.
@@ -75,6 +75,114 @@
 	
 
 -----------------------------
+
+## 프로젝트 구조
+``` JAVA
+├─.github
+│  └─ISSUE_TEMPLATE
+├─.gradle
+│  ├─8.5
+│  │  ├─checksums
+│  │  ├─dependencies-accessors   
+│  │  ├─executionHistory
+│  │  ├─fileChanges
+│  │  ├─fileHashes
+│  │  └─vcsMetadata
+│  ├─buildOutputCleanup
+│  └─vcs-1
+├─.idea
+│  └─dataSources
+│      └─ac9dd5fb-e2fe-426c-8f35-6e318de53fb3
+│          └─storage_v2
+│              └─_src_
+│                  └─schema
+├─gradle
+│  └─wrapper
+├─out
+│  └─production
+│      ├─classes
+│      │  └─com
+│      │      └─laluna
+│      │          └─laluna
+│      │              ├─config
+│      │              ├─controller
+│      │              ├─domain
+│      │              │  ├─dto
+│      │              │  │  ├─board
+│      │              │  │  ├─join
+│      │              │  │  ├─member
+│      │              │  │  ├─pet
+│      │              │  │  └─reply
+│      │              │  └─entity
+│      │              ├─repository
+│      │              └─service
+│      └─resources
+│          ├─static
+│          │  ├─css
+│          │  └─images
+│          └─templates
+│              ├─boards
+│              ├─fragments
+│              ├─layout
+│              └─view
+└─src
+    ├─main
+    │  ├─generated
+    │  ├─java
+    │  │  └─com
+    │  │      └─laluna
+    │  │          └─laluna
+    │  │              ├─config
+    │  │              ├─controller
+    │  │              ├─domain
+    │  │              │  ├─dto
+    │  │              │  │  ├─board
+    │  │              │  │  ├─join
+    │  │              │  │  ├─member
+    │  │              │  │  ├─pet
+    │  │              │  │  ├─photo
+    │  │              │  │  └─reply
+    │  │              │  └─entity
+    │  │              ├─repository
+    │  │              └─service
+    │  └─resources
+    │      ├─static
+    │      │  ├─css
+    │      │  └─images
+    │      └─templates
+    │          ├─boards
+    │          ├─fragments
+    │          ├─layout
+    │          └─view
+    └─test
+        └─java
+            └─com
+                └─laluna
+                    └─laluna
+                        ├─controller
+                        └─service
+
+```
+
+
+
+------------------------------------------------
+
+## 개발기간 
+
+> 개발 기간 : 2023-02-20 ~ 2023-03-12
+> 주제정하기 요구사항 명세서 작성 : 2023.2.20 ~ 2023.2.21
+> 데이터베이스 ERD다이어그램 제작 피그마 학습 및 작업 : 2023.2.22 ~ 2023.2.26
+> 프론트 작업, 역할 배분 : 2023.02.26 ~ 2023.02.29
+> 기능 업무, 마무리작업 : 2023.03.01 ~ 2023.03.11
+
+
+------------------------------------------------
+
+## 실행화면
+
+
+
 # 부족한점
 
 
